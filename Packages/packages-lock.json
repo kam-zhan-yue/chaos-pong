@@ -1,5 +1,12 @@
 {
   "dependencies": {
+    "com.kamzhanyue.utility-delivery": {
+      "version": "https://github.com/kam-zhan-yue/utility-delivery.git",
+      "depth": 0,
+      "source": "git",
+      "dependencies": {},
+      "hash": "7ccc1d32f94f83f4959b22ade603eff8c5363233"
+    },
     "com.unity.collab-proxy": {
       "version": "2.0.7",
       "depth": 0,
