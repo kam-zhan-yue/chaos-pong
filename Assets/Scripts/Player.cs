@@ -6,6 +6,7 @@ using UnityEngine;
 public class Player : NetworkBehaviour
 {
     public float speed = 30;
+    public Transform serveHolder;
 
     private Rigidbody _rb;
 
@@ -24,5 +25,15 @@ public class Player : NetworkBehaviour
             float horizontal = Input.GetAxisRaw("Horizontal");
             _rb.velocity = new Vector3(horizontal * speed * Time.fixedDeltaTime, 0f, vertical * speed * Time.fixedDeltaTime);
         }
+    }
+
+    public override void OnStartLocalPlayer()
+    {
+        
+    }
+
+    public override void OnStopLocalPlayer()
+    {
+        
     }
 }
