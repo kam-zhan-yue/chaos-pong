@@ -17,5 +17,7 @@ MonoBehaviour:
     - id: 
       controlScheme: 0
   blueTeamInfo:
-    players: []
+    players:
+    - id: 
+      controlScheme: 0
   playerPrefab: {fileID: 6128224485734188473, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
