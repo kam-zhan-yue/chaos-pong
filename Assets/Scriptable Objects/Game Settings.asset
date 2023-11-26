@@ -20,4 +20,5 @@ MonoBehaviour:
     players:
     - id: Player 2
       controlScheme: 1
-  playerPrefab: {fileID: 6128224485734188473, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
+  redPlayerPrefab: {fileID: 6725763671549020263, guid: 165f720b53275441a9d940632fba6764, type: 3}
+  bluePlayerPrefab: {fileID: 4570562697824935692, guid: bd08ce44c3c9344aaac77741da66620a, type: 3}

@@ -28,15 +28,20 @@ public class ChaosPongManager : MonoBehaviour
 
     private void SetupGame()
     {
-        SpawnTeam(_redTeam, gameSettings.redTeamInfo, redTeamSpawn);
-        SpawnTeam(_blueTeam, gameSettings.blueTeamInfo, blueTeamSpawn);
+        SpawnTeam(true);
+        SpawnTeam(false);
     }
 
-    private void SpawnTeam(Team team, TeamInfo teamInfo, Transform spawnPoint)
+    private void SpawnTeam(bool red)
     {
+        TeamInfo teamInfo = red ? gameSettings.redTeamInfo : gameSettings.blueTeamInfo;
+        Player prefab = red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab;
+        Transform spawn = red ? redTeamSpawn : blueTeamSpawn;
+        Team team = red ? _redTeam : _blueTeam;
+        
         for (int i = 0; i < teamInfo.players.Count; ++i)
         {
-            Player player = Instantiate(gameSettings.playerPrefab, spawnPoint);
+            Player player = Instantiate(prefab, spawn);
             player.Init(teamInfo.players[i]);
             team.AddPlayer(player);
         }

@@ -11,5 +11,6 @@ public class GameSettings : ScriptableObject
     [Title("Blue Team Info")]
     [HideLabel] public TeamInfo blueTeamInfo;
 
-    public Player playerPrefab;
+    public Player redPlayerPrefab;
+    public Player bluePlayerPrefab;
 }
