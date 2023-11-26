@@ -14,10 +14,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   redTeamInfo:
     players:
-    - id: 
+    - id: Player 1
       controlScheme: 0
   blueTeamInfo:
     players:
-    - id: 
-      controlScheme: 0
+    - id: Player 2
+      controlScheme: 1
   playerPrefab: {fileID: 6128224485734188473, guid: b9952fa553e934d63aec20fda1378f01, type: 3}

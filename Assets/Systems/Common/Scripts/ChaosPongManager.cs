@@ -37,6 +37,7 @@ public class ChaosPongManager : MonoBehaviour
         for (int i = 0; i < teamInfo.players.Count; ++i)
         {
             Player player = Instantiate(gameSettings.playerPrefab, spawnPoint);
+            player.Init(teamInfo.players[i]);
             team.AddPlayer(player);
         }
     }

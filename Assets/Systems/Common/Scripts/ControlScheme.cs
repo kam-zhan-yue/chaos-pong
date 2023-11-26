@@ -4,6 +4,7 @@ using System;
 public enum ControlScheme
 {
     Keyboard = 0,
-    Gamepad = 1,
-    Switch = 2
+    KeyboardSpecial = 1,
+    Gamepad = 2,
+    Switch = 3
 }
