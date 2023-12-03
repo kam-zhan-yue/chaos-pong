@@ -44,6 +44,24 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Hit"",
+                    ""type"": ""Button"",
+                    ""id"": ""6c3dd1b1-2906-4c2f-8968-0f573ba79e82"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""HitSpecial"",
+                    ""type"": ""Button"",
+                    ""id"": ""40325816-7d50-40a7-a784-b7c514757267"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -103,7 +121,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": true
                 },
                 {
-                    ""name"": ""IJKL"",
+                    ""name"": ""Arrow Keys"",
                     ""id"": ""c5b21b73-bf5c-4f10-8d0b-c3b004e646ee"",
                     ""path"": ""2DVector"",
                     ""interactions"": """",
@@ -116,7 +134,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""up"",
                     ""id"": ""57e707eb-4005-46a4-b080-10731b5be1f5"",
-                    ""path"": ""<Keyboard>/i"",
+                    ""path"": ""<Keyboard>/upArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -127,7 +145,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""down"",
                     ""id"": ""405528cf-44cf-49d9-a51b-4deea597eff8"",
-                    ""path"": ""<Keyboard>/k"",
+                    ""path"": ""<Keyboard>/downArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -138,7 +156,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""left"",
                     ""id"": ""e2408012-c978-480c-a6db-24d170c69d20"",
-                    ""path"": ""<Keyboard>/j"",
+                    ""path"": ""<Keyboard>/leftArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
@@ -149,13 +167,35 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": ""right"",
                     ""id"": ""1a502a4a-1de5-46ed-b9f6-fa57b283bec5"",
-                    ""path"": ""<Keyboard>/l"",
+                    ""path"": ""<Keyboard>/rightArrow"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Keyboard"",
                     ""action"": ""MoveSpecial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8aaf552e-71bf-4785-b454-5dcbb2ba8421"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Hit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""86a4caf4-a5e8-4349-b40d-7d441b777df0"",
+                    ""path"": ""<Keyboard>/m"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""HitSpecial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -178,6 +218,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player = asset.FindActionMap("Player", throwIfNotFound: true);
         m_Player_Move = m_Player.FindAction("Move", throwIfNotFound: true);
         m_Player_MoveSpecial = m_Player.FindAction("MoveSpecial", throwIfNotFound: true);
+        m_Player_Hit = m_Player.FindAction("Hit", throwIfNotFound: true);
+        m_Player_HitSpecial = m_Player.FindAction("HitSpecial", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -241,12 +283,16 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private List<IPlayerActions> m_PlayerActionsCallbackInterfaces = new List<IPlayerActions>();
     private readonly InputAction m_Player_Move;
     private readonly InputAction m_Player_MoveSpecial;
+    private readonly InputAction m_Player_Hit;
+    private readonly InputAction m_Player_HitSpecial;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
         public PlayerActions(@PlayerControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @Move => m_Wrapper.m_Player_Move;
         public InputAction @MoveSpecial => m_Wrapper.m_Player_MoveSpecial;
+        public InputAction @Hit => m_Wrapper.m_Player_Hit;
+        public InputAction @HitSpecial => m_Wrapper.m_Player_HitSpecial;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -262,6 +308,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveSpecial.started += instance.OnMoveSpecial;
             @MoveSpecial.performed += instance.OnMoveSpecial;
             @MoveSpecial.canceled += instance.OnMoveSpecial;
+            @Hit.started += instance.OnHit;
+            @Hit.performed += instance.OnHit;
+            @Hit.canceled += instance.OnHit;
+            @HitSpecial.started += instance.OnHitSpecial;
+            @HitSpecial.performed += instance.OnHitSpecial;
+            @HitSpecial.canceled += instance.OnHitSpecial;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -272,6 +324,12 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @MoveSpecial.started -= instance.OnMoveSpecial;
             @MoveSpecial.performed -= instance.OnMoveSpecial;
             @MoveSpecial.canceled -= instance.OnMoveSpecial;
+            @Hit.started -= instance.OnHit;
+            @Hit.performed -= instance.OnHit;
+            @Hit.canceled -= instance.OnHit;
+            @HitSpecial.started -= instance.OnHitSpecial;
+            @HitSpecial.performed -= instance.OnHitSpecial;
+            @HitSpecial.canceled -= instance.OnHitSpecial;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -302,5 +360,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     {
         void OnMove(InputAction.CallbackContext context);
         void OnMoveSpecial(InputAction.CallbackContext context);
+        void OnHit(InputAction.CallbackContext context);
+        void OnHitSpecial(InputAction.CallbackContext context);
     }
 }
