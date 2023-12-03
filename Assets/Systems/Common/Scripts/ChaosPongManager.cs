@@ -1,11 +1,8 @@
-using System.Collections;
-using System.Collections.Generic;
+using ChaosPong.Common;
 using UnityEngine;
-using UnityEngine.Experimental.Rendering;
 
-public class ChaosPongManager : MonoBehaviour
+public class ChaosPongManager : MonoBehaviour, IGameManager
 {
-    public static ChaosPongManager instance;
     public GameSettings gameSettings;
 
     public Transform redTeamSpawn;
@@ -14,15 +11,9 @@ public class ChaosPongManager : MonoBehaviour
     private readonly Team _redTeam = new();
     private readonly Team _blueTeam = new();
 
-    public Team RedTeam => _redTeam;
-    public Team BlueTeam => _blueTeam;
-    public bool MultiCamera => _redTeam.PlayerNum > 0 && _blueTeam.PlayerNum > 0;
-
     private void Awake()
     {
-        if(instance && instance != this)
-            Destroy(gameObject);
-        instance = this;
+        ServiceLocator.Instance.Register<IGameManager>(this);
         SetupGame();
     }
 
@@ -45,5 +36,20 @@ public class ChaosPongManager : MonoBehaviour
             player.Init(teamInfo.players[i]);
             team.AddPlayer(player);
         }
+    }
+
+    public Team GetRedTeam()
+    {
+        return _redTeam;
+    }
+
+    public Team GetBlueTeam()
+    {
+        return _blueTeam;
+    }
+
+    public bool IsMultiCamera()
+    {
+        return _redTeam.PlayerNum > 0 && _blueTeam.PlayerNum > 0;
     }
 }

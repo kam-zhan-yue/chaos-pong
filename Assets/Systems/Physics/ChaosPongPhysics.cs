@@ -1,0 +1,72 @@
+using System.Collections.Generic;
+using ChaosPong.Common;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+public class ChaosPongPhysics : MonoBehaviour, IPhysicsService 
+{
+    [SerializeField] private Ball ballPrefab;
+    [SerializeField] private LineRenderer _line;
+    [SerializeField] private int _maxPhysicsFrameIterations = 100;
+    [SerializeField] private Transform _obstaclesParent;
+
+    private Scene _simulationScene;
+    private PhysicsScene _physicsScene;
+    private readonly Dictionary<Transform, Transform> _spawnedObjects = new Dictionary<Transform, Transform>();
+    private Ball _ghostBall;
+
+    private void Awake()
+    {
+        ServiceLocator.Instance.Register<IPhysicsService>(this);
+    }
+    
+    private void Start()
+    {
+        CreatePhysicsScene();
+        CreateGhostBall();
+    }
+
+    private void CreatePhysicsScene() 
+    {
+        _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
+        _physicsScene = _simulationScene.GetPhysicsScene();
+
+        foreach (Transform obj in _obstaclesParent) {
+            GameObject ghostObj = Instantiate(obj.gameObject, obj.position, obj.rotation);
+            if (ghostObj.TryGetComponent(out Renderer render))
+                render.enabled = false;
+            SceneManager.MoveGameObjectToScene(ghostObj, _simulationScene);
+            if (!ghostObj.isStatic) _spawnedObjects.Add(obj, ghostObj.transform);
+        }
+    }
+
+    private void CreateGhostBall()
+    {
+        Ball ghostObj = Instantiate(ballPrefab, transform.position, Quaternion.identity);
+        ghostObj.GetComponent<Renderer>().enabled = false;
+        SceneManager.MoveGameObjectToScene(ghostObj.gameObject, _simulationScene);
+        _ghostBall = ghostObj;
+    }
+
+    // private void Update()
+    // {
+    //     foreach (var item in _spawnedObjects) {
+    //         item.Value.position = item.Key.position;
+    //         item.Value.rotation = item.Key.rotation;
+    //     }
+    // }
+
+    public void Projection(Vector3 position, Vector3 velocity)
+    {
+        _ghostBall.transform.position = position;
+        
+        _ghostBall.Init(velocity, true);
+
+        _line.positionCount = _maxPhysicsFrameIterations;
+
+        for (int i = 0; i < _maxPhysicsFrameIterations; ++i) {
+            _physicsScene.Simulate(Time.fixedDeltaTime);
+            _line.SetPosition(i, _ghostBall.transform.position);
+        }
+        //move the ghost object back to the start
+    }
+}

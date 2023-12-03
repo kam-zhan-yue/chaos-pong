@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using ChaosPong.Common;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
@@ -18,15 +19,16 @@ public class CameraController : MonoBehaviour
 
     private void Setup()
     {
-        if (ChaosPongManager.instance.MultiCamera)
+        IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
+        if (gameManager.IsMultiCamera())
         {
-            redTeam.Init(ChaosPongManager.instance.RedTeam, _leftHalf);
-            blueTeam.Init(ChaosPongManager.instance.BlueTeam, _rightHalf);
+            redTeam.Init(gameManager.GetRedTeam(), _leftHalf);
+            blueTeam.Init(gameManager.GetBlueTeam(), _rightHalf);
         }
         else
         {
-            redTeam.Init(ChaosPongManager.instance.RedTeam, _full);
-            blueTeam.Init(ChaosPongManager.instance.BlueTeam, _full);
+            redTeam.Init(gameManager.GetRedTeam(), _full);
+            blueTeam.Init(gameManager.GetBlueTeam(), _full);
         }
     }
 }
