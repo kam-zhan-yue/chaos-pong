@@ -8,8 +8,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public Transform redTeamSpawn;
     public Transform blueTeamSpawn;
 
-    private readonly Team _redTeam = new();
-    private readonly Team _blueTeam = new();
+    private readonly Team _redTeam = new(TeamSide.Red);
+    private readonly Team _blueTeam = new(TeamSide.Blue);
 
     private void Awake()
     {
@@ -21,6 +21,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     {
         SpawnTeam(true);
         SpawnTeam(false);
+        SetServe();
     }
 
     private void SpawnTeam(bool red)
@@ -35,6 +36,19 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
             Player player = Instantiate(prefab, spawn);
             player.Init(teamInfo.players[i]);
             team.AddPlayer(player);
+        }
+    }
+
+    private void SetServe()
+    {
+        switch (gameSettings.servingSide)
+        {
+            case TeamSide.Red:
+                _redTeam.SetServe();
+                break;
+            case TeamSide.Blue:
+                _blueTeam.SetServe();
+                break;
         }
     }
 

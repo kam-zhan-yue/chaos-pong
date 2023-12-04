@@ -13,4 +13,6 @@ public class GameSettings : ScriptableObject
 
     public Player redPlayerPrefab;
     public Player bluePlayerPrefab;
+
+    public TeamSide servingSide;
 }

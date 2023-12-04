@@ -2,12 +2,15 @@ using System.Collections.Generic;
 using ChaosPong.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.Serialization;
+
 public class ChaosPongPhysics : MonoBehaviour, IPhysicsService 
 {
     [SerializeField] private Ball ballPrefab;
-    [SerializeField] private LineRenderer _line;
-    [SerializeField] private int _maxPhysicsFrameIterations = 100;
-    [SerializeField] private Transform _obstaclesParent;
+    [SerializeField] private LineRenderer line;
+    [SerializeField] private int frameStep;
+    [SerializeField] private int frameIterations = 100;
+    [SerializeField] private Transform obstaclesParent;
 
     private Scene _simulationScene;
     private PhysicsScene _physicsScene;
@@ -30,7 +33,7 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
         _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
         _physicsScene = _simulationScene.GetPhysicsScene();
 
-        foreach (Transform obj in _obstaclesParent) {
+        foreach (Transform obj in obstaclesParent) {
             GameObject ghostObj = Instantiate(obj.gameObject, obj.position, obj.rotation);
             if (ghostObj.TryGetComponent(out Renderer render))
                 render.enabled = false;
@@ -59,14 +62,25 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
     {
         _ghostBall.transform.position = position;
         
-        _ghostBall.Init(velocity, true);
+        _ghostBall.Serve(velocity, true);
 
-        _line.positionCount = _maxPhysicsFrameIterations;
+        line.positionCount = frameIterations;
 
-        for (int i = 0; i < _maxPhysicsFrameIterations; ++i) {
+        for (int i = 0; i < frameIterations; ++i) {
             _physicsScene.Simulate(Time.fixedDeltaTime);
-            _line.SetPosition(i, _ghostBall.transform.position);
+            line.SetPosition(i, _ghostBall.transform.position);
         }
         //move the ghost object back to the start
+    }
+    
+    public void HideProjection()
+    {
+        line.positionCount = 0;
+    }
+
+    public void ServeBall(Vector3 position, Vector3 velocity)
+    {
+        Ball ball = Instantiate(ballPrefab, position, Quaternion.identity);
+        ball.Serve(velocity, false);
     }
 }

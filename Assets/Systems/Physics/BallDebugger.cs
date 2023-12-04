@@ -71,11 +71,8 @@ public class BallDebugger : MonoBehaviour
     private void Update()
     {
         MovePosition();
-        // if (Input.GetKeyDown(KeyCode.Space))
-        // {
-            IPhysicsService physicsService = ServiceLocator.Instance.Get<IPhysicsService>();
-            Transform transform1 = transform;
-            physicsService.Projection(transform1.position, transform1.forward * launchSpeed);
-        // }
+        IPhysicsService physicsService = ServiceLocator.Instance.Get<IPhysicsService>();
+        Transform transform1 = transform;
+        physicsService.Projection(transform1.position, transform1.forward * launchSpeed);
     }
 }

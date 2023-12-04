@@ -591,6 +591,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1913401654}
     m_Modifications:
     - target: {fileID: 2627016296962188509, guid: 9d28c94b51f5e4c02ab0eeb4a2fa14c9, type: 3}
+      propertyPath: obstaclesParent
+      value: 
+      objectReference: {fileID: 2080908586}
+    - target: {fileID: 2627016296962188509, guid: 9d28c94b51f5e4c02ab0eeb4a2fa14c9, type: 3}
       propertyPath: _obstaclesParent
       value: 
       objectReference: {fileID: 2080908586}

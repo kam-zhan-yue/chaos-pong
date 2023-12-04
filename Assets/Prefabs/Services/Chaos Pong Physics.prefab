@@ -46,9 +46,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ballPrefab: {fileID: 3181007599962183980, guid: a82b09db78e4844058334f43dfa9e223, type: 3}
-  _line: {fileID: 5998464296968963829}
-  _maxPhysicsFrameIterations: 100
-  _obstaclesParent: {fileID: 0}
+  line: {fileID: 5998464296968963829}
+  maxPhysicsFrameIterations: 100
+  obstaclesParent: {fileID: 0}
 --- !u!120 &5998464296968963829
 LineRenderer:
   serializedVersion: 2

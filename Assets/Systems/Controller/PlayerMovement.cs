@@ -4,12 +4,10 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class PlayerController : MonoBehaviour, IPlayer
+public class PlayerMovement : MonoBehaviour, IMovement
 {
     [SerializeField] private float speed;
 
-    private ControlScheme _controlScheme;
-    private PlayerControls _playerControls;
     private Rigidbody _rigidbody;
     private Vector3 _movementVector = Vector3.zero;
 
@@ -18,27 +16,7 @@ public class PlayerController : MonoBehaviour, IPlayer
         _rigidbody = GetComponent<Rigidbody>();
     }
 
-    public void InitPlayer(PlayerInfo playerInfo)
-    {
-        _controlScheme = playerInfo.controlScheme;
-        Init();
-    }
-
-    private void Init()
-    {
-        _playerControls = new PlayerControls();
-        if (_controlScheme == ControlScheme.KeyboardSpecial)
-        {
-            _playerControls.Player.MoveSpecial.performed += Move;
-        }
-        else
-        {
-            _playerControls.Player.Move.performed += Move;
-        }
-        _playerControls.Enable();
-    }
-
-    private void Move(InputAction.CallbackContext callbackContext)
+    public void Move(InputAction.CallbackContext callbackContext)
     {
         Vector2 movementInput = callbackContext.ReadValue<Vector2>();
         float horizontal = movementInput.x;
@@ -59,18 +37,5 @@ public class PlayerController : MonoBehaviour, IPlayer
     {
         Vector3 newPosition = transform.position + ProcessMovementVector() * (speed * Time.deltaTime);
         _rigidbody.MovePosition(newPosition);
-    }
-
-    private void OnDestroy()
-    {
-        if (_controlScheme == ControlScheme.KeyboardSpecial)
-        {
-            _playerControls.Player.MoveSpecial.performed -= Move;
-        }
-        else
-        {
-            _playerControls.Player.Move.performed -= Move;
-        }
-        _playerControls.Dispose();
     }
 }

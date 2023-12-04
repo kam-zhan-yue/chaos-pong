@@ -12,10 +12,15 @@ public class Ball : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
     }
     
-    public void Init(Vector3 velocity, bool isGhost)
+    public void Serve(Vector3 velocity, bool isGhost)
     {
         _rigidbody.velocity = Vector3.zero;
         _ghost = isGhost;
         _rigidbody.AddForce(velocity, ForceMode.Impulse);
+    }
+
+    public void Return(Vector3 velocity)
+    {
+        _rigidbody.AddForce(velocity, ForceMode.VelocityChange);
     }
 }

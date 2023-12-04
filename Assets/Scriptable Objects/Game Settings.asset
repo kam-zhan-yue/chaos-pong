@@ -17,8 +17,7 @@ MonoBehaviour:
     - id: Player 1
       controlScheme: 0
   blueTeamInfo:
-    players:
-    - id: Player 2
-      controlScheme: 1
+    players: []
   redPlayerPrefab: {fileID: 6725763671549020263, guid: 165f720b53275441a9d940632fba6764, type: 3}
   bluePlayerPrefab: {fileID: 4570562697824935692, guid: bd08ce44c3c9344aaac77741da66620a, type: 3}
+  servingSide: 1
