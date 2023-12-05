@@ -8,8 +8,9 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
 {
     [SerializeField] private Ball ballPrefab;
     [SerializeField] private LineRenderer line;
-    [SerializeField] private int frameStep;
     [SerializeField] private int frameIterations = 100;
+    [SerializeField] private Gradient validLine;
+    [SerializeField] private Gradient invalidLine;
     [SerializeField] private Transform obstaclesParent;
 
     private Scene _simulationScene;
@@ -58,7 +59,7 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
     //     }
     // }
 
-    public void Projection(Vector3 position, Vector3 velocity)
+    public void Projection(Vector3 position, Vector3 velocity, TeamSide side = TeamSide.None)
     {
         _ghostBall.transform.position = position;
         
@@ -70,6 +71,8 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
             _physicsScene.Simulate(Time.fixedDeltaTime);
             line.SetPosition(i, _ghostBall.transform.position);
         }
+        
+        line.colorGradient = _ghostBall.Valid ? validLine : invalidLine;
         //move the ghost object back to the start
     }
     
@@ -78,7 +81,7 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
         line.positionCount = 0;
     }
 
-    public void ServeBall(Vector3 position, Vector3 velocity)
+    public void ServeBall(Vector3 position, Vector3 velocity, TeamSide teamSide = TeamSide.None)
     {
         Ball ball = Instantiate(ballPrefab, position, Quaternion.identity);
         ball.Serve(velocity, false);

@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 743302712280623278}
   - component: {fileID: 1281116947851033582}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Blue Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -151,7 +151,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1352981780209944751}
   - component: {fileID: 2965770051220242079}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Red Side
   m_TagString: Untagged
   m_Icon: {fileID: 0}
