@@ -60,10 +60,11 @@ public class Paddle : MonoBehaviour, IPaddle
 
     private void Hit()
     {
-        // for (int i = 0; i < _colliders.Length; ++i)
-        // {
-        //     Physics.SphereCastNonAlloc()
-        // }
+        IPhysicsService physicsService = ServiceLocator.Instance.Get<IPhysicsService>();
+        for (int i = 0; i < _colliders.Length; ++i)
+        {
+        }
+        
     }
     
     private async UniTaskVoid ActivateAsync()
