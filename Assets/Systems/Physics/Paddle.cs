@@ -10,6 +10,7 @@ public class Paddle : MonoBehaviour, IPaddle
     [SerializeField] private float serveForce = 5f;
     private SphereCollider[] _colliders = Array.Empty<SphereCollider>();
     private PaddleState _paddleState = PaddleState.Idle;
+    private RaycastHit[] _ballHits = new RaycastHit[10];
 
     private void Awake()
     {
@@ -60,11 +61,24 @@ public class Paddle : MonoBehaviour, IPaddle
 
     private void Hit()
     {
-        IPhysicsService physicsService = ServiceLocator.Instance.Get<IPhysicsService>();
+        Debug.Log("Hit!");
         for (int i = 0; i < _colliders.Length; ++i)
         {
+            int ballCount = GetBalls(_colliders[i].transform.position, _colliders[i].radius);
         }
         
+    }
+
+    private int GetBalls(Vector3 position, float radius)
+    {
+        int ballCount = Physics.SphereCastNonAlloc(position, radius, Vector3.zero, _ballHits);
+        Debug.Log($"Ball Count: {ballCount}");
+        for (int i = 0; i < ballCount; ++i)
+        {
+            Debug.Log($"Hit: {_ballHits[i].collider.name}");
+        }
+
+        return ballCount;
     }
     
     private async UniTaskVoid ActivateAsync()

@@ -5,25 +5,25 @@ using System.Collections.Generic;
 public class Team
 {
     public TeamSide side;
-    private List<Player> _players = new();
-    public List<Player> Players => _players;
-    public int PlayerNum => _players.Count;
+    private List<Character> _characters = new();
+    public List<Character> Characters => _characters;
+    public int PlayerNum => _characters.Count;
 
     public Team(TeamSide teamSide)
     {
         side = teamSide;
     }
 
-    public void AddPlayer(Player player)
+    public void AddCharacter(Character player)
     {
-        _players.Add(player);
+        _characters.Add(player);
     }
 
     public void SetServe()
     {
-        if (_players.Count > 0)
+        if (_characters.Count > 0)
         {
-            _players[0].SetServe();
+            _characters[0].SetServe();
         }
     }
 }

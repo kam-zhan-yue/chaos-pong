@@ -17,9 +17,9 @@ public class TeamCamera : MonoBehaviour
         }
         SetActive(true);
         teamCamera.rect = cameraRect;
-        for (int i = 0; i < team.Players.Count; ++i)
+        for (int i = 0; i < team.Characters.Count; ++i)
         {
-            targetGroup.AddMember(team.Players[i].transform, 1, 2);
+            targetGroup.AddMember(team.Characters[i].transform, 1, 2);
         }
     }
     

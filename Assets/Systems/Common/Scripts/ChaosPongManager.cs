@@ -1,5 +1,6 @@
 using ChaosPong.Common;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class ChaosPongManager : MonoBehaviour, IGameManager
 {
@@ -27,15 +28,30 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     private void SpawnTeam(bool red)
     {
         TeamInfo teamInfo = red ? gameSettings.redTeamInfo : gameSettings.blueTeamInfo;
-        Player prefab = red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab;
         Transform spawn = red ? redTeamSpawn : blueTeamSpawn;
         Team team = red ? _redTeam : _blueTeam;
         
         for (int i = 0; i < teamInfo.players.Count; ++i)
         {
-            Player player = Instantiate(prefab, spawn);
-            player.Init(teamInfo.players[i]);
-            team.AddPlayer(player);
+            Character character;
+            switch (teamInfo.players[i].type)
+            {
+                case PlayerType.Player:
+                    character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
+                    break;
+                case PlayerType.Robot:
+                    character = Instantiate(gameSettings.robotPrefab, spawn);
+                    break;
+                case PlayerType.Trainer:
+                    character = Instantiate(gameSettings.trainerPrefab, spawn);
+                    break;
+                default:
+                    character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
+                    break;
+            }
+            character.Init(teamInfo.players[i]);
+            team.AddCharacter(character);
+
         }
     }
 
@@ -65,5 +81,10 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public bool IsMultiCamera()
     {
         return _redTeam.PlayerNum > 0 && _blueTeam.PlayerNum > 0;
+    }
+
+    public void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

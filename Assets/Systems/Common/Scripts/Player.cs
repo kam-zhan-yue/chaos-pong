@@ -3,14 +3,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Player : Character
 {
     private IPlayer[] _playerComponents = Array.Empty<IPlayer>();
     private IPaddle _paddle;
     private IMovement _movement;
 
     private PlayerControls _playerControls;
-    private PlayerInfo _playerInfo = new();
 
     private void Awake()
     {
@@ -19,16 +18,14 @@ public class Player : MonoBehaviour
         _paddle = GetComponentInChildren<IPaddle>();
     }
     
-    public void Init(PlayerInfo playerInfo)
+    public override void Init(PlayerInfo info)
     {
-        _playerInfo = playerInfo;
-        if(!string.IsNullOrEmpty(playerInfo.id))
-            gameObject.name = playerInfo.id;
+        base.Init(info);
         if (_playerComponents.Length > 0)
         {
             for (int i = 0; i < _playerComponents.Length; ++i)
             {
-                _playerComponents[i].InitPlayer(playerInfo);
+                _playerComponents[i].InitPlayer(info);
             }
         }
         InitControls();
@@ -37,7 +34,7 @@ public class Player : MonoBehaviour
     private void InitControls()
     {
         _playerControls = new PlayerControls();
-        if (_playerInfo.controlScheme == ControlScheme.KeyboardSpecial)
+        if (playerInfo.controlScheme == ControlScheme.KeyboardSpecial)
         {
             if(_movement != null)
                 _playerControls.Player.MoveSpecial.performed += _movement.Move;
@@ -54,7 +51,7 @@ public class Player : MonoBehaviour
         _playerControls.Enable();
     }
 
-    public void SetServe()
+    public override void SetServe()
     {
         if (_paddle != null)
         {

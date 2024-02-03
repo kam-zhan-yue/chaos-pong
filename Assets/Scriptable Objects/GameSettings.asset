@@ -10,14 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 674f92074361043e4aae69e55e1aff9b, type: 3}
-  m_Name: Game Settings
+  m_Name: GameSettings
   m_EditorClassIdentifier: 
   redTeamInfo:
     players:
     - id: Player 1
+      type: 0
       controlScheme: 0
   blueTeamInfo:
-    players: []
+    players:
+    - id: Trainer
+      type: 2
+      controlScheme: 1
+  robotPrefab: {fileID: 0}
+  trainerPrefab: {fileID: 6727460074855144129, guid: 2937957e4e5704a07a90fd078a04cd69, type: 3}
   redPlayerPrefab: {fileID: 6725763671549020263, guid: 165f720b53275441a9d940632fba6764, type: 3}
-  bluePlayerPrefab: {fileID: 4570562697824935692, guid: bd08ce44c3c9344aaac77741da66620a, type: 3}
+  bluePlayerPrefab: {fileID: 7013740098639069136, guid: 614503fe0fbe44fed9edbf2b7dc510a8, type: 3}
   servingSide: 1

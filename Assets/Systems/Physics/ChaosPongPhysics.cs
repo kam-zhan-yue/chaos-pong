@@ -75,7 +75,7 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
         line.colorGradient = _ghostBall.Valid ? validLine : invalidLine;
         //move the ghost object back to the start
     }
-    
+
     public void HideProjection()
     {
         line.positionCount = 0;
