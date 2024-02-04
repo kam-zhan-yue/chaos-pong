@@ -46,15 +46,13 @@ public class Pong : MonoBehaviour
         {
             yield return Timing.WaitForSeconds(time);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
-            Vector3 bouncePosition = transform.position;
-            if (table.InBounds(finalPosition))
-                bouncePosition.y = table.Height + _radius;
-            else
-                bouncePosition.y = _radius;
-            transform.position = bouncePosition;
+            transform.position = finalPosition;
 
             Vector3 finalVelocity = initial + Physics.gravity * time;
             _velocity = GetBounceVelocity(finalVelocity);
+
+            TeamSide teamSide = table.GetTeamSide(finalPosition);
+            Debug.Log($"Landed on {teamSide}");
             Timing.RunCoroutine(Bounce());
         }
         else
@@ -70,7 +68,6 @@ public class Pong : MonoBehaviour
         if (time >= 0f)
         {
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
-            Debug.Log($"Final Position: {finalPosition} Initial {initial} Position {position} Time {time} {_radius + table.Height}");
             //Return the time if the final bounce is on the table
             return !table.InBounds(finalPosition) ? TimeToBounce(initial.y, position.y, _radius) : time;
         }
