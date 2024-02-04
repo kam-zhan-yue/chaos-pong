@@ -1,12 +1,20 @@
 using System.Collections.Generic;
 using MEC;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Pong : MonoBehaviour
 {
+    [SerializeField] private Table table;
+    
+    //Constants
     private const float LINE_TIME_STEP = 0.01f;
+    private const float BOUNCE_DECAY = 0.95f;
+    
+    //Exposed Variables
     [SerializeField] private Vector3 initialVelocity;
 
+    //Private Variables
     private Vector3 _velocity;
     private SphereCollider _sphereCollider;
     private LineRenderer _lineRenderer;
@@ -31,21 +39,22 @@ public class Pong : MonoBehaviour
     {
         Vector3 initial = _velocity;
         Vector3 position = transform.position;
-        float time = TimeToBounce(initial.y, position.y);
-        DrawLineRenderer(initial, position);
+        //Calculate the time to bounce (returns time to table or ground)
+        float time = TimeToBounce(initial, position);
+        DrawLineRenderer(initial, position, 10);
         if (time > 0f)
         {
             yield return Timing.WaitForSeconds(time);
-            Transform ballTransform = transform;
-            Vector3 bounceTransform = ballTransform.position;
-            bounceTransform.y = _radius;
-            ballTransform.position = bounceTransform;
+            Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
+            Vector3 bouncePosition = transform.position;
+            if (table.InBounds(finalPosition))
+                bouncePosition.y = table.Height + _radius;
+            else
+                bouncePosition.y = _radius;
+            transform.position = bouncePosition;
 
             Vector3 finalVelocity = initial + Physics.gravity * time;
-            Vector3 bounceVelocity = finalVelocity;
-            bounceVelocity.y *= -1f;
-            _velocity = bounceVelocity;
-
+            _velocity = GetBounceVelocity(finalVelocity);
             Timing.RunCoroutine(Bounce());
         }
         else
@@ -54,30 +63,76 @@ public class Pong : MonoBehaviour
         }
     }
 
-    private float TimeToBounce(float u, float y)
+    private float TimeToBounce(Vector3 initial, Vector3 position)
+    {
+        float time = TimeToBounce(initial.y, position.y, _radius + table.Height);
+        //Check if the ball can bounce onto the table
+        if (time >= 0f)
+        {
+            Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
+            Debug.Log($"Final Position: {finalPosition} Initial {initial} Position {position} Time {time} {_radius + table.Height}");
+            //Return the time if the final bounce is on the table
+            return !table.InBounds(finalPosition) ? TimeToBounce(initial.y, position.y, _radius) : time;
+        }
+        return TimeToBounce(initial.y, position.y, _radius);
+    }
+
+    [Button]
+    private float TimeToBounce(float u, float y, float targetHeight)
     {
         float a = 0.5f * Physics.gravity.y;
         float b = u;
-        float c = y - _radius;
-        float ans1 = (-b - Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
-        float ans2 = (-b + Mathf.Sqrt(b * b - 4 * a * c)) / (2 * a);
-        float time = ans1 > ans2 ? ans1 : ans2;
-        return time;
+        float c = y - targetHeight;
+        float discriminant = b * b - 4 * a * c;
+        if (discriminant >= 0)
+        {
+            float squared = Mathf.Sqrt(discriminant);
+            //todo check whether can hit table. if not, then hit the ground instead
+            float ans1 = (-b - squared) / (2 * a);
+            float ans2 = (-b + squared) / (2 * a);
+            float time = ans1 > ans2 ? ans1 : ans2;
+            return time;
+        }
+        return -1f;
     }
 
-    private void DrawLineRenderer(Vector3 initial, Vector3 position)
+    private void DrawLineRenderer(Vector3 initial, Vector3 position, int bounces = 1)
     {
-        float time = TimeToBounce(initial.y, position.y);
-        int steps = (int)(time / LINE_TIME_STEP);
-        _lineRenderer.positionCount = steps + 1;
-        for (int i = 0; i < steps; ++i)
-        {
-            Vector3 stepPosition = SimulatePosition(initial, position, LINE_TIME_STEP * i, out _);
-            _lineRenderer.SetPosition(i, stepPosition);
-        }
+        int length = 0;
+        List<Vector3> positions = new List<Vector3>();
+        Vector3 v = initial;
+        Vector3 p = position;
         
-        Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
-        _lineRenderer.SetPosition(steps, finalPosition);
+        for (int b = 0; b < bounces; ++b)
+        {
+            float time = TimeToBounce(v, p);
+            int steps = (int)(time / LINE_TIME_STEP);
+            length += steps + 1;
+            for (int s = 0; s < steps; ++s)
+            {
+                Vector3 stepPosition = SimulatePosition(v, p, LINE_TIME_STEP * s, out _);
+                positions.Add(stepPosition);
+            }
+            
+            Vector3 finalPosition = SimulatePosition(v, p, time, out Vector3 finalVelocity);
+            positions.Add(finalPosition);
+
+            v = GetBounceVelocity(finalVelocity);
+            p = finalPosition;
+        }
+
+        _lineRenderer.positionCount = length;
+        for (int i = 0; i < positions.Count; ++i)
+        {
+            _lineRenderer.SetPosition(i, positions[i]);
+        }
+    }
+
+    private Vector3 GetBounceVelocity(Vector3 velocity)
+    {
+        Vector3 bounceVelocity = velocity;
+        bounceVelocity.y *= -1f * BOUNCE_DECAY;
+        return bounceVelocity;
     }
 
     private Vector3 SimulatePosition(Vector3 initial, Vector3 position, float time, out Vector3 velocity)
