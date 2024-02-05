@@ -58,6 +58,24 @@ public class Table : MonoBehaviour
         return position;
     }
 
+    private Vector3 GetBlueHitCenter(Bounds bounds)
+    {
+        float length = GetLength(bounds) * 0.5f;
+        Vector3 position = transform.position;
+        float x = position.x;
+        position.x = x + length * 0.25f;
+        return position;
+    }
+
+    private Vector3 GetRedHitCenter(Bounds bounds)
+    {
+        float length = GetLength(bounds) * 0.5f;
+        Vector3 position = transform.position;
+        float x = position.x;
+        position.x = x + length * 0.25f;
+        return position;
+    }
+
     private float GetLength(Bounds bounds)
     {
         return bounds.size.x * 0.5f;

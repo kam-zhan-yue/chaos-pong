@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using ChaosPong.Common;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameControls : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameControls : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            ServiceLocator.Instance.Get<IGameManager>().RestartGame();
+            // ServiceLocator.Instance.Get<IGameManager>().RestartGame();
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MEC;
 using Sirenix.OdinInspector;
@@ -22,6 +23,10 @@ public class Pong : MonoBehaviour
 
     private float Bottom => transform.position.y - _radius;
 
+    private CoroutineHandle _bounceRoutine;
+
+    private bool _simulated = false;
+
     private void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();
@@ -30,9 +35,32 @@ public class Pong : MonoBehaviour
 
     private void Start()
     {
-        _velocity = initialVelocity;
-        _radius = _sphereCollider.radius * transform.localScale.y;
-        Timing.RunCoroutine(Bounce());
+        // _velocity = initialVelocity;
+        // _radius = _sphereCollider.radius * transform.localScale.y;
+        // Timing.RunCoroutine(Bounce());
+    }
+
+    private void Update()
+    {
+        if (_simulated)
+        {
+            UpdatePosition();
+        }
+    }
+
+    private void UpdatePosition()
+    {
+        transform.position += _velocity * Time.deltaTime;
+        _velocity += Physics.gravity * Time.deltaTime;
+    }
+    
+    [Button]
+    public void ApplyVelocity(Vector3 velocity)
+    {
+        _simulated = true;
+        _velocity = velocity;
+        Timing.KillCoroutines(_bounceRoutine);
+        _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
     }
 
     private IEnumerator<float> Bounce()
@@ -53,7 +81,7 @@ public class Pong : MonoBehaviour
 
             TeamSide teamSide = table.GetTeamSide(finalPosition);
             Debug.Log($"Landed on {teamSide}");
-            Timing.RunCoroutine(Bounce());
+            _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
         }
         else
         {
@@ -138,14 +166,12 @@ public class Pong : MonoBehaviour
         return position + initial * time + 0.5f * Physics.gravity * time * time;
     }
 
-    private void Update()
+    [Button]
+    public void LaunchAtTarget(Transform target, float height)
     {
-        UpdatePosition();
-    }
-
-    private void UpdatePosition()
-    {
-        transform.position += _velocity * Time.deltaTime;
-        _velocity += Physics.gravity * Time.deltaTime;
+        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target.position, height, out Vector3 velocity))
+        {
+            ApplyVelocity(velocity);
+        }
     }
 }
