@@ -7,7 +7,16 @@ public static class ChaosPongHelper
     public static readonly Color Blue = Color.blue;
     public static readonly Color Red = Color.red;
     
-    public static bool CalculateLaunchVelocity(Vector3 start, Vector3 target, float h, out Vector3 launchVelocity)
+    /// <summary>
+    /// 
+    /// </summary>
+    /// <param name="start">Position of the start</param>
+    /// <param name="target">Position of the target</param>
+    /// <param name="h">Desired max height of the projectile's trajectory</param>
+    /// <param name="launchVelocity">The required launch velocity to reach the target</param>
+    /// <param name="maxSpeed">Max XZ-Speed for Smash</param>
+    /// <returns></returns>
+    public static bool CalculateLaunchVelocity(Vector3 start, Vector3 target, float h, out Vector3 launchVelocity, float maxSpeed = 25f)
     {
         float height = h - start.y;
         float difference = target.y - start.y;
@@ -17,6 +26,13 @@ public static class ChaosPongHelper
             launchVelocity = Vector3.zero;
             return false;
         }
+
+        //If the height is under 0, then smash the ball with its max speed limit
+        if (height < 0)
+        {
+            launchVelocity = CalculateSmashVelocity(start, target, maxSpeed);
+            return true;
+        }
         
         float gravity = Physics.gravity.magnitude * -1f;
         float displacementY = target.y - start.y;
@@ -25,6 +41,19 @@ public static class ChaosPongHelper
         Vector3 velocityXZ = displacementXZ / (Mathf.Sqrt(-2 * height / gravity) + Mathf.Sqrt(2 * (displacementY - height) / gravity));
         launchVelocity = velocityXZ + velocityY * -Mathf.Sign(gravity);
         return true;
+    }
+
+    private static Vector3 CalculateSmashVelocity(Vector3 start, Vector3 target, float maxSpeed)
+    {
+        //Get the total elapsed time in the XZ direction
+        Vector3 displacementXZ = new(target.x - start.x, 0f, target.z - start.z);
+        float time = displacementXZ.magnitude / maxSpeed;
+        
+        //Reverse calculate y-velocity from s = ut+1/2at^2
+        float displacementY = target.y - start.y;
+        float gravity = Physics.gravity.magnitude * -1f;
+        float velocityY = displacementY / time - 0.5f * gravity * time;
+        return new Vector3(displacementXZ.x / time, velocityY, displacementXZ.z / time);
     }
 
     /// <summary>

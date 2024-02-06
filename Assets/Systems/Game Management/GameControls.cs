@@ -4,14 +4,23 @@ using ChaosPong.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class GameControls : MonoBehaviour
+public class GameControls : MonoBehaviour, IControlsService
 {
+    private void Awake()
+    {
+        ServiceLocator.Instance.Register<IControlsService>(this);
+    }
+
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.R))
         {
-            // ServiceLocator.Instance.Get<IGameManager>().RestartGame();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            RestartGame();
         }
+    }
+
+    private void RestartGame()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

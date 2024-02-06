@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
+using ChaosPong.Common;
 using MEC;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Pong : MonoBehaviour
 {
-    [SerializeField] private Table table;
-    
     //Constants
     private const float LINE_TIME_STEP = 0.01f;
     private const float BOUNCE_DECAY = 0.95f;
@@ -19,6 +18,8 @@ public class Pong : MonoBehaviour
     private Vector3 _velocity;
     private SphereCollider _sphereCollider;
     private LineRenderer _lineRenderer;
+    private Rigidbody _rigidbody;
+    private ITableService _tableService;
     private float _radius;
 
     private float Bottom => transform.position.y - _radius;
@@ -31,10 +32,12 @@ public class Pong : MonoBehaviour
     {
         _sphereCollider = GetComponent<SphereCollider>();
         _lineRenderer = GetComponent<LineRenderer>();
+        _rigidbody = GetComponent<Rigidbody>();
     }
 
     private void Start()
     {
+        _tableService = ServiceLocator.Instance.Get<ITableService>();
         // _velocity = initialVelocity;
         // _radius = _sphereCollider.radius * transform.localScale.y;
         // Timing.RunCoroutine(Bounce());
@@ -50,7 +53,10 @@ public class Pong : MonoBehaviour
 
     private void UpdatePosition()
     {
-        transform.position += _velocity * Time.deltaTime;
+        // transform.position += _velocity * Time.deltaTime;
+        _rigidbody.velocity = _velocity;
+        // Vector3 position = _rigidbody.position + _velocity * Time.deltaTime;
+        // _rigidbody.MovePosition(position);
         _velocity += Physics.gravity * Time.deltaTime;
     }
     
@@ -79,8 +85,8 @@ public class Pong : MonoBehaviour
             Vector3 finalVelocity = initial + Physics.gravity * time;
             _velocity = GetBounceVelocity(finalVelocity);
 
-            TeamSide teamSide = table.GetTeamSide(finalPosition);
-            Debug.Log($"Landed on {teamSide}");
+            // TeamSide teamSide = table.GetTeamSide(finalPosition);
+            // Debug.Log($"Landed on {teamSide}");
             _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
         }
         else
@@ -91,13 +97,13 @@ public class Pong : MonoBehaviour
 
     private float TimeToBounce(Vector3 initial, Vector3 position)
     {
-        float time = TimeToBounce(initial.y, position.y, _radius + table.Height);
+        float time = TimeToBounce(initial.y, position.y, _radius + _tableService.Height());
         //Check if the ball can bounce onto the table
         if (time >= 0f)
         {
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             //Return the time if the final bounce is on the table
-            return !table.InBounds(finalPosition) ? TimeToBounce(initial.y, position.y, _radius) : time;
+            return !_tableService.InBounds(finalPosition) ? TimeToBounce(initial.y, position.y, _radius) : time;
         }
         return TimeToBounce(initial.y, position.y, _radius);
     }
@@ -164,6 +170,17 @@ public class Pong : MonoBehaviour
     {
         velocity = initial + Physics.gravity * time;
         return position + initial * time + 0.5f * Physics.gravity * time * time;
+    }
+
+    [Button]
+    public void LaunchAtSide(TeamSide teamSide, float height)
+    {
+        Debug.Log($"Try Launch at {teamSide} at {height}");
+        Vector3 point = _tableService.GetRandomPoint(teamSide);
+        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, point, height, out Vector3 velocity))
+        {
+            ApplyVelocity(velocity);
+        }
     }
 
     [Button]

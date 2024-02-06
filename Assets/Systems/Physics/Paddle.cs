@@ -22,17 +22,17 @@ public class Paddle : MonoBehaviour, IPaddle
         ActivateColliders(false);
     }
 
-    private void Update()
-    {
-        switch (_paddleState)
-        {
-            case PaddleState.Idle:
-                break;
-            case PaddleState.Serve:
-                ServiceLocator.Instance.Get<IPhysicsService>().Projection(serveTransform.position, serveTransform.forward * serveForce);
-                break;
-        }
-    }
+    // private void Update()
+    // {
+    //     switch (_paddleState)
+    //     {
+    //         case PaddleState.Idle:
+    //             break;
+    //         case PaddleState.Serve:
+    //             ServiceLocator.Instance.Get<IPhysicsService>().Projection(serveTransform.position, serveTransform.forward * serveForce);
+    //             break;
+    //     }
+    // }
 
     public void SetServe()
     {

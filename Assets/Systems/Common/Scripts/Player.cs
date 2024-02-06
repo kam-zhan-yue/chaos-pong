@@ -5,15 +5,14 @@ using UnityEngine;
 
 public class Player : Character
 {
-    private IPlayer[] _playerComponents = Array.Empty<IPlayer>();
     private IPaddle _paddle;
     private IMovement _movement;
 
     private PlayerControls _playerControls;
 
-    private void Awake()
+    protected override void Awake()
     {
-        _playerComponents = GetComponents<IPlayer>();
+        base.Awake();
         _movement = GetComponent<IMovement>();
         _paddle = GetComponentInChildren<IPaddle>();
     }
@@ -21,13 +20,6 @@ public class Player : Character
     public override void Init(PlayerInfo info)
     {
         base.Init(info);
-        if (_playerComponents.Length > 0)
-        {
-            for (int i = 0; i < _playerComponents.Length; ++i)
-            {
-                _playerComponents[i].InitPlayer(info);
-            }
-        }
         InitControls();
     }
 

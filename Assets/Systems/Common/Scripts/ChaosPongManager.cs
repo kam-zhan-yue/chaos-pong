@@ -27,6 +27,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     private void SpawnTeam(bool red)
     {
+        TeamSide teamSide = red ? TeamSide.Red : TeamSide.Blue;
         TeamInfo teamInfo = red ? gameSettings.redTeamInfo : gameSettings.blueTeamInfo;
         Transform spawn = red ? redTeamSpawn : blueTeamSpawn;
         Team team = red ? _redTeam : _blueTeam;
@@ -49,6 +50,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
                     character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
                     break;
             }
+
+            teamInfo.players[i].teamSide = teamSide;
             character.Init(teamInfo.players[i]);
             team.AddCharacter(character);
 
