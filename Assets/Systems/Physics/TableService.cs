@@ -6,21 +6,26 @@ using UnityEngine.Animations;
 
 public class TableService : MonoBehaviour, ITableService
 {
-    [SerializeField] private Pong pongPrefab;
-    private MeshRenderer _meshRenderer;
+    [SerializeField] private float width = 2f;
+    [SerializeField] private float length = 2f;
+    
     public float Height() => transform.position.y * transform.localScale.y;
 
     private void Awake()
     {
-        _meshRenderer = GetComponent<MeshRenderer>();
         ServiceLocator.Instance.Register<ITableService>(this);
+    }
+
+    private Bounds GetBounds()
+    {
+        Vector3 size = new(length, 0f, width);
+        return new Bounds(transform.position, size);
     }
 
     public bool InBounds(Vector3 point)
     {
-        Bounds localBounds = _meshRenderer.bounds;
-        Bounds worldBounds = new(transform.TransformPoint(localBounds.center), localBounds.size);
-        return worldBounds.Contains(new Vector3(point.x, worldBounds.center.y, point.z));
+        Bounds bounds = GetBounds();
+        return bounds.Contains(new Vector3(point.x, bounds.center.y, point.z));
     }
 
     public TeamSide GetTeamSide(Vector3 point)
@@ -28,12 +33,12 @@ public class TableService : MonoBehaviour, ITableService
         if (!InBounds(point))
             return TeamSide.None;
 
-        Bounds localBounds = _meshRenderer.bounds;
-        float length = GetLength(localBounds);
+        Bounds localBounds = GetBounds();
+        float tableLength = GetLength(localBounds);
         Vector3 redCenter = GetRedCenter(localBounds);
         Vector3 blueCenter = GetBlueCenter(localBounds);
         Vector3 size = localBounds.size;
-        size.x = length;
+        size.x = tableLength;
         Bounds redBounds = new(redCenter, size);
         Bounds blueBounds = new(blueCenter, size);
         if (redBounds.Contains(new Vector3(point.x, redBounds.center.y, point.z)))
@@ -46,7 +51,7 @@ public class TableService : MonoBehaviour, ITableService
     public Vector3 GetRandomPoint(TeamSide teamSide)
     {
         Vector3 center = Vector3.zero;
-        Bounds localBounds = _meshRenderer.bounds;
+        Bounds localBounds = GetBounds();
         switch (teamSide)
         {
             case TeamSide.Blue:
@@ -69,19 +74,19 @@ public class TableService : MonoBehaviour, ITableService
 
     private Vector3 GetBlueCenter(Bounds bounds)
     {
-        float length = GetLength(bounds);
+        float tableLength = GetLength(bounds);
         Vector3 position = transform.position;
         float x = position.x;
-        position.x = x + length * 0.5f;
+        position.x = x + tableLength * 0.5f;
         return position;
     }
 
     private Vector3 GetRedCenter(Bounds bounds)
     {
-        float length = GetLength(bounds);
+        float tableLength = GetLength(bounds);
         Vector3 position = transform.position;
         float x = position.x;
-        position.x = x - length * 0.5f;
+        position.x = x - tableLength * 0.5f;
         return position;
     }
 
@@ -106,9 +111,8 @@ public class TableService : MonoBehaviour, ITableService
 
     private void OnDrawGizmos()
     {
-        MeshRenderer meshRenderer = GetComponent<MeshRenderer>();
-        Bounds bounds = meshRenderer.bounds;
-        float length = GetLength(bounds);
+        Bounds bounds = GetBounds();
+        float tableLength = GetLength(bounds);
         Vector3 bluePos = GetBlueCenter(bounds);
         Vector3 redPos = GetRedCenter(bounds);
         bluePos.y += 0.001f;
@@ -120,13 +124,13 @@ public class TableService : MonoBehaviour, ITableService
         redHitPos.y += 0.002f;
         
         Gizmos.color = ChaosPongHelper.Blue;
-        Gizmos.DrawCube(bluePos, new Vector3(length, bounds.size.y, bounds.size.z));
+        Gizmos.DrawCube(bluePos, new Vector3(tableLength, bounds.size.y, bounds.size.z));
         Gizmos.color = ChaosPongHelper.Red;
-        Gizmos.DrawCube(redPos, new Vector3(length, bounds.size.y, bounds.size.z));
+        Gizmos.DrawCube(redPos, new Vector3(tableLength, bounds.size.y, bounds.size.z));
 
         Gizmos.color = Color.cyan;
-        Gizmos.DrawCube(blueHitPos, new Vector3(length * 0.5f, bounds.size.y, bounds.size.z));
+        Gizmos.DrawCube(blueHitPos, new Vector3(tableLength * 0.5f, bounds.size.y, bounds.size.z));
         Gizmos.color = Color.magenta;
-        Gizmos.DrawCube(redHitPos, new Vector3(length * 0.5f, bounds.size.y, bounds.size.z));
+        Gizmos.DrawCube(redHitPos, new Vector3(tableLength * 0.5f, bounds.size.y, bounds.size.z));
     }
 }
