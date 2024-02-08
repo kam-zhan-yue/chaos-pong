@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class Player : Character
 {
@@ -31,16 +32,21 @@ public class Player : Character
             if(_movement != null)
                 _playerControls.Player.MoveSpecial.performed += _movement.Move;
             if(_paddle != null)
-                _playerControls.Player.HitSpecial.performed += _paddle.Return;
+                _playerControls.Player.HitSpecial.performed += Return;
         }
         else
         {
             if(_movement != null)
                 _playerControls.Player.Move.performed += _movement.Move;
             if(_paddle != null)
-                _playerControls.Player.Hit.performed += _paddle.Return;
+                _playerControls.Player.Hit.performed += Return;
         }
         _playerControls.Enable();
+    }
+
+    private void Return(InputAction.CallbackContext callbackContext)
+    {
+        _paddle.Return(playerInfo.teamSide);
     }
 
     public override void SetServe()

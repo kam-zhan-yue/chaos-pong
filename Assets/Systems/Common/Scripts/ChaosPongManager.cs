@@ -83,7 +83,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     public bool IsMultiCamera()
     {
-        return _redTeam.PlayerNum > 0 && _blueTeam.PlayerNum > 0;
+        return _redTeam.PlayerCount() > 0 && _blueTeam.PlayerCount() > 0;
     }
 
     public void RestartGame()

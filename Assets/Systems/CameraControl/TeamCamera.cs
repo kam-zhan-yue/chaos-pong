@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
@@ -10,7 +11,7 @@ public class TeamCamera : MonoBehaviour
 
     public void Init(Team team, Rect cameraRect)
     {
-        if (team.PlayerNum == 0)
+        if (team.PlayerCount() == 0)
         {
             SetActive(false);
             return;
@@ -19,7 +20,11 @@ public class TeamCamera : MonoBehaviour
         teamCamera.rect = cameraRect;
         for (int i = 0; i < team.Characters.Count; ++i)
         {
-            targetGroup.AddMember(team.Characters[i].transform, 1, 2);
+            Type type = team.Characters[i].GetType();
+            if (type == typeof(Player))
+            {
+                targetGroup.AddMember(team.Characters[i].transform, 1, 2);
+            }
         }
     }
     

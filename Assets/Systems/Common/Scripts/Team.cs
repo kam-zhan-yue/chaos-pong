@@ -7,7 +7,20 @@ public class Team
     public TeamSide side;
     private List<Character> _characters = new();
     public List<Character> Characters => _characters;
-    public int PlayerNum => _characters.Count;
+    public int CharacterCount => _characters.Count;
+
+    public int PlayerCount()
+    {
+        int count = 0;
+        for (int i = 0; i < _characters.Count; ++i)
+        {
+            if (_characters[i].GetType() == typeof(Player))
+            {
+                count++;
+            }
+        }
+        return count;
+    }
 
     public Team(TeamSide teamSide)
     {

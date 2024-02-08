@@ -6,6 +6,19 @@ public static class ChaosPongHelper
     public static readonly LayerMask RedSide = LayerMask.NameToLayer("RedSide");
     public static readonly Color Blue = Color.blue;
     public static readonly Color Red = Color.red;
+    public const float SERVE_HEIGHT = 2.5f;
+    public const float RETURN_HEIGHT = 2f;
+    public const float SMASH_HEIGHT = 2f;
+
+    public static TeamSide GetOppositeSide(TeamSide teamSide)
+    {
+        return teamSide switch
+        {
+            TeamSide.Blue => TeamSide.Red,
+            TeamSide.Red => TeamSide.Blue,
+            _ => TeamSide.None
+        };
+    }
     
     /// <summary>
     /// 

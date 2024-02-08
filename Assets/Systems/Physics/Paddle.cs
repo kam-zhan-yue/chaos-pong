@@ -6,60 +6,42 @@ using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour, IPaddle
 {
+    [SerializeField] private Pong pongPrefab;
     [SerializeField] private Transform serveTransform;
-    [SerializeField] private float serveForce = 5f;
     private SphereCollider[] _colliders = Array.Empty<SphereCollider>();
     private PaddleState _paddleState = PaddleState.Idle;
     private RaycastHit[] _ballHits = new RaycastHit[10];
+    private Pong _pong;
 
     private void Awake()
     {
         _colliders = GetComponentsInChildren<SphereCollider>();
     }
-
-    private void Start()
-    {
-        ActivateColliders(false);
-    }
-
-    // private void Update()
-    // {
-    //     switch (_paddleState)
-    //     {
-    //         case PaddleState.Idle:
-    //             break;
-    //         case PaddleState.Serve:
-    //             ServiceLocator.Instance.Get<IPhysicsService>().Projection(serveTransform.position, serveTransform.forward * serveForce);
-    //             break;
-    //     }
-    // }
-
+    
     public void SetServe()
     {
         _paddleState = PaddleState.Serve;
+        _pong = Instantiate(pongPrefab, serveTransform);
     }
 
-    public void Serve()
+    private void Serve(TeamSide teamSide)
     {
-        IPhysicsService physicsService = ServiceLocator.Instance.Get<IPhysicsService>();
-        physicsService.HideProjection();
-        physicsService.ServeBall(serveTransform.position, serveTransform.forward * serveForce);
-        _paddleState = PaddleState.Idle;
+        _pong.Serve(teamSide, ChaosPongHelper.SERVE_HEIGHT);
     }
 
-    public void Return(InputAction.CallbackContext callbackContext)
+    public void Return(TeamSide teamSide)
     {
         if (_paddleState == PaddleState.Serve)
         {
-            Serve();
+            Serve(teamSide);
         }
         else
         {
-            Hit();
+            Hit(teamSide);
         }
     }
 
-    private void Hit()
+    private void Hit(TeamSide teamSide)
     {
         Debug.Log("Hit!");
         for (int i = 0; i < _colliders.Length; ++i)

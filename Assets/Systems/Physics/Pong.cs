@@ -28,6 +28,9 @@ public class Pong : MonoBehaviour
 
     private bool _simulated = false;
 
+    public static Action<HitInfo> onHit;
+    public static Action<BounceInfo> onBounce;
+
     private void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();
@@ -53,10 +56,7 @@ public class Pong : MonoBehaviour
 
     private void UpdatePosition()
     {
-        // transform.position += _velocity * Time.deltaTime;
         _rigidbody.velocity = _velocity;
-        // Vector3 position = _rigidbody.position + _velocity * Time.deltaTime;
-        // _rigidbody.MovePosition(position);
         _velocity += Physics.gravity * Time.deltaTime;
     }
     
@@ -85,8 +85,10 @@ public class Pong : MonoBehaviour
             Vector3 finalVelocity = initial + Physics.gravity * time;
             _velocity = GetBounceVelocity(finalVelocity);
 
-            // TeamSide teamSide = table.GetTeamSide(finalPosition);
-            // Debug.Log($"Landed on {teamSide}");
+            ITableService table = ServiceLocator.Instance.Get<ITableService>();
+            TeamSide teamSide = table.GetTeamSide(finalPosition);
+            BounceInfo bounceInfo = new(teamSide, finalVelocity);
+            onBounce?.Invoke(bounceInfo);
             _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
         }
         else
@@ -166,6 +168,12 @@ public class Pong : MonoBehaviour
         return bounceVelocity;
     }
 
+    public void Serve(TeamSide teamSide, float height)
+    {
+        TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
+        LaunchAtSide(height, opposite);
+    }
+
     private Vector3 SimulatePosition(Vector3 initial, Vector3 position, float time, out Vector3 velocity)
     {
         velocity = initial + Physics.gravity * time;
@@ -173,21 +181,24 @@ public class Pong : MonoBehaviour
     }
 
     [Button]
-    public void LaunchAtSide(TeamSide teamSide, float height)
+    public void LaunchAtSide(float height, TeamSide teamSide, bool serve = false)
     {
-        Debug.Log($"Try Launch at {teamSide} at {height}");
         Vector3 point = _tableService.GetRandomPoint(teamSide);
-        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, point, height, out Vector3 velocity))
-        {
-            ApplyVelocity(velocity);
-        }
+        Launch(point, height, teamSide, serve);
     }
 
     [Button]
     public void LaunchAtTarget(Transform target, float height)
     {
-        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target.position, height, out Vector3 velocity))
+        Launch(target.position, height);
+    }
+
+    private void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, bool serve = false)
+    {
+        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, out Vector3 velocity))
         {
+            HitInfo hitInfo = new(serve, velocity, teamSide);
+            onHit?.Invoke(hitInfo);
             ApplyVelocity(velocity);
         }
     }

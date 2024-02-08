@@ -16,12 +16,14 @@ MonoBehaviour:
     players:
     - id: Player 1
       type: 0
-      controlScheme: 0
+      controlScheme: 2
+      teamSide: 1
   blueTeamInfo:
     players:
     - id: Trainer
       type: 2
       controlScheme: 1
+      teamSide: 2
   robotPrefab: {fileID: 0}
   trainerPrefab: {fileID: 6727460074855144129, guid: 2937957e4e5704a07a90fd078a04cd69, type: 3}
   redPlayerPrefab: {fileID: 6725763671549020263, guid: 165f720b53275441a9d940632fba6764, type: 3}

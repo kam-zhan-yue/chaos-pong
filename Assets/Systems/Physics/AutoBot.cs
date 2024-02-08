@@ -6,16 +6,13 @@ public class AutoBot : MonoBehaviour, IPlayer
 {
     [SerializeField] private TeamSide teamSide;
     [SerializeField] private float height;
+    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent(out Pong pong))
         {
-            TeamSide otherSide = TeamSide.None;
-            if (teamSide == TeamSide.Blue)
-                otherSide = TeamSide.Red;
-            else if (teamSide == TeamSide.Red)
-                otherSide = TeamSide.Blue;
-            pong.LaunchAtSide(otherSide, height);
+            TeamSide otherSide = ChaosPongHelper.GetOppositeSide(teamSide);
+            pong.LaunchAtSide(height, otherSide);
         }
     }
 

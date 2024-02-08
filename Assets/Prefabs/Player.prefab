@@ -347,5 +347,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e27aab3db65324ae08647db63b9fa6c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pongPrefab: {fileID: 5268079616146256436, guid: b0c73749a3dcf48489c07efcc0c367d6, type: 3}
   serveTransform: {fileID: 4351201097125436303}
-  serveForce: 7
