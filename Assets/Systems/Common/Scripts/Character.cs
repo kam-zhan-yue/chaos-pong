@@ -29,5 +29,5 @@ public abstract class Character : MonoBehaviour
         }
     }
     
-    public abstract void SetServe();
+    public abstract void SetStart();
 }

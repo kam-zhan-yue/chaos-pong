@@ -10,58 +10,42 @@ public class Paddle : MonoBehaviour, IPaddle
     [SerializeField] private Pong pongPrefab;
     [SerializeField] private Transform serveTransform;
     private SphereCollider[] _colliders = Array.Empty<SphereCollider>();
-    private PaddleState _paddleState = PaddleState.Idle;
+    // private PaddleState _paddleState = PaddleState.Idle;
     private Collider[] _pongHits = new Collider[10];
     private Pong _pong;
+    private TeamSide _teamSide;
 
     private void Awake()
     {
         _colliders = GetComponentsInChildren<SphereCollider>();
     }
-    
-    public void SetServe()
+
+    public void Init(TeamSide teamSide)
     {
-        _paddleState = PaddleState.Serve;
+        _teamSide = teamSide;
+    }
+
+    public void SetStart()
+    {
         _pong = Instantiate(pongPrefab, serveTransform);
     }
 
-    private void Serve(TeamSide teamSide)
+    public void Toss()
     {
-        _pong.Serve(teamSide, ChaosPongHelper.SERVE_HEIGHT);
-        _paddleState = PaddleState.Idle;
+        _pong.Toss();
     }
 
-    public void Return(TeamSide teamSide)
+    public void Serve()
     {
-        if (_paddleState == PaddleState.Serve)
-        {
-            Serve(teamSide);
-        }
-        else
-        {
-            Hit(teamSide);
-        }
+        _pong.Serve(_teamSide, ChaosPongHelper.SERVE_HEIGHT);
     }
 
-    [Button]
-    private void Hit(TeamSide teamSide)
+    public void Return()
     {
         if (TryGetPong(out Pong pong))
         {
-            pong.Return(teamSide, 2f);
+            pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT);
         }
-    }
-
-    private int GetBalls(Vector3 position, float radius)
-    {
-        int ballCount = Physics.OverlapSphereNonAlloc(position, radius, _pongHits);
-        Debug.Log($"Ball Count: {ballCount}");
-        for (int i = 0; i < ballCount; ++i)
-        {
-            Debug.Log($"Hit: {_pongHits[i].name}");
-        }
-
-        return ballCount;
     }
 
     private bool TryGetPong(out Pong pong)
@@ -81,30 +65,5 @@ public class Paddle : MonoBehaviour, IPaddle
 
         pong = null;
         return false;
-    }
-
-    private async UniTaskVoid ActivateAsync()
-    {
-        ActivateColliders(true);
-        
-        await UniTask.WaitForEndOfFrame(this);
-        
-        ActivateColliders(false);
-    }
-
-    private void ActivateColliders(bool active)
-    {
-        for (int i = 0; i < _colliders.Length; ++i)
-        {
-            _colliders[i].enabled = active;
-        }
-    }
-
-    private void OnDrawGizmos()
-    {
-        for (int i = 0; i < _colliders.Length; i++)
-        {
-            Gizmos.DrawSphere(_colliders[i].transform.position, _colliders[i].radius);
-        }
     }
 }

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class Robot : Character
 {
-    public override void SetServe()
+    public override void SetStart()
     {
         
     }

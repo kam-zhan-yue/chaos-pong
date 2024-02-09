@@ -10,6 +10,7 @@ public class Player : Character
     private IMovement _movement;
 
     private PlayerControls _playerControls;
+    private PlayerState _state = PlayerState.Idle;
 
     protected override void Awake()
     {
@@ -22,6 +23,7 @@ public class Player : Character
     {
         base.Init(info);
         InitControls();
+        _paddle.Init(playerInfo.teamSide);
     }
 
     private void InitControls()
@@ -32,29 +34,48 @@ public class Player : Character
             if(_movement != null)
                 _playerControls.Player.MoveSpecial.performed += _movement.Move;
             if(_paddle != null)
-                _playerControls.Player.HitSpecial.performed += Return;
+                _playerControls.Player.HitSpecial.performed += Hit;
         }
         else
         {
             if(_movement != null)
                 _playerControls.Player.Move.performed += _movement.Move;
             if(_paddle != null)
-                _playerControls.Player.Hit.performed += Return;
+                _playerControls.Player.Hit.performed += Hit;
         }
         _playerControls.Enable();
     }
 
-    private void Return(InputAction.CallbackContext callbackContext)
+    private void Hit(InputAction.CallbackContext callbackContext)
     {
-        _paddle.Return(playerInfo.teamSide);
+        switch (_state)
+        {
+            //Do nothing
+            case PlayerState.Idle:
+                break;
+            //Throw the pong into the air and wait for next input
+            case PlayerState.Starting:
+                _movement.SetActive(false);
+                _paddle.Toss();
+                _state = PlayerState.Serving;
+                break;
+            //Serve the pong
+            case PlayerState.Serving:
+                _movement.SetActive(true);
+                _paddle.Serve();
+                _state = PlayerState.Returning;
+                break;
+            //Return the pong
+            case PlayerState.Returning:
+                _paddle.Return();
+                break;
+        }
     }
 
-    public override void SetServe()
+    public override void SetStart()
     {
-        if (_paddle != null)
-        {
-            _paddle.SetServe();
-        }
+        _paddle.SetStart();
+        _state = PlayerState.Starting;
     }
     
     private void OnDestroy()

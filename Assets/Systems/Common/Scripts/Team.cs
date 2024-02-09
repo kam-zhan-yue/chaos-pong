@@ -36,7 +36,7 @@ public class Team
     {
         if (_characters.Count > 0)
         {
-            _characters[0].SetServe();
+            _characters[0].SetStart();
         }
     }
 }

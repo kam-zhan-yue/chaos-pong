@@ -25,6 +25,11 @@ public class PlayerMovement : MonoBehaviour, IMovement
         _movementVector.z = vertical;
     }
 
+    public void SetActive(bool active)
+    {
+        enabled = active;
+    }
+
     private Vector3 ProcessMovementVector()
     {
         Transform transform1 = transform;

@@ -162,6 +162,12 @@ public class Pong : MonoBehaviour
         return bounceVelocity;
     }
 
+    public void Toss()
+    {
+        Vector3 tossVelocity = Vector3.up * ChaosPongHelper.TOSS_SPEED;
+        ApplyVelocity(tossVelocity);
+    }
+
     public void Serve(TeamSide teamSide, float height)
     {
         TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
