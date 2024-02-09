@@ -5,6 +5,7 @@ using UnityEngine.Serialization;
 [CreateAssetMenu(menuName = "ScriptableObject/Game Settings")]
 public class GameSettings : ScriptableObject
 {
+    public bool startGameImmediately = false;
     [Title("Red Team Info")]
     [HideLabel] public TeamInfo redTeamInfo;
     

@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 674f92074361043e4aae69e55e1aff9b, type: 3}
+  m_Name: Debug Game Settings
+  m_EditorClassIdentifier: 
+  redTeamInfo:
+    players:
+    - id: Trainer Red
+      type: 2
+      controlScheme: 0
+      teamSide: 1
+  blueTeamInfo:
+    players:
+    - id: Trainer Blue
+      type: 2
+      controlScheme: 1
+      teamSide: 2
+  robotPrefab: {fileID: 0}
+  trainerPrefab: {fileID: 6727460074855144129, guid: 2937957e4e5704a07a90fd078a04cd69, type: 3}
+  redPlayerPrefab: {fileID: 6725763671549020263, guid: 165f720b53275441a9d940632fba6764, type: 3}
+  bluePlayerPrefab: {fileID: 7013740098639069136, guid: 614503fe0fbe44fed9edbf2b7dc510a8, type: 3}
+  servingSide: 1

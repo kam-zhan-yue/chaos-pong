@@ -11,18 +11,39 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     private readonly Team _redTeam = new(TeamSide.Red);
     private readonly Team _blueTeam = new(TeamSide.Blue);
+    private GameState _gameState = new GameState(TeamSide.None);
 
     private void Awake()
     {
         ServiceLocator.Instance.Register<IGameManager>(this);
-        SetupGame();
     }
 
-    private void SetupGame()
+    private void Start()
+    {
+        SetupGame();
+        if (gameSettings.startGameImmediately)
+        {
+            StartGame();
+        }
+    }
+
+    public void SetupGame()
     {
         SpawnTeam(true);
         SpawnTeam(false);
+    }
+    
+    public void StartGame()
+    {
+        _gameState = new GameState(gameSettings.servingSide);
+        IScoreService scoreService = ServiceLocator.Instance.Get<IScoreService>();
+        scoreService.StartGame(_gameState);
         SetServe();
+    }
+
+    public GameState GetGameState()
+    {
+        return _gameState;
     }
 
     private void SpawnTeam(bool red)
@@ -54,7 +75,6 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
             teamInfo.players[i].teamSide = teamSide;
             character.Init(teamInfo.players[i]);
             team.AddCharacter(character);
-
         }
     }
 

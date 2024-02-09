@@ -1,4 +1,4 @@
 public interface IScoreService : IGameService
 {
-    // void RegisterBounce
+    public void StartGame(GameState gameState);
 }

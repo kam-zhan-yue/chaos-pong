@@ -18,6 +18,7 @@ public class Pong : MonoBehaviour
     private Rigidbody _rigidbody;
     private ITableService _tableService;
     private float _radius;
+    private TeamSide _possession = TeamSide.None;
 
     private float Bottom => transform.position.y - _radius;
 
@@ -27,17 +28,21 @@ public class Pong : MonoBehaviour
 
     public static Action<HitInfo> onHit;
     public static Action<BounceInfo> onBounce;
+    
+    [ReadOnly, ShowInInspector]
+    private readonly List<HitInfo> _hits = new List<HitInfo>();
 
     private void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();
         _lineRenderer = GetComponent<LineRenderer>();
         _rigidbody = GetComponent<Rigidbody>();
+        _tableService = ServiceLocator.Instance.Get<ITableService>();
     }
 
     private void Start()
     {
-        _tableService = ServiceLocator.Instance.Get<ITableService>();
+        // _tableService = ServiceLocator.Instance.Get<ITableService>();
     }
 
     private void Update()
@@ -171,13 +176,21 @@ public class Pong : MonoBehaviour
     public void Serve(TeamSide teamSide, float height)
     {
         TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
-        LaunchAtSide(height, opposite);
+        LaunchAtSide(height, opposite, true);
     }
 
     public void Return(TeamSide teamSide, float height)
     {
-        TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
-        LaunchAtSide(height, opposite);
+        //Only return if the team has possession of the ball
+        if (_possession == teamSide)
+        {
+            TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
+            LaunchAtSide(height, opposite);
+        }
+        else
+        {
+            Debug.Log($"Cannot Return: {teamSide} {_possession}");
+        }
     }
 
     private Vector3 SimulatePosition(Vector3 initial, Vector3 position, float time, out Vector3 velocity)
@@ -187,14 +200,14 @@ public class Pong : MonoBehaviour
     }
 
     [Button]
-    public void LaunchAtSide(float height, TeamSide teamSide, bool serve = false)
+    private void LaunchAtSide(float height, TeamSide teamSide, bool serve = false)
     {
         Vector3 point = _tableService.GetRandomPoint(teamSide);
         Launch(point, height, teamSide, serve);
     }
 
     [Button]
-    public void LaunchAtTarget(Transform target, float height)
+    private void LaunchAtTarget(Transform target, float height)
     {
         Launch(target.position, height);
     }
@@ -203,9 +216,28 @@ public class Pong : MonoBehaviour
     {
         if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, out Vector3 velocity))
         {
-            HitInfo hitInfo = new(serve, velocity, teamSide);
+            HitInfo hitInfo = new(serve, transform.position, velocity, teamSide);
+            _possession = teamSide;
             onHit?.Invoke(hitInfo);
+            Debug.Log($"Launch: {target} {teamSide}");
+            _hits.Add(hitInfo);
             ApplyVelocity(velocity);
         }
     }
+
+    public void DebugHitInfo(HitInfo hitInfo)
+    {
+        transform.position = hitInfo.position;
+        _possession = hitInfo.teamSide;
+        ApplyVelocity(hitInfo.velocity);
+    }
+
+    #if UNITY_EDITOR
+    [BoxGroup("Editor"), Button]
+    private void SaveHitInfo()
+    {
+        PhysicsDebugger physicsDebugger = UnityEditor.AssetDatabase.LoadAssetAtPath<PhysicsDebugger>("Assets/Scriptable Objects/Physics Debugger.asset");
+        physicsDebugger.SaveHits(_hits);
+    }
+    #endif
 }

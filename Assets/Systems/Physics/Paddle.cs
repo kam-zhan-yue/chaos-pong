@@ -10,8 +10,7 @@ public class Paddle : MonoBehaviour, IPaddle
     [SerializeField] private Pong pongPrefab;
     [SerializeField] private Transform serveTransform;
     private SphereCollider[] _colliders = Array.Empty<SphereCollider>();
-    // private PaddleState _paddleState = PaddleState.Idle;
-    private Collider[] _pongHits = new Collider[10];
+    private readonly Collider[] _pongHits = new Collider[10];
     private Pong _pong;
     private TeamSide _teamSide;
 
