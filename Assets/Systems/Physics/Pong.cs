@@ -11,9 +11,6 @@ public class Pong : MonoBehaviour
     private const float LINE_TIME_STEP = 0.01f;
     private const float BOUNCE_DECAY = 0.95f;
     
-    //Exposed Variables
-    [SerializeField] private Vector3 initialVelocity;
-
     //Private Variables
     private Vector3 _velocity;
     private SphereCollider _sphereCollider;
@@ -41,9 +38,6 @@ public class Pong : MonoBehaviour
     private void Start()
     {
         _tableService = ServiceLocator.Instance.Get<ITableService>();
-        // _velocity = initialVelocity;
-        // _radius = _sphereCollider.radius * transform.localScale.y;
-        // Timing.RunCoroutine(Bounce());
     }
 
     private void Update()
@@ -169,6 +163,12 @@ public class Pong : MonoBehaviour
     }
 
     public void Serve(TeamSide teamSide, float height)
+    {
+        TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
+        LaunchAtSide(height, opposite);
+    }
+
+    public void Return(TeamSide teamSide, float height)
     {
         TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
         LaunchAtSide(height, opposite);
