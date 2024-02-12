@@ -715,10 +715,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7627956288519930071, guid: 3e9c7ea3073fe46af8fa9c62ba6bc7d5, type: 3}
-      propertyPath: gameSettings
-      value: 
-      objectReference: {fileID: 11400000, guid: 910be88b8876246fe834a1b1ea27ec99, type: 2}
-    - target: {fileID: 7627956288519930071, guid: 3e9c7ea3073fe46af8fa9c62ba6bc7d5, type: 3}
       propertyPath: redTeamSpawn
       value: 
       objectReference: {fileID: 156367093}

@@ -19,8 +19,17 @@ public class ScoreController : MonoBehaviour, IScoreService
     {
         Pong.onHit += OnHit;
         Pong.onBounce += OnBounce;
+        Pong.onPoint += OnPoint;
     }
 
+    private void OnPoint(TeamSide teamSide)
+    {
+        if(teamSide == TeamSide.Blue)
+            _gameState.BluePoint();
+        else if(teamSide == TeamSide.Red)
+            _gameState.RedPoint();
+    }
+    
     public void StartGame(GameState gameState)
     {
         _started = true;
@@ -38,17 +47,6 @@ public class ScoreController : MonoBehaviour, IScoreService
     {
         if (!_started)
             return;
-        if (bounceInfo.teamSide == TeamSide.None)
-        {
-            if (_gameState.Possession == TeamSide.Blue)
-            {
-                _gameState.RedPoint();
-            }
-            else if (_gameState.Possession == TeamSide.Red)
-            {
-                _gameState.BluePoint();
-            }
-        }
     }
 
     private void OnDestroy()

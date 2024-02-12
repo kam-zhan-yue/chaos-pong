@@ -1,8 +1,10 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using ChaosPong.Common;
 using MEC;
 using Sirenix.OdinInspector;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Pong : MonoBehaviour
@@ -28,9 +30,12 @@ public class Pong : MonoBehaviour
 
     public static Action<HitInfo> onHit;
     public static Action<BounceInfo> onBounce;
+    public static Action<TeamSide> onPoint;
     
     [ReadOnly, ShowInInspector]
     private readonly List<HitInfo> _hits = new List<HitInfo>();
+
+    private PongState _pongState = PongState.Idle;
 
     private void Awake()
     {
@@ -38,11 +43,7 @@ public class Pong : MonoBehaviour
         _lineRenderer = GetComponent<LineRenderer>();
         _rigidbody = GetComponent<Rigidbody>();
         _tableService = ServiceLocator.Instance.Get<ITableService>();
-    }
-
-    private void Start()
-    {
-        // _tableService = ServiceLocator.Instance.Get<ITableService>();
+        _radius = _sphereCollider.radius * transform.localScale.x;
     }
 
     private void Update()
@@ -87,13 +88,54 @@ public class Pong : MonoBehaviour
             ITableService table = ServiceLocator.Instance.Get<ITableService>();
             TeamSide teamSide = table.GetTeamSide(finalPosition);
             BounceInfo bounceInfo = new(teamSide, finalVelocity);
-            onBounce?.Invoke(bounceInfo);
+            OnBounce(bounceInfo);
             _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
         }
         else
         {
             Debug.LogError("Time is negative");
         }
+    }
+
+    private void OnBounce(BounceInfo bounceInfo)
+    {
+        Debug.Log($"State: {_pongState} Possession: {_possession}");
+        switch (_pongState)
+        {
+            //If serving, check whether can turn into returning
+            case PongState.Serving:
+                //If landed on the target side, change to returnable
+                if (bounceInfo.teamSide == _possession)
+                {
+                    _pongState = PongState.Returnable;
+                }
+                break;
+            //If returning, check whether can turn into returnable
+            case PongState.Returning:
+                if (bounceInfo.teamSide == _possession)
+                {
+                    _pongState = PongState.Returnable;
+                }
+                break;
+        }
+        
+        //If bounced on none, award points accordingly
+        if (_pongState != PongState.Scored && bounceInfo.teamSide == TeamSide.None)
+        {
+            if (_possession == TeamSide.Blue)
+            {
+                Debug.Log("Red Point!");
+                onPoint?.Invoke(TeamSide.Red);
+                _pongState = PongState.Scored;
+            }
+            else if (_possession == TeamSide.Red)
+            {
+                Debug.Log("Blue Point!");
+                onPoint?.Invoke(TeamSide.Blue);
+                _pongState = PongState.Scored;
+            }
+        }
+        onBounce?.Invoke(bounceInfo);
     }
 
     private float TimeToBounce(Vector3 initial, Vector3 position)
@@ -177,19 +219,17 @@ public class Pong : MonoBehaviour
     {
         TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
         LaunchAtSide(height, opposite, true);
+        _pongState = PongState.Serving;
     }
 
     public void Return(TeamSide teamSide, float height)
     {
         //Only return if the team has possession of the ball
-        if (_possession == teamSide)
+        if (_possession == teamSide && _pongState == PongState.Returnable || _pongState == PongState.Idle)
         {
             TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
             LaunchAtSide(height, opposite);
-        }
-        else
-        {
-            Debug.Log($"Cannot Return: {teamSide} {_possession}");
+            _pongState = PongState.Returning;
         }
     }
 
@@ -219,7 +259,6 @@ public class Pong : MonoBehaviour
             HitInfo hitInfo = new(serve, transform.position, velocity, teamSide);
             _possession = teamSide;
             onHit?.Invoke(hitInfo);
-            Debug.Log($"Launch: {target} {teamSide}");
             _hits.Add(hitInfo);
             ApplyVelocity(velocity);
         }

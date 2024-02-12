@@ -161,7 +161,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   teamSide: 0
-  height: 1.5
+  height: 2.5
   pongPrefab: {fileID: 5268079616146256436, guid: b0c73749a3dcf48489c07efcc0c367d6, type: 3}
   serveTransform: {fileID: 5716065185027454658}
 --- !u!1 &9219873596057743998
