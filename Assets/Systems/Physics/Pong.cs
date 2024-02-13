@@ -4,6 +4,7 @@ using System.Diagnostics.CodeAnalysis;
 using ChaosPong.Common;
 using MEC;
 using Sirenix.OdinInspector;
+using SuperMaxim.Messaging;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -30,7 +31,6 @@ public class Pong : MonoBehaviour
 
     public static Action<HitInfo> onHit;
     public static Action<BounceInfo> onBounce;
-    public static Action<TeamSide> onPoint;
     
     [ReadOnly, ShowInInspector]
     private readonly List<HitInfo> _hits = new List<HitInfo>();
@@ -124,18 +124,24 @@ public class Pong : MonoBehaviour
         {
             if (_possession == TeamSide.Blue)
             {
-                Debug.Log("Red Point!");
-                onPoint?.Invoke(TeamSide.Red);
-                _pongState = PongState.Scored;
+                PublishScore(TeamSide.Red);
             }
             else if (_possession == TeamSide.Red)
             {
-                Debug.Log("Blue Point!");
-                onPoint?.Invoke(TeamSide.Blue);
-                _pongState = PongState.Scored;
+                PublishScore(TeamSide.Blue);
             }
         }
         onBounce?.Invoke(bounceInfo);
+    }
+
+    private void PublishScore(TeamSide teamSide)
+    {
+        ScorePayload payload = new ScorePayload
+        {
+            TeamSide = teamSide
+        };
+        Messenger.Default.Publish(payload);
+        _pongState = PongState.Scored;
     }
 
     private float TimeToBounce(Vector3 initial, Vector3 position)

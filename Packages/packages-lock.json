@@ -15,11 +15,11 @@
       "hash": "7ccc1d32f94f83f4959b22ade603eff8c5363233"
     },
     "com.unity-atoms.fiber": {
-      "version": "https://github.com/unity-atoms/fiber.git?path=/Assets/Fiber",
+      "version": "https://github.com/kure-developers/fiber.git?path=/Assets/Fiber",
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "914ccfffadfb6de823999901ee4ff3a4288a067e"
+      "hash": "0c0aa358430f9dae7ee16488988c0dbffe5032c7"
     },
     "com.unity.2d.pixel-perfect": {
       "version": "5.0.3",

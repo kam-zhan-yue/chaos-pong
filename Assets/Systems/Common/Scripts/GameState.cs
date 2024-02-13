@@ -1,5 +1,8 @@
+using System;
+using Signals;
 using UnityEngine;
 
+[Serializable]
 public class GameState
 {
     public float pongVelocity;
@@ -7,35 +10,36 @@ public class GameState
     public int rally;
     
     private int _maxRally;
-    public int BlueScore { get; private set; }
-    public int RedScore { get; private set; }
     public TeamSide Possession { get; private set; }
     public TeamSide StartingSide { get; private set; }
     public int Round { get; private set; }
+    public Signal<int> blue = new Signal<int>(0);
+    public Signal<int> red = new Signal<int>(0);
 
     public GameState(TeamSide startingSide)
     {
         StartingSide = startingSide;
         Round = 1;
-    }
 
-    public void GetServer()
-    {
+        Debug.Log("Set Game State Signals");
+        blue.Value = 0;
+        red.Value = 0;
+        SignalManager.BluePoints.UpdateDeps(blue);
+        SignalManager.RedPoints.UpdateDeps(red);
     }
 
     public void Hit(TeamSide teamSide)
     {
         Possession = teamSide;
-        // Debug.Log($"Set Possession: {teamSide}");
     }
 
     public void RedPoint()
     {
-        RedScore++;
+        red.Value++;
     }
 
     public void BluePoint()
     {
-        BlueScore++;
+        blue.Value++;
     }
 }

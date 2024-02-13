@@ -1,4 +1,6 @@
+using System;
 using ChaosPong.Common;
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -11,7 +13,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     private readonly Team _redTeam = new(TeamSide.Red);
     private readonly Team _blueTeam = new(TeamSide.Blue);
-    private GameState _gameState = new GameState(TeamSide.None);
+
+    private GameState _gameState;
 
     private void Awake()
     {
@@ -33,6 +36,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         SpawnTeam(false);
     }
     
+    [Button]
     public void StartGame()
     {
         _gameState = new GameState(gameSettings.servingSide);
@@ -109,5 +113,22 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    [Button]
+    private void IncreaseRedPoints()
+    {
+        _gameState.RedPoint();
+    }
+    [Button]
+    private void IncreaseBluePoints()
+    {
+        _gameState.BluePoint();
+    }
+
+    [Button]
+    private void PrintPoints()
+    {
+        Debug.Log($"Red: {SignalManager.RedPoints.Get()} Blue: {SignalManager.BluePoints.Get()}");
     }
 }
