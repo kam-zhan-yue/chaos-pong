@@ -11,6 +11,12 @@ public static class ChaosPongHelper
     public const float RETURN_HEIGHT = 2f;
     public const float SMASH_HEIGHT = 2f;
 
+    public static TeamSide GetServer(int points, TeamSide starting)
+    {
+        bool swap = points % 4 >= 2;
+        return swap ? GetOppositeSide(starting) : starting;
+    }
+
     public static TeamSide GetOppositeSide(TeamSide teamSide)
     {
         return teamSide switch

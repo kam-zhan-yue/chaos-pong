@@ -1,18 +1,28 @@
-using System.Collections;
-using System.Collections.Generic;
+using Kuroneko.UIDelivery;
+using Signals;
+using TMPro;
 using UnityEngine;
 
-public class ScorePopup : MonoBehaviour
+public class ScorePopup : Popup
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private TMP_Text blueScore;
+    [SerializeField] private TMP_Text redScore;
+    
+    protected override void InitPopup()
     {
-        
+        SignalSubscribtionManager manager = new();
+        manager.Subscribe(SignalManager.BluePoints, OnBluePointsChanged);
+        manager.Subscribe(SignalManager.RedPoints, OnRedPointsChanged);
+        manager.Initialize();
+    }
+    
+    private void OnBluePointsChanged(int current)
+    {
+        blueScore.SetText(current.ToString());
     }
 
-    // Update is called once per frame
-    void Update()
+    private void OnRedPointsChanged(int current)
     {
-        
+        redScore.SetText(current.ToString());
     }
 }

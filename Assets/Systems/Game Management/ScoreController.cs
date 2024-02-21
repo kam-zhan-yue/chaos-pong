@@ -45,14 +45,7 @@ public class ScoreController : MonoBehaviour, IScoreService
             _gameState.BluePoint();
         else if (payload.TeamSide == TeamSide.Red)
             _gameState.RedPoint();
-    }
-
-    private void OnPoint(TeamSide teamSide)
-    {
-        if (teamSide == TeamSide.Blue)
-            _gameState.BluePoint();
-        else if (teamSide == TeamSide.Red)
-            _gameState.RedPoint();
+        Messenger.Default.Publish(new EventPayload(GameEvent.StartRound));
     }
 
     public void StartGame(GameState gameState)

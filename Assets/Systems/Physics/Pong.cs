@@ -144,6 +144,7 @@ public class Pong : MonoBehaviour
         };
         Messenger.Default.Publish(payload);
         _pongState = PongState.Scored;
+        Timing.RunCoroutine(DestroyRoutine().CancelWith(gameObject));
     }
 
     private float TimeToBounce(Vector3 initial, Vector3 position)
@@ -277,6 +278,12 @@ public class Pong : MonoBehaviour
         transform.position = hitInfo.position;
         _possession = hitInfo.teamSide;
         ApplyVelocity(hitInfo.velocity);
+    }
+
+    private IEnumerator<float> DestroyRoutine()
+    {
+        yield return Timing.WaitForSeconds(5f);
+        Destroy(gameObject);
     }
 
     #if UNITY_EDITOR

@@ -1,7 +1,9 @@
 using System;
 using ChaosPong.Common;
 using Sirenix.OdinInspector;
+using SuperMaxim.Messaging;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
 public class ChaosPongManager : MonoBehaviour, IGameManager
@@ -29,6 +31,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         {
             StartGame();
         }
+        Messenger.Default.Subscribe<EventPayload>(OnEvent);
     }
 
     public void SetupGame()
@@ -85,7 +88,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     private void SetServe()
     {
-        switch (gameSettings.servingSide)
+        TeamSide server = ChaosPongHelper.GetServer(TotalPoints, gameSettings.servingSide);
+        switch (server)
         {
             case TeamSide.Red:
                 _redTeam.SetServe();
@@ -114,6 +118,14 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnEvent(EventPayload payload)
+    {
+        if (payload.gameEvent == GameEvent.StartRound)
+        {
+            SetServe();
+        }
     }
 
     [Button]
