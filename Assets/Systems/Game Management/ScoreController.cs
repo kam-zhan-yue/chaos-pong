@@ -27,12 +27,12 @@ public class ScoreController : MonoBehaviour, IScoreService
         manager.Subscribe(SignalManager.RedPoints, OnRedPointsChanged);
         manager.Initialize();
     }
-    
+
     private void OnBluePointsChanged(int current)
     {
         Debug.Log($"Blue Points: {current}");
     }
-    
+
     private void OnRedPointsChanged(int current)
     {
         Debug.Log($"Red Points: {current}");
@@ -41,20 +41,20 @@ public class ScoreController : MonoBehaviour, IScoreService
     private void OnScore(ScorePayload payload)
     {
         // Debug.Log($"Point for: {payload.TeamSide}");
-        if(payload.TeamSide == TeamSide.Blue)
+        if (payload.TeamSide == TeamSide.Blue)
             _gameState.BluePoint();
-        else if(payload.TeamSide == TeamSide.Red)
+        else if (payload.TeamSide == TeamSide.Red)
             _gameState.RedPoint();
     }
 
     private void OnPoint(TeamSide teamSide)
     {
-        if(teamSide == TeamSide.Blue)
+        if (teamSide == TeamSide.Blue)
             _gameState.BluePoint();
-        else if(teamSide == TeamSide.Red)
+        else if (teamSide == TeamSide.Red)
             _gameState.RedPoint();
     }
-    
+
     public void StartGame(GameState gameState)
     {
         _started = true;
@@ -72,10 +72,5 @@ public class ScoreController : MonoBehaviour, IScoreService
     {
         if (!_started)
             return;
-    }
-
-    private void OnDestroy()
-    {
-        throw new NotImplementedException();
     }
 }

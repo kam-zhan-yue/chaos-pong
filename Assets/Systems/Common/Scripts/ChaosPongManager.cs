@@ -15,6 +15,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     private readonly Team _blueTeam = new(TeamSide.Blue);
 
     private GameState _gameState;
+    private int TotalPoints => SignalManager.BluePoints.Get() + SignalManager.RedPoints.Get();
 
     private void Awake()
     {
@@ -113,17 +114,6 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public void RestartGame()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-
-    [Button]
-    private void IncreaseRedPoints()
-    {
-        _gameState.RedPoint();
-    }
-    [Button]
-    private void IncreaseBluePoints()
-    {
-        _gameState.BluePoint();
     }
 
     [Button]

@@ -44,6 +44,7 @@ public class Pong : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody>();
         _tableService = ServiceLocator.Instance.Get<ITableService>();
         _radius = _sphereCollider.radius * transform.localScale.x;
+        _rigidbody.isKinematic = true;
     }
 
     private void Update()
@@ -63,6 +64,7 @@ public class Pong : MonoBehaviour
     [Button]
     public void ApplyVelocity(Vector3 velocity)
     {
+        _rigidbody.isKinematic = false;
         _simulated = true;
         _velocity = velocity;
         Timing.KillCoroutines(_bounceRoutine);
