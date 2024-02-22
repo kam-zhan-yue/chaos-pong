@@ -10,6 +10,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
 
     private Rigidbody _rigidbody;
     private Vector3 _movementVector = Vector3.zero;
+    private float _speedModifier = 1f;
 
     private void Awake()
     {
@@ -30,6 +31,11 @@ public class PlayerMovement : MonoBehaviour, IMovement
         enabled = active;
     }
 
+    public void ModifySpeed(float modifer)
+    {
+        _speedModifier = modifer;
+    }
+
     private Vector3 ProcessMovementVector()
     {
         Transform transform1 = transform;
@@ -40,7 +46,7 @@ public class PlayerMovement : MonoBehaviour, IMovement
 
     private void FixedUpdate()
     {
-        Vector3 newPosition = transform.position + ProcessMovementVector() * (speed * Time.deltaTime);
+        Vector3 newPosition = transform.position + ProcessMovementVector() * (speed * _speedModifier * Time.deltaTime);
         _rigidbody.MovePosition(newPosition);
     }
 }

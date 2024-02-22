@@ -8,6 +8,9 @@ public class Player : Character
 {
     private IPaddle _paddle;
     private IMovement _movement;
+    private IAbilityPrimary _abilityPrimary;
+    private IAbilitySecondary _abilitySecondary;
+    private IAbilitySpecial _abilitySpecial;
 
     private PlayerControls _playerControls;
     private PlayerState _state = PlayerState.Idle;
@@ -17,6 +20,9 @@ public class Player : Character
         base.Awake();
         _movement = GetComponent<IMovement>();
         _paddle = GetComponentInChildren<IPaddle>();
+        _abilityPrimary = GetComponentInChildren<IAbilityPrimary>();
+        _abilitySecondary = GetComponentInChildren<IAbilitySecondary>();
+        _abilitySpecial = GetComponentInChildren<IAbilitySpecial>();
     }
     
     public override void Init(PlayerInfo info)
@@ -42,6 +48,12 @@ public class Player : Character
                 _playerControls.Player.Move.performed += _movement.Move;
             if(_paddle != null)
                 _playerControls.Player.Hit.performed += Hit;
+            if (_abilityPrimary != null)
+                _playerControls.Player.AbilityPrimary.performed += _abilityPrimary.Activate;
+            if (_abilitySecondary != null)
+                _playerControls.Player.AbilitySecondary.performed += _abilitySecondary.Activate;
+            if (_abilitySpecial != null)
+                _playerControls.Player.AbilitySpecial.performed += _abilitySpecial.Activate;
         }
         _playerControls.Enable();
     }

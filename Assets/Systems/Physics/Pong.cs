@@ -130,7 +130,7 @@ public class Pong : MonoBehaviour
 
     private void OnBounce(BounceInfo bounceInfo)
     {
-        Debug.Log($"State: {_pongState} Possession: {_possession}");
+        // Debug.Log($"State: {_pongState} Possession: {_possession}");
         switch (_pongState)
         {
             //If serving, check whether can turn into returning

@@ -62,6 +62,33 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilityPrimary"",
+                    ""type"": ""Button"",
+                    ""id"": ""0f5502b2-2698-49d2-8478-35794ba3c547"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilitySecondary"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c64fed2-5ec4-4223-af31-160d4b6f03b5"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""AbilitySpecial"",
+                    ""type"": ""Button"",
+                    ""id"": ""2ac233fb-e446-4361-80d0-a88118f47d4c"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -207,6 +234,39 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""HitSpecial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""bd64f10f-ceea-4475-bbad-573378e37b81"",
+                    ""path"": ""<Keyboard>/j"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AbilityPrimary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""0e69ee26-67fd-49ce-8146-a04919358521"",
+                    ""path"": ""<Keyboard>/k"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AbilitySecondary"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""9d245c24-224f-44ef-bcb4-49755c8b061e"",
+                    ""path"": ""<Keyboard>/l"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""AbilitySpecial"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -236,6 +296,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_MoveSpecial = m_Player.FindAction("MoveSpecial", throwIfNotFound: true);
         m_Player_Hit = m_Player.FindAction("Hit", throwIfNotFound: true);
         m_Player_HitSpecial = m_Player.FindAction("HitSpecial", throwIfNotFound: true);
+        m_Player_AbilityPrimary = m_Player.FindAction("AbilityPrimary", throwIfNotFound: true);
+        m_Player_AbilitySecondary = m_Player.FindAction("AbilitySecondary", throwIfNotFound: true);
+        m_Player_AbilitySpecial = m_Player.FindAction("AbilitySpecial", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -301,6 +364,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_MoveSpecial;
     private readonly InputAction m_Player_Hit;
     private readonly InputAction m_Player_HitSpecial;
+    private readonly InputAction m_Player_AbilityPrimary;
+    private readonly InputAction m_Player_AbilitySecondary;
+    private readonly InputAction m_Player_AbilitySpecial;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -309,6 +375,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @MoveSpecial => m_Wrapper.m_Player_MoveSpecial;
         public InputAction @Hit => m_Wrapper.m_Player_Hit;
         public InputAction @HitSpecial => m_Wrapper.m_Player_HitSpecial;
+        public InputAction @AbilityPrimary => m_Wrapper.m_Player_AbilityPrimary;
+        public InputAction @AbilitySecondary => m_Wrapper.m_Player_AbilitySecondary;
+        public InputAction @AbilitySpecial => m_Wrapper.m_Player_AbilitySpecial;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -330,6 +399,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HitSpecial.started += instance.OnHitSpecial;
             @HitSpecial.performed += instance.OnHitSpecial;
             @HitSpecial.canceled += instance.OnHitSpecial;
+            @AbilityPrimary.started += instance.OnAbilityPrimary;
+            @AbilityPrimary.performed += instance.OnAbilityPrimary;
+            @AbilityPrimary.canceled += instance.OnAbilityPrimary;
+            @AbilitySecondary.started += instance.OnAbilitySecondary;
+            @AbilitySecondary.performed += instance.OnAbilitySecondary;
+            @AbilitySecondary.canceled += instance.OnAbilitySecondary;
+            @AbilitySpecial.started += instance.OnAbilitySpecial;
+            @AbilitySpecial.performed += instance.OnAbilitySpecial;
+            @AbilitySpecial.canceled += instance.OnAbilitySpecial;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -346,6 +424,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @HitSpecial.started -= instance.OnHitSpecial;
             @HitSpecial.performed -= instance.OnHitSpecial;
             @HitSpecial.canceled -= instance.OnHitSpecial;
+            @AbilityPrimary.started -= instance.OnAbilityPrimary;
+            @AbilityPrimary.performed -= instance.OnAbilityPrimary;
+            @AbilityPrimary.canceled -= instance.OnAbilityPrimary;
+            @AbilitySecondary.started -= instance.OnAbilitySecondary;
+            @AbilitySecondary.performed -= instance.OnAbilitySecondary;
+            @AbilitySecondary.canceled -= instance.OnAbilitySecondary;
+            @AbilitySpecial.started -= instance.OnAbilitySpecial;
+            @AbilitySpecial.performed -= instance.OnAbilitySpecial;
+            @AbilitySpecial.canceled -= instance.OnAbilitySpecial;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -378,5 +465,8 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnMoveSpecial(InputAction.CallbackContext context);
         void OnHit(InputAction.CallbackContext context);
         void OnHitSpecial(InputAction.CallbackContext context);
+        void OnAbilityPrimary(InputAction.CallbackContext context);
+        void OnAbilitySecondary(InputAction.CallbackContext context);
+        void OnAbilitySpecial(InputAction.CallbackContext context);
     }
 }
