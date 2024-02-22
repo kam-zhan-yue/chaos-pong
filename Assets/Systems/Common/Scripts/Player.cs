@@ -55,7 +55,6 @@ public class Player : Character
                 break;
             //Throw the pong into the air and wait for next input
             case PlayerState.Starting:
-                _movement.SetActive(false);
                 _paddle.Toss();
                 _state = PlayerState.Serving;
                 break;
@@ -76,6 +75,7 @@ public class Player : Character
     {
         _paddle.SetStart();
         _state = PlayerState.Starting;
+        _movement.SetActive(false);
     }
     
     private void OnDestroy()

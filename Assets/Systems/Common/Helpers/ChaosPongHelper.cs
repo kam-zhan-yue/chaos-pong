@@ -7,7 +7,8 @@ public static class ChaosPongHelper
     public static readonly Color Blue = Color.blue;
     public static readonly Color Red = Color.red;
     public const float TOSS_SPEED = 5f;
-    public const float SERVE_HEIGHT = 2.5f;
+    public const float SERVE_HEIGHT = 1.5f;
+    public const float SERVE_BOUNCE_HEIGHT = 2.5f;
     public const float RETURN_HEIGHT = 2f;
     public const float SMASH_HEIGHT = 2f;
 

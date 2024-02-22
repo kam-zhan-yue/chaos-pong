@@ -62,7 +62,7 @@ public class Pong : MonoBehaviour
     }
     
     [Button]
-    public void ApplyVelocity(Vector3 velocity)
+    private void ApplyVelocity(Vector3 velocity)
     {
         _rigidbody.isKinematic = false;
         _simulated = true;
@@ -92,6 +92,35 @@ public class Pong : MonoBehaviour
             BounceInfo bounceInfo = new(teamSide, finalVelocity);
             OnBounce(bounceInfo);
             _bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
+        }
+        else
+        {
+            Debug.LogError("Time is negative");
+        }
+    }
+    
+    private void ApplyServe(Vector3 velocity, float nextHeight, TeamSide targetSide)
+    {
+        _rigidbody.isKinematic = false;
+        _simulated = true;
+        _velocity = velocity;
+        Timing.KillCoroutines(_bounceRoutine);
+        _bounceRoutine = Timing.RunCoroutine(SimulatedBounce(nextHeight, targetSide).CancelWith(gameObject));
+    }
+
+    private IEnumerator<float> SimulatedBounce(float height, TeamSide targetSide)
+    {
+        Vector3 initial = _velocity;
+        Vector3 position = transform.position;
+        //Calculate the time to bounce (returns time to table or ground)
+        float time = TimeToBounce(initial, position);
+        DrawLineRenderer(initial, position, 10);
+        if (time > 0f)
+        {
+            yield return Timing.WaitForSeconds(time);
+            Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
+            transform.position = finalPosition;
+            LaunchAtSide(height, targetSide);
         }
         else
         {
@@ -226,8 +255,14 @@ public class Pong : MonoBehaviour
 
     public void Serve(TeamSide teamSide, float height)
     {
-        TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
-        LaunchAtSide(height, opposite, true);
+        //Find a point that can be served on
+        Vector3 point = ServiceLocator.Instance.Get<ITableService>().GetServePoint(teamSide, transform.position);
+        //Hit the ball to that point and pass in the next height
+        if (Launch(point, height, teamSide, true, out Vector3 velocity))
+        {
+            ApplyServe(velocity, ChaosPongHelper.SERVE_BOUNCE_HEIGHT, ChaosPongHelper.GetOppositeSide(teamSide));
+        }
+        //Set state to serving
         _pongState = PongState.Serving;
     }
 
@@ -255,22 +290,28 @@ public class Pong : MonoBehaviour
         Launch(point, height, teamSide, serve);
     }
 
-    [Button]
-    private void LaunchAtTarget(Transform target, float height)
-    {
-        Launch(target.position, height);
-    }
-
     private void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, bool serve = false)
     {
-        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, out Vector3 velocity))
+        if (Launch(target, height, teamSide, serve, out Vector3 velocity))
         {
-            HitInfo hitInfo = new(serve, transform.position, velocity, teamSide);
+            ApplyVelocity(velocity);
+        }
+    }
+
+    private bool Launch(Vector3 target, float height, TeamSide teamSide, bool serve, out Vector3 velocity)
+    {
+        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, out Vector3 launchVelocity))
+        {
+            HitInfo hitInfo = new(serve, transform.position, launchVelocity, teamSide);
             _possession = teamSide;
             onHit?.Invoke(hitInfo);
             _hits.Add(hitInfo);
-            ApplyVelocity(velocity);
+            velocity = launchVelocity;
+            return true;
         }
+
+        velocity = launchVelocity;
+        return false;
     }
 
     public void DebugHitInfo(HitInfo hitInfo)

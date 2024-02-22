@@ -72,6 +72,11 @@ public class TableService : MonoBehaviour, ITableService
         return new Vector3(randomX, bounds.center.y, randomZ);
     }
 
+    public Vector3 GetServePoint(TeamSide servingSide, Vector3 ballPosition)
+    {
+        return GetRandomPoint(servingSide);
+    }
+
     private Vector3 GetBlueCenter(Bounds bounds)
     {
         float tableLength = GetLength(bounds);
