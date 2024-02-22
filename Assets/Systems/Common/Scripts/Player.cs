@@ -37,6 +37,7 @@ public class Player : Character
     private void InitControls()
     {
         _playerControls = new PlayerControls();
+        _playerControls.bindingMask = ChaosPongHelper.GetBindingMask(playerInfo.controlScheme);
         if (playerInfo.controlScheme == ControlScheme.KeyboardSpecial)
         {
             if(_movement != null)

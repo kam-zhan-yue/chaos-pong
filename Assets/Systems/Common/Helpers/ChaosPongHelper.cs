@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public static class ChaosPongHelper
 {
@@ -172,5 +173,21 @@ public static class ChaosPongHelper
 
         // Return the last approximation even if the method did not converge
         return x;
+    }
+
+    public static InputBinding GetBindingMask(ControlScheme controlScheme)
+    {
+        InputBinding binding = new();
+        switch (controlScheme)
+        {
+            case ControlScheme.Keyboard:
+            case ControlScheme.KeyboardSpecial:
+                binding.groups = "Keyboard";
+                break;
+            case ControlScheme.Switch:
+                binding.groups = "Switch";
+                break;
+        }
+        return binding;
     }
 }

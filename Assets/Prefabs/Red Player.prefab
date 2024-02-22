@@ -96,7 +96,7 @@ MonoBehaviour:
   cooldownTime: 5
   durationTime: 0
   hitModifier:
-    strength: 5
+    strength: 3
 --- !u!1001 &602749937043738078
 PrefabInstance:
   m_ObjectHideFlags: 0
