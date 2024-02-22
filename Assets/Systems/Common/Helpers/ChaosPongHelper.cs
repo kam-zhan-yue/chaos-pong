@@ -27,17 +27,18 @@ public static class ChaosPongHelper
             _ => TeamSide.None
         };
     }
-    
+
     /// <summary>
     /// 
     /// </summary>
     /// <param name="start">Position of the start</param>
     /// <param name="target">Position of the target</param>
     /// <param name="h">Desired max height of the projectile's trajectory</param>
+    /// <param name="acceleration">The acceleration acting on the projectile</param>
     /// <param name="launchVelocity">The required launch velocity to reach the target</param>
     /// <param name="maxSpeed">Max XZ-Speed for Smash</param>
     /// <returns></returns>
-    public static bool CalculateLaunchVelocity(Vector3 start, Vector3 target, float h, out Vector3 launchVelocity, float maxSpeed = 25f)
+    public static bool CalculateLaunchVelocity(Vector3 start, Vector3 target, float h, Vector3 acceleration, out Vector3 launchVelocity, float maxSpeed = 25f)
     {
         float height = h - start.y;
         float difference = target.y - start.y;
@@ -51,11 +52,16 @@ public static class ChaosPongHelper
         //If the height is under 0, then smash the ball with its max speed limit
         if (height < 0)
         {
-            launchVelocity = CalculateSmashVelocity(start, target, maxSpeed);
+            launchVelocity = CalculateSmashVelocity(start, target, acceleration, maxSpeed);
             return true;
         }
         
-        float gravity = Physics.gravity.magnitude * -1f;
+        float gravity = acceleration.y;
+        Debug.Log($"Using Gravity: {gravity}");
+        if (gravity < -15f)
+        {
+            
+        }
         float displacementY = target.y - start.y;
         Vector3 displacementXZ = new(target.x - start.x, 0f, target.z - start.z);
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2f * gravity * height);
@@ -64,7 +70,7 @@ public static class ChaosPongHelper
         return true;
     }
 
-    private static Vector3 CalculateSmashVelocity(Vector3 start, Vector3 target, float maxSpeed)
+    private static Vector3 CalculateSmashVelocity(Vector3 start, Vector3 target, Vector3 acceleration, float maxSpeed)
     {
         //Get the total elapsed time in the XZ direction
         Vector3 displacementXZ = new(target.x - start.x, 0f, target.z - start.z);
@@ -72,7 +78,7 @@ public static class ChaosPongHelper
         
         //Reverse calculate y-velocity from s = ut+1/2at^2
         float displacementY = target.y - start.y;
-        float gravity = Physics.gravity.magnitude * -1f;
+        float gravity = acceleration.y;
         float velocityY = displacementY / time - 0.5f * gravity * time;
         return new Vector3(displacementXZ.x / time, velocityY, displacementXZ.z / time);
     }

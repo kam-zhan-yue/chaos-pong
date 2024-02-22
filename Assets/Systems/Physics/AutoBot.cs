@@ -54,4 +54,9 @@ public class AutoBot : MonoBehaviour, IPaddle
     public void Return()
     {
     }
+
+    public void SetHitModifier(HitModifier modifier)
+    {
+        
+    }
 }

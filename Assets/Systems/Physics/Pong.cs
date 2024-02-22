@@ -16,6 +16,7 @@ public class Pong : MonoBehaviour
     
     //Private Variables
     private Vector3 _velocity;
+    private Vector3 _acceleration;
     private SphereCollider _sphereCollider;
     private LineRenderer _lineRenderer;
     private Rigidbody _rigidbody;
@@ -58,7 +59,12 @@ public class Pong : MonoBehaviour
     private void UpdatePosition()
     {
         _rigidbody.velocity = _velocity;
-        _velocity += Physics.gravity * Time.deltaTime;
+        _velocity += GetAcceleration() * Time.deltaTime;
+    }
+
+    private Vector3 GetAcceleration()
+    {
+        return _acceleration + Physics.gravity;
     }
     
     [Button]
@@ -84,7 +90,7 @@ public class Pong : MonoBehaviour
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             transform.position = finalPosition;
 
-            Vector3 finalVelocity = initial + Physics.gravity * time;
+            Vector3 finalVelocity = initial + GetAcceleration() * time;
             _velocity = GetBounceVelocity(finalVelocity);
 
             ITableService table = ServiceLocator.Instance.Get<ITableService>();
@@ -192,14 +198,13 @@ public class Pong : MonoBehaviour
     [Button]
     private float TimeToBounce(float u, float y, float targetHeight)
     {
-        float a = 0.5f * Physics.gravity.y;
+        float a = 0.5f * GetAcceleration().y;
         float b = u;
         float c = y - targetHeight;
         float discriminant = b * b - 4 * a * c;
         if (discriminant >= 0)
         {
             float squared = Mathf.Sqrt(discriminant);
-            //todo check whether can hit table. if not, then hit the ground instead
             float ans1 = (-b - squared) / (2 * a);
             float ans2 = (-b + squared) / (2 * a);
             float time = ans1 > ans2 ? ans1 : ans2;
@@ -258,7 +263,7 @@ public class Pong : MonoBehaviour
         //Find a point that can be served on
         Vector3 point = ServiceLocator.Instance.Get<ITableService>().GetServePoint(teamSide, transform.position);
         //Hit the ball to that point and pass in the next height
-        if (Launch(point, height, teamSide, true, out Vector3 velocity))
+        if (Launch(point, height, teamSide, null, true, out Vector3 velocity))
         {
             ApplyServe(velocity, ChaosPongHelper.SERVE_BOUNCE_HEIGHT, ChaosPongHelper.GetOppositeSide(teamSide));
         }
@@ -266,41 +271,45 @@ public class Pong : MonoBehaviour
         _pongState = PongState.Serving;
     }
 
-    public void Return(TeamSide teamSide, float height)
+    public void Return(TeamSide teamSide, float height, HitModifier hitModifier = null)
     {
         //Only return if the team has possession of the ball
         if (_possession == teamSide && _pongState == PongState.Returnable || _pongState == PongState.Idle)
         {
             TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
-            LaunchAtSide(height, opposite);
+            LaunchAtSide(height, opposite, hitModifier);
             _pongState = PongState.Returning;
         }
     }
 
     private Vector3 SimulatePosition(Vector3 initial, Vector3 position, float time, out Vector3 velocity)
     {
-        velocity = initial + Physics.gravity * time;
-        return position + initial * time + 0.5f * Physics.gravity * time * time;
+        velocity = initial + GetAcceleration() * time;
+        return position + initial * time + 0.5f * GetAcceleration() * time * time;
     }
 
     [Button]
-    private void LaunchAtSide(float height, TeamSide teamSide, bool serve = false)
+    private void LaunchAtSide(float height, TeamSide teamSide, HitModifier hitModifier = null, bool serve = false)
     {
         Vector3 point = _tableService.GetRandomPoint(teamSide);
-        Launch(point, height, teamSide, serve);
+        Launch(point, height, teamSide, hitModifier, serve);
     }
 
-    private void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, bool serve = false)
+    private void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, HitModifier hitModifier = null, bool serve = false)
     {
-        if (Launch(target, height, teamSide, serve, out Vector3 velocity))
+        if (Launch(target, height, teamSide, hitModifier, serve, out Vector3 velocity))
         {
             ApplyVelocity(velocity);
         }
     }
 
-    private bool Launch(Vector3 target, float height, TeamSide teamSide, bool serve, out Vector3 velocity)
+    private bool Launch(Vector3 target, float height, TeamSide teamSide, HitModifier hitModifier, bool serve, out Vector3 velocity)
     {
-        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, out Vector3 launchVelocity))
+        HitModifier modifier = hitModifier;
+        if (hitModifier == null)
+            modifier = new HitModifier();
+        _acceleration = modifier.ModifyAcceleration(GetAcceleration());
+        if (ChaosPongHelper.CalculateLaunchVelocity(transform.position, target, height, GetAcceleration(), out Vector3 launchVelocity))
         {
             HitInfo hitInfo = new(serve, transform.position, launchVelocity, teamSide);
             _possession = teamSide;

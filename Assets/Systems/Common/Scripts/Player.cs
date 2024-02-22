@@ -15,6 +15,8 @@ public class Player : Character
     private PlayerControls _playerControls;
     private PlayerState _state = PlayerState.Idle;
 
+    public IPaddle Paddle => _paddle;
+
     protected override void Awake()
     {
         base.Awake();

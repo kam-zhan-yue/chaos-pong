@@ -13,6 +13,7 @@ public class Paddle : MonoBehaviour, IPaddle
     private readonly Collider[] _pongHits = new Collider[10];
     private Pong _pong;
     private TeamSide _teamSide;
+    private HitModifier _hitModifier;
 
     private void Awake()
     {
@@ -43,8 +44,14 @@ public class Paddle : MonoBehaviour, IPaddle
     {
         if (TryGetPong(out Pong pong))
         {
-            pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT);
+            pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT, _hitModifier);
+            _hitModifier = new HitModifier();
         }
+    }
+
+    public void SetHitModifier(HitModifier modifier)
+    {
+        _hitModifier = modifier;
     }
 
     private bool TryGetPong(out Pong pong)

@@ -7,4 +7,5 @@ public interface IPaddle
     public void Toss();
     public void Serve();
     public void Return();
+    public void SetHitModifier(HitModifier modifier);
 }
