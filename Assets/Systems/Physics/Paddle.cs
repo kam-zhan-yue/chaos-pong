@@ -1,9 +1,5 @@
 using System;
-using ChaosPong.Common;
-using Cysharp.Threading.Tasks;
-using Sirenix.OdinInspector;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class Paddle : MonoBehaviour, IPaddle
 {

@@ -1,9 +1,7 @@
-using System;
-using ChaosPong.Common;
+using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
 using SuperMaxim.Messaging;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.SceneManagement;
 
 public class ChaosPongManager : MonoBehaviour, IGameManager

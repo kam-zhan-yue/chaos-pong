@@ -20,7 +20,7 @@ public abstract class Ability : MonoBehaviour
         if(CanActivate())
         {
             Timing.KillCoroutines(_castRoutine);
-            _castRoutine = Timing.RunCoroutine(CastRoutine().CancelWith(gameObject));
+            _castRoutine = Timing.RunCoroutine(CastRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
         }
     }
 
@@ -35,7 +35,7 @@ public abstract class Ability : MonoBehaviour
         _casting = true;
         yield return Timing.WaitForSeconds(castTime);
         _casting = false;
-        Timing.RunCoroutine(ActivateRoutine().CancelWith(gameObject));
+        Timing.RunCoroutine(ActivateRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
     }
 
     private IEnumerator<float> ActivateRoutine()
@@ -45,13 +45,14 @@ public abstract class Ability : MonoBehaviour
         Activate();
         yield return Timing.WaitForSeconds(durationTime);
         _active = false;
+        Debug.Log("Deactivate!");
         Deactivate();
-        Timing.RunCoroutine(CooldownRoutine().CancelWith(gameObject));
+        Timing.RunCoroutine(CooldownRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
     }
 
     private IEnumerator<float> CooldownRoutine()
     {
-        Debug.Log("Cooldown!");
+        Debug.Log($"Cooldown! {cooldownTime}");
         _cooldown = true;
         yield return Timing.WaitForSeconds(cooldownTime);
         _cooldown = false;

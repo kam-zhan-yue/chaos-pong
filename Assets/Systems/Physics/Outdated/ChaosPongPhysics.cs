@@ -1,10 +1,9 @@
 using System.Collections.Generic;
-using ChaosPong.Common;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.Serialization;
 
-public class ChaosPongPhysics : MonoBehaviour, IPhysicsService 
+public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
 {
     [SerializeField] private Ball ballPrefab;
     [SerializeField] private LineRenderer line;
@@ -22,19 +21,21 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
     {
         ServiceLocator.Instance.Register<IPhysicsService>(this);
     }
-    
+
     private void Start()
     {
         CreatePhysicsScene();
         CreateGhostBall();
     }
 
-    private void CreatePhysicsScene() 
+    private void CreatePhysicsScene()
     {
-        _simulationScene = SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
+        _simulationScene =
+            SceneManager.CreateScene("Simulation", new CreateSceneParameters(LocalPhysicsMode.Physics3D));
         _physicsScene = _simulationScene.GetPhysicsScene();
 
-        foreach (Transform obj in obstaclesParent) {
+        foreach (Transform obj in obstaclesParent)
+        {
             GameObject ghostObj = Instantiate(obj.gameObject, obj.position, obj.rotation);
             if (ghostObj.TryGetComponent(out Renderer render))
                 render.enabled = false;
@@ -62,16 +63,17 @@ public class ChaosPongPhysics : MonoBehaviour, IPhysicsService
     public void Projection(Vector3 position, Vector3 velocity, TeamSide side = TeamSide.None)
     {
         _ghostBall.transform.position = position;
-        
+
         _ghostBall.Serve(velocity, true);
 
         line.positionCount = frameIterations;
 
-        for (int i = 0; i < frameIterations; ++i) {
+        for (int i = 0; i < frameIterations; ++i)
+        {
             _physicsScene.Simulate(Time.fixedDeltaTime);
             line.SetPosition(i, _ghostBall.transform.position);
         }
-        
+
         line.colorGradient = _ghostBall.Valid ? validLine : invalidLine;
         //move the ghost object back to the start
     }

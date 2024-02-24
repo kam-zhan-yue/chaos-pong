@@ -19,6 +19,16 @@ public static class ChaosPongHelper
         return swap ? GetOppositeSide(starting) : starting;
     }
 
+    public static int GetTeamLayer(TeamSide teamSide)
+    {
+        return teamSide switch
+        {
+            TeamSide.Blue => LayerMask.NameToLayer("BlueTeam"),
+            TeamSide.Red => LayerMask.NameToLayer("RedTeam"),
+            _ => LayerMask.NameToLayer("Default")
+        };
+    }
+
     public static TeamSide GetOppositeSide(TeamSide teamSide)
     {
         return teamSide switch

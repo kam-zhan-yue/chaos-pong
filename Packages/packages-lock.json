@@ -21,7 +21,7 @@
       "depth": 0,
       "source": "git",
       "dependencies": {},
-      "hash": "7ccc1d32f94f83f4959b22ade603eff8c5363233"
+      "hash": "53bd103e8027300e38f96d5c8ca3af4abc76c1e0"
     },
     "com.unity-atoms.fiber": {
       "version": "https://github.com/kure-developers/fiber.git?path=/Assets/Fiber",

@@ -1,3 +1,4 @@
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public interface ITableService : IGameService

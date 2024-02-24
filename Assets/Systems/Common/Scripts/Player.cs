@@ -1,7 +1,5 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+using Cinemachine;
+using Kuroneko.UtilityDelivery;
 using UnityEngine.InputSystem;
 
 public class Player : Character
@@ -32,6 +30,7 @@ public class Player : Character
         base.Init(info);
         InitControls();
         _paddle.Init(playerInfo.teamSide);
+        gameObject.SetLayerRecursively(ChaosPongHelper.GetTeamLayer(playerInfo.teamSide));
     }
 
     private void InitControls()
