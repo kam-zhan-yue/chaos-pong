@@ -10,6 +10,7 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] private float cooldownTime;
     [SerializeField] private float durationTime;
 
+    private float _cooldownTimer;
     private bool _cooldown = false;
     private bool _active = false;
     private bool _casting = false;
@@ -23,6 +24,9 @@ public abstract class Ability : MonoBehaviour
             _castRoutine = Timing.RunCoroutine(CastRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
         }
     }
+
+    public bool Interactive() => CanActivate();
+    public float Cooldown() => _cooldownTimer;
 
     protected virtual bool CanActivate()
     {

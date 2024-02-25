@@ -13,8 +13,8 @@ public class GameState
     public TeamSide Possession { get; private set; }
     public TeamSide StartingSide { get; private set; }
     public int Round { get; private set; }
-    public Signal<int> blue = new Signal<int>(0);
-    public Signal<int> red = new Signal<int>(0);
+    private Signal<int> _blue = new Signal<int>(0);
+    private Signal<int> _red = new Signal<int>(0);
 
     public GameState(TeamSide startingSide)
     {
@@ -22,10 +22,10 @@ public class GameState
         Round = 1;
 
         Debug.Log("Set Game State Signals");
-        blue.Value = 0;
-        red.Value = 0;
-        SignalManager.BluePoints.UpdateDeps(blue);
-        SignalManager.RedPoints.UpdateDeps(red);
+        _blue.Value = 0;
+        _red.Value = 0;
+        SignalManager.BluePoints.UpdateDeps(_blue);
+        SignalManager.RedPoints.UpdateDeps(_red);
     }
 
     public void Hit(TeamSide teamSide)
@@ -35,11 +35,11 @@ public class GameState
 
     public void RedPoint()
     {
-        red.Value++;
+        _red.Value++;
     }
 
     public void BluePoint()
     {
-        blue.Value++;
+        _blue.Value++;
     }
 }

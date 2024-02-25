@@ -15,6 +15,8 @@ public class Player : Character
 
     public IPaddle Paddle => _paddle;
 
+    private PlayerSignal _playerSignal = new();
+
     protected override void Awake()
     {
         base.Awake();
@@ -31,6 +33,21 @@ public class Player : Character
         InitControls();
         _paddle.Init(playerInfo.teamSide);
         gameObject.SetLayerRecursively(ChaosPongHelper.GetTeamLayer(playerInfo.teamSide));
+        AddSignal();
+    }
+
+    private void Update()
+    {
+        _playerSignal.primarySignal.Update(_abilityPrimary);
+        _playerSignal.secondarySignal.Update(_abilitySecondary);
+        _playerSignal.specialSignal.Update(_abilitySpecial);
+    }
+
+    private void AddSignal()
+    {
+        PlayerComputedSignal playerComputedSignal = new PlayerComputedSignal();
+        playerComputedSignal.UpdateDeps(_playerSignal);
+        SignalManager.PlayerDictionary.Add(playerInfo.identifier, playerComputedSignal);
     }
 
     private void InitControls()

@@ -16,7 +16,7 @@ public class FireFeet : Ability, IAbilityPrimary
     {
         ProcessInput();
     }
-    
+
     protected override void Activate()
     {
         _movement.ModifySpeed(speedModifier);
