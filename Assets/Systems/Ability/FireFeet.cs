@@ -12,6 +12,7 @@ public class FireFeet : Ability, IAbilityPrimary
     {
         _movement = GetComponentInParent<IMovement>();
     }
+    
     public void Activate(InputAction.CallbackContext callbackContext)
     {
         ProcessInput();

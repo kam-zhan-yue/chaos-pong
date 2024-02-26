@@ -1,6 +1,6 @@
 public class PlayerSignal
 {
-    public AbilitySignal primarySignal = new();
-    public AbilitySignal secondarySignal = new();
-    public AbilitySignal specialSignal = new();
+    public readonly AbilitySignal primarySignal = new();
+    public readonly AbilitySignal secondarySignal = new();
+    public readonly AbilitySignal specialSignal = new();
 }

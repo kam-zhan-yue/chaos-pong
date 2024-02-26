@@ -20,22 +20,25 @@ public class ScoreController : MonoBehaviour, IScoreService
 
     private void Start()
     {
-        Debug.Log("ScoreController Subscribe");
         Messenger.Default.Subscribe<ScorePayload>(OnScore);
-        SignalSubscribtionManager manager = new();
-        manager.Subscribe(SignalManager.BluePoints, OnBluePointsChanged);
-        manager.Subscribe(SignalManager.RedPoints, OnRedPointsChanged);
-        manager.Initialize();
     }
 
-    private void OnBluePointsChanged(int current)
+    public void StartGame(GameState gameState)
     {
-        Debug.Log($"Blue Points: {current}");
+        _started = true;
+        _gameState = gameState;
+        _gameState.BluePoints.Subscribe(OnBluePointsChanged);
+        _gameState.RedPoints.Subscribe(OnRedPointsChanged);
+    }
+    
+    private void OnBluePointsChanged(int prev, int curr)
+    {
+        // Debug.Log($"Blue Points: {current}");
     }
 
-    private void OnRedPointsChanged(int current)
+    private void OnRedPointsChanged(int prev, int curr)
     {
-        Debug.Log($"Red Points: {current}");
+        // Debug.Log($"Red Points: {current}");
     }
 
     private void OnScore(ScorePayload payload)
@@ -46,12 +49,6 @@ public class ScoreController : MonoBehaviour, IScoreService
         else if (payload.TeamSide == TeamSide.Red)
             _gameState.RedPoint();
         Messenger.Default.Publish(new EventPayload(GameEvent.StartRound));
-    }
-
-    public void StartGame(GameState gameState)
-    {
-        _started = true;
-        _gameState = gameState;
     }
 
     private void OnHit(HitInfo hitInfo)

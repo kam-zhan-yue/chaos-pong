@@ -22,6 +22,22 @@ public class Team
         return count;
     }
 
+    public List<Player> Players
+    {
+        get
+        {
+            List<Player> players = new();
+            for (int i = 0; i < _characters.Count; ++i)
+            {
+                if (_characters[i].GetType() == typeof(Player))
+                {
+                    players.Add((Player)_characters[i]);
+                }
+            }
+            return players;
+        }
+    }
+
     public Team(TeamSide teamSide)
     {
         side = teamSide;

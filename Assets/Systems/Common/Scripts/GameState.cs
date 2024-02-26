@@ -12,20 +12,23 @@ public class GameState
     private int _maxRally;
     public TeamSide Possession { get; private set; }
     public TeamSide StartingSide { get; private set; }
+    public Team RedTeam { get; private set; }
+    public Team BlueTeam { get; private set; }
     public int Round { get; private set; }
-    private Signal<int> _blue = new Signal<int>(0);
-    private Signal<int> _red = new Signal<int>(0);
+    public Signal<int> BluePoints { get; set; } = new Signal<int>();
+    public Signal<int> RedPoints { get; set; } = new Signal<int>();
 
-    public GameState(TeamSide startingSide)
+    public GameState(TeamSide startingSide, Team redTeam,Team blueTeam)
     {
+        //Initialise Team Values
         StartingSide = startingSide;
         Round = 1;
+        RedTeam = redTeam;
+        BlueTeam = blueTeam;
 
-        Debug.Log("Set Game State Signals");
-        _blue.Value = 0;
-        _red.Value = 0;
-        SignalManager.BluePoints.UpdateDeps(_blue);
-        SignalManager.RedPoints.UpdateDeps(_red);
+        //Initialise Signal Values
+        BluePoints.Value = 0;
+        RedPoints.Value = 0;
     }
 
     public void Hit(TeamSide teamSide)
@@ -35,11 +38,21 @@ public class GameState
 
     public void RedPoint()
     {
-        _red.Value++;
+        RedPoints.Value++;
     }
 
     public void BluePoint()
     {
-        _blue.Value++;
+        BluePoints.Value++;
+    }
+
+    public Team GetTeam(TeamSide teamSide)
+    {
+        return teamSide switch
+        {
+            TeamSide.Red => RedTeam,
+            TeamSide.Blue => BlueTeam,
+            _ => new(TeamSide.None)
+        };
     }
 }

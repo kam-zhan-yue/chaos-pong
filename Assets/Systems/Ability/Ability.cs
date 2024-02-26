@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using DG.Tweening;
+using Kuroneko.UtilityDelivery;
 using MEC;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -11,10 +13,17 @@ public abstract class Ability : MonoBehaviour
     [SerializeField] private float durationTime;
 
     private float _cooldownTimer;
+    private float _durationTimer;
     private bool _cooldown = false;
     private bool _active = false;
     private bool _casting = false;
     private CoroutineHandle _castRoutine;
+
+    public void Init(PlayerInfo info)
+    {
+        gameObject.SetLayerRecursively(ChaosPongHelper.GetTeamLayer(info.teamSide));
+        Debug.Log($"Duration: {durationTime} Cooldown: {cooldownTime}");
+    }
 
     protected void ProcessInput()
     {
@@ -25,8 +34,10 @@ public abstract class Ability : MonoBehaviour
         }
     }
 
-    public bool Interactive() => CanActivate();
-    public float Cooldown() => _cooldownTimer;
+    public AbilityInfo GetInfo()
+    {
+        return new AbilityInfo(CanActivate(), _durationTimer, _cooldownTimer, durationTime, cooldownTime);
+    }
 
     protected virtual bool CanActivate()
     {
@@ -35,7 +46,6 @@ public abstract class Ability : MonoBehaviour
 
     private IEnumerator<float> CastRoutine()
     {
-        Debug.Log("Casting!");
         _casting = true;
         yield return Timing.WaitForSeconds(castTime);
         _casting = false;
@@ -44,23 +54,37 @@ public abstract class Ability : MonoBehaviour
 
     private IEnumerator<float> ActivateRoutine()
     {
-        Debug.Log("Activating!");
         _active = true;
         Activate();
+        DurationTimer();
         yield return Timing.WaitForSeconds(durationTime);
         _active = false;
-        Debug.Log("Deactivate!");
         Deactivate();
         Timing.RunCoroutine(CooldownRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
     }
 
     private IEnumerator<float> CooldownRoutine()
     {
-        Debug.Log($"Cooldown! {cooldownTime}");
+        // Debug.Log($"Cooldown! {cooldownTime}");
         _cooldown = true;
+        CountdownTimer();
         yield return Timing.WaitForSeconds(cooldownTime);
         _cooldown = false;
-        Debug.Log("Cooldown Ended!");
+        // Debug.Log("Cooldown Ended!");
+    }
+
+    private void CountdownTimer()
+    {
+        _cooldownTimer = cooldownTime;
+        DOTween.To(() => _cooldownTimer, x => _cooldownTimer = x, 0f, cooldownTime)
+            .SetUpdate(UpdateType.Normal, true);
+    }
+
+    private void DurationTimer()
+    {
+        _durationTimer = durationTime;
+        DOTween.To(() => _durationTimer, x => _durationTimer = x, 0f, durationTime)
+            .SetUpdate(UpdateType.Normal, true);
     }
     
     protected abstract void Activate();

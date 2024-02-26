@@ -1,5 +1,6 @@
 using Cinemachine;
 using Kuroneko.UtilityDelivery;
+using SuperMaxim.Messaging;
 using UnityEngine.InputSystem;
 
 public class Player : Character
@@ -15,7 +16,7 @@ public class Player : Character
 
     public IPaddle Paddle => _paddle;
 
-    private PlayerSignal _playerSignal = new();
+    public PlayerSignal PlayerSignal { get; } = new();
 
     protected override void Awake()
     {
@@ -32,22 +33,26 @@ public class Player : Character
         base.Init(info);
         InitControls();
         _paddle.Init(playerInfo.teamSide);
-        gameObject.SetLayerRecursively(ChaosPongHelper.GetTeamLayer(playerInfo.teamSide));
-        AddSignal();
+        _abilityPrimary?.Init(playerInfo);
+        _abilitySecondary?.Init(playerInfo);
+        _abilitySpecial?.Init(playerInfo);
+        Payload();
     }
 
     private void Update()
     {
-        _playerSignal.primarySignal.Update(_abilityPrimary);
-        _playerSignal.secondarySignal.Update(_abilitySecondary);
-        _playerSignal.specialSignal.Update(_abilitySpecial);
+        PlayerSignal.primarySignal.Update(_abilityPrimary);
+        PlayerSignal.secondarySignal.Update(_abilitySecondary);
+        PlayerSignal.specialSignal.Update(_abilitySpecial);
     }
 
-    private void AddSignal()
+    private void Payload()
     {
-        PlayerComputedSignal playerComputedSignal = new PlayerComputedSignal();
-        playerComputedSignal.UpdateDeps(_playerSignal);
-        SignalManager.PlayerDictionary.Add(playerInfo.identifier, playerComputedSignal);
+        PlayerPayload payload = new PlayerPayload
+        {
+            PlayerInfo = playerInfo
+        };
+        Messenger.Default.Publish(payload);
     }
 
     private void InitControls()

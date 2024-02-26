@@ -14,8 +14,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     private readonly Team _redTeam = new(TeamSide.Red);
     private readonly Team _blueTeam = new(TeamSide.Blue);
 
-    private GameState _gameState;
-    private int TotalPoints => SignalManager.BluePoints.Get() + SignalManager.RedPoints.Get();
+    private GameState _gameState = new(TeamSide.None, new Team(TeamSide.Red), new Team(TeamSide.Blue));
+    private int TotalPoints => _gameState.RedPoints.Value + _gameState.BluePoints.Value;
 
     private void Awake()
     {
@@ -41,9 +41,11 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     [Button]
     public void StartGame()
     {
-        _gameState = new GameState(gameSettings.servingSide);
+        _gameState = new GameState(gameSettings.servingSide, _redTeam, _blueTeam);
         IScoreService scoreService = ServiceLocator.Instance.Get<IScoreService>();
         scoreService.StartGame(_gameState);
+        IConnectorService connectorService = ServiceLocator.Instance.Get<IConnectorService>();
+        connectorService?.StartGame(_gameState);
         SetServe();
     }
 
@@ -129,6 +131,6 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     [Button]
     private void PrintPoints()
     {
-        Debug.Log($"Red: {SignalManager.RedPoints.Get()} Blue: {SignalManager.BluePoints.Get()}");
+        Debug.Log($"Red: {_gameState.RedPoints} Blue: {_gameState.BluePoints}");
     }
 }

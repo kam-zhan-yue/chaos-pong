@@ -12,16 +12,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674f92074361043e4aae69e55e1aff9b, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  startGameImmediately: 0
+  startGameImmediately: 1
   redTeamInfo:
     players:
-    - id: Player 1
+    - identifier: 0
+      id: Player 1
       type: 0
       controlScheme: 0
       teamSide: 1
   blueTeamInfo:
     players:
-    - id: Player 2
+    - identifier: 1
+      id: Player 2
       type: 0
       controlScheme: 3
       teamSide: 2
