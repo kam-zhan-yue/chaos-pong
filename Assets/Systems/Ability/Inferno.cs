@@ -1,22 +1,35 @@
 using System.Collections;
 using System.Collections.Generic;
 using Cinemachine;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Inferno : Ability, IAbilitySpecial
 {
+    [SerializeField] private HitModifier hitModifier = new();
+    private const float HEIGHT_OFFSET = 0.1f;
+    private IPaddle _paddle;
+    private IPongFinder _pongFinder;
+    private Player _player;
     private Animator _animator;
     private CinemachineStateDrivenCamera _stateCamera;
     private static readonly int ActivateTrigger = Animator.StringToHash("Activate");
 
-    
-    
     private void Awake()
     {
+        Transform parent = transform.parent;
+        _player = GetComponentInParent<Player>();
+        _paddle = parent.GetComponentInChildren<IPaddle>();
+        _pongFinder = parent.GetComponentInChildren<IPongFinder>();
         _animator = GetComponent<Animator>();
         _stateCamera = GetComponentInChildren<CinemachineStateDrivenCamera>();
         _stateCamera.enabled = false;
+    }
+    
+    protected override bool Interactive()
+    {
+        return base.CanActivate() && _paddle.CanHit() && _player.State == PlayerState.Returning;
     }
 
     protected override void Activate()
@@ -24,7 +37,37 @@ public class Inferno : Ability, IAbilitySpecial
         Time.timeScale = 0f;
         _stateCamera.enabled = true;
         _animator.SetTrigger(ActivateTrigger);
+        
+        //Get the player's team side
+        TeamSide playerSide = _player.TeamSide;
+        //Get the opposing team
+        TeamSide opposingSide = ChaosPongHelper.GetOppositeSide(playerSide);
+        //Find a random player from the opposing team
+        //Fire the pong at them at an extremely high speed with very little gravity
+        IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
+        switch (opposingSide)
+        {
+            case TeamSide.Blue:
+                FireAtTeam(gameManager.GetBlueTeam());
+                break;
+            case TeamSide.Red:
+                FireAtTeam(gameManager.GetRedTeam());
+                break;
+        }
     }
+
+    private void FireAtTeam(Team team)
+    {
+        if (team.Characters.Count == 0)
+            return;
+        Character random = team.Characters.GetRandomElement();
+
+        if (_pongFinder.TryGetPong(out Pong pong))
+        {
+            pong.Launch(random.transform.position, pong.transform.position.y + HEIGHT_OFFSET, hitModifier: hitModifier);
+        }
+    }
+
 
     protected override void Deactivate()
     {

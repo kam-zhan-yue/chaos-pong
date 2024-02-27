@@ -54,6 +54,23 @@ public class Pong : MonoBehaviour
         }
     }
 
+    private void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.TryGetComponent(out Character character))
+        {
+            Debug.Log($"Collided with {character.gameObject.name}");
+        }
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.gameObject.TryGetComponent(out Character character))
+        {
+            Debug.Log($"Triggered with {character.gameObject.name}");
+            // Score();
+        }
+    }
+
     private void UpdatePosition()
     {
         _rigidbody.velocity = _velocity;
@@ -81,9 +98,9 @@ public class Pong : MonoBehaviour
         Vector3 position = transform.position;
         //Calculate the time to bounce (returns time to table or ground)
         float time = TimeToBounce(initial, position);
-        DrawLineRenderer(initial, position, 10);
         if (time > 0f)
         {
+            DrawLineRenderer(initial, position, 10);
             yield return Timing.WaitForSeconds(time);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             transform.position = finalPosition;
@@ -155,7 +172,16 @@ public class Pong : MonoBehaviour
         }
         
         //If bounced on none, award points accordingly
-        if (_pongState != PongState.Scored && bounceInfo.teamSide == TeamSide.None)
+        if(bounceInfo.teamSide == TeamSide.None)
+        {
+            Score();
+        }
+        onBounce?.Invoke(bounceInfo);
+    }
+
+    private void Score()
+    {
+        if (_pongState != PongState.Scored)
         {
             if (_possession == TeamSide.Blue)
             {
@@ -166,7 +192,6 @@ public class Pong : MonoBehaviour
                 PublishScore(TeamSide.Blue);
             }
         }
-        onBounce?.Invoke(bounceInfo);
     }
 
     private void PublishScore(TeamSide teamSide)
@@ -269,10 +294,15 @@ public class Pong : MonoBehaviour
         _pongState = PongState.Serving;
     }
 
+    public bool CanReturn(TeamSide teamSide)
+    {
+        return _possession == teamSide && _pongState == PongState.Returnable || _pongState == PongState.Idle;
+    }
+
     public void Return(TeamSide teamSide, float height, HitModifier hitModifier = null)
     {
         //Only return if the team has possession of the ball
-        if (_possession == teamSide && _pongState == PongState.Returnable || _pongState == PongState.Idle)
+        if (CanReturn(teamSide))
         {
             TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
             LaunchAtSide(height, opposite, hitModifier);
@@ -293,7 +323,7 @@ public class Pong : MonoBehaviour
         Launch(point, height, teamSide, hitModifier, serve);
     }
 
-    private void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, HitModifier hitModifier = null, bool serve = false)
+    public void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, HitModifier hitModifier = null, bool serve = false)
     {
         if (Launch(target, height, teamSide, hitModifier, serve, out Vector3 velocity))
         {
@@ -317,6 +347,7 @@ public class Pong : MonoBehaviour
             return true;
         }
 
+        _acceleration = Vector3.zero;
         velocity = launchVelocity;
         return false;
     }

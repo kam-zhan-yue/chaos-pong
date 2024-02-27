@@ -23,8 +23,8 @@ MonoBehaviour:
   blueTeamInfo:
     players:
     - identifier: 1
-      id: Player 2
-      type: 0
+      id: Trainer
+      type: 2
       controlScheme: 3
       teamSide: 2
   robotPrefab: {fileID: 0}

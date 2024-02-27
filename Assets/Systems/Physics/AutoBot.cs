@@ -55,6 +55,11 @@ public class AutoBot : MonoBehaviour, IPaddle
     {
     }
 
+    public bool CanHit()
+    {
+        return true;
+    }
+
     public void SetHitModifier(HitModifier modifier)
     {
         

@@ -42,8 +42,6 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     public void StartGame()
     {
         _gameState = new GameState(gameSettings.servingSide, _redTeam, _blueTeam);
-        IScoreService scoreService = ServiceLocator.Instance.Get<IScoreService>();
-        scoreService.StartGame(_gameState);
         IConnectorService connectorService = ServiceLocator.Instance.Get<IConnectorService>();
         connectorService?.StartGame(_gameState);
         SetServe();

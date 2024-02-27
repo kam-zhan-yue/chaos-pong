@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class Paddle : MonoBehaviour, IPaddle
+public class Paddle : MonoBehaviour, IPaddle, IPongFinder
 {
     [SerializeField] private Pong pongPrefab;
     [SerializeField] private Transform serveTransform;
@@ -50,7 +50,12 @@ public class Paddle : MonoBehaviour, IPaddle
         _hitModifier = modifier;
     }
 
-    private bool TryGetPong(out Pong pong)
+    public bool CanHit()
+    {
+        return TryGetPong(out Pong pong) && pong.CanReturn(_teamSide);
+    }
+
+    public bool TryGetPong(out Pong pong)
     {
         for (int i = 0; i < _colliders.Length; ++i)
         {

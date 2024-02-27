@@ -4,6 +4,7 @@ using UnityEngine;
 [Serializable]
 public class HitModifier
 {
+    public bool deadly = false;
     public float strength = 0f;
 
     public Vector3 ModifyAcceleration(Vector3 acceleration)

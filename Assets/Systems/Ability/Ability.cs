@@ -27,7 +27,7 @@ public abstract class Ability : MonoBehaviour
 
     protected void ProcessInput()
     {
-        if(CanActivate())
+        if(Interactive())
         {
             Timing.KillCoroutines(_castRoutine);
             _castRoutine = Timing.RunCoroutine(CastRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
@@ -36,8 +36,10 @@ public abstract class Ability : MonoBehaviour
 
     public AbilityInfo GetInfo()
     {
-        return new AbilityInfo(CanActivate(), _durationTimer, _cooldownTimer, durationTime, cooldownTime);
+        return new AbilityInfo(Interactive(), _durationTimer, _cooldownTimer, durationTime, cooldownTime);
     }
+
+    protected abstract bool Interactive();
 
     protected virtual bool CanActivate()
     {

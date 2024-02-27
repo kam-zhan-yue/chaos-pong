@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -68,11 +69,6 @@ public static class ChaosPongHelper
         }
         
         float gravity = acceleration.y;
-        Debug.Log($"Using Gravity: {gravity}");
-        if (gravity < -15f)
-        {
-            
-        }
         float displacementY = target.y - start.y;
         Vector3 displacementXZ = new(target.x - start.x, 0f, target.z - start.z);
         Vector3 velocityY = Vector3.up * Mathf.Sqrt(-2f * gravity * height);
@@ -200,4 +196,29 @@ public static class ChaosPongHelper
         }
         return binding;
     }
+    
+    //Helper functions to be moved to UtilityDelivery
+    #region UtilityDelivery
+    
+    /// <summary>
+    /// Gets a random element from a list
+    /// </summary>
+    /// <param name="list"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static T GetRandomElement<T>(this List<T> list)
+    {
+        if (list == null || list.Count == 0)
+        {
+            Debug.LogError("The list is null or empty!");
+            return default(T);
+        }
+
+        // Get a random index within the range of the list
+        int randomIndex = Random.Range(0, list.Count);
+
+        // Return the element at the random index
+        return list[randomIndex];
+    }
+    #endregion
 }

@@ -7,6 +7,7 @@ public abstract class Character : MonoBehaviour
 {
     private IPlayer[] _playerComponents = Array.Empty<IPlayer>();
     protected PlayerInfo playerInfo = new();
+    public TeamSide TeamSide => playerInfo.teamSide;
 
     protected virtual void Awake()
     {

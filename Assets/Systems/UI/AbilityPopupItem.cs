@@ -41,18 +41,19 @@ public class AbilityPopupItem : MonoBehaviour
         bool hasCooldown = curr > 0f;
         cooldownText.gameObject.SetActiveFast(hasCooldown);
         cooldownText.SetText(curr.ToString("F2"));
+        if(hasCooldown)
+            SetFill(0f);
     }
 
     private void OnInteractiveChanged(bool prev, bool curr)
     {
         //If interactive, set fill to 1 and hide cooldown
-        Debug.Log($"Interactive Changing: {curr}");
         if (curr)
         {
             SetFill(1f);
             cooldownText.gameObject.SetActiveFast(false);
         }
-        else
+        else if(_signal.duration.Value <= 0f)
         {
             SetFill(0f);
         }
@@ -60,7 +61,6 @@ public class AbilityPopupItem : MonoBehaviour
 
     private void SetFill(float amount)
     {
-        Debug.Log($"Set Fill {amount}");
         fillImage.fillAmount = amount;
     }
 }

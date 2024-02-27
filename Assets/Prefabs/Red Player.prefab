@@ -49,6 +49,8 @@ MonoBehaviour:
   castTime: 0
   cooldownTime: 0
   durationTime: 1
+  hitModifier:
+    strength: 5
 --- !u!95 &453423117240874870
 Animator:
   serializedVersion: 5
