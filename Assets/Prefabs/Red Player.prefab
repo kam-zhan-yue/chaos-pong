@@ -50,7 +50,10 @@ MonoBehaviour:
   cooldownTime: 0
   durationTime: 1
   hitModifier:
+    deadly: 0
     strength: 5
+  pongModifier:
+    deadly: 1
 --- !u!95 &453423117240874870
 Animator:
   serializedVersion: 5
@@ -340,6 +343,7 @@ MonoBehaviour:
   cooldownTime: 5
   durationTime: 0
   hitModifier:
+    deadly: 0
     strength: 3
 --- !u!1 &8445388445019256751
 GameObject:

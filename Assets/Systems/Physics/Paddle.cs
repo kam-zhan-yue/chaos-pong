@@ -40,6 +40,7 @@ public class Paddle : MonoBehaviour, IPaddle, IPongFinder
     {
         if (TryGetPong(out Pong pong))
         {
+            pong.ResetModifier();
             pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT, _hitModifier);
             _hitModifier = new HitModifier();
         }

@@ -8,6 +8,7 @@ using UnityEngine.InputSystem;
 public class Inferno : Ability, IAbilitySpecial
 {
     [SerializeField] private HitModifier hitModifier = new();
+    [SerializeField] private PongModifier pongModifier = new();
     private const float HEIGHT_OFFSET = 0.1f;
     private IPaddle _paddle;
     private IPongFinder _pongFinder;
@@ -64,10 +65,11 @@ public class Inferno : Ability, IAbilitySpecial
 
         if (_pongFinder.TryGetPong(out Pong pong))
         {
-            pong.Launch(random.transform.position, pong.transform.position.y + HEIGHT_OFFSET, hitModifier: hitModifier);
+            pong.SetModifier(pongModifier);
+            pong.Launch(random.transform.position, pong.transform.position.y + HEIGHT_OFFSET, teamSide:_player.TeamSide, hitModifier: hitModifier);
         }
     }
-
+    
 
     protected override void Deactivate()
     {

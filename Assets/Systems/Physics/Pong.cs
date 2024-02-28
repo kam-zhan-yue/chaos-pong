@@ -35,6 +35,7 @@ public class Pong : MonoBehaviour
     private readonly List<HitInfo> _hits = new List<HitInfo>();
 
     private PongState _pongState = PongState.Idle;
+    private PongModifier _pongModifier = new();
 
     private void Awake()
     {
@@ -59,6 +60,11 @@ public class Pong : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Character character))
         {
             Debug.Log($"Collided with {character.gameObject.name}");
+            if (_pongModifier.deadly)
+            {
+                //Score for the player hitting
+                Score(_possession);
+            }
         }
     }
 
@@ -67,8 +73,24 @@ public class Pong : MonoBehaviour
         if (other.gameObject.TryGetComponent(out Character character))
         {
             Debug.Log($"Triggered with {character.gameObject.name}");
-            // Score();
+            if (_pongModifier.deadly)
+            {
+                //Score for the player hitting
+                Score(_possession);
+            }
         }
+    }
+
+    public void ResetModifier()
+    {
+        Debug.Log("Reset Modifier");
+        _pongModifier.Reset();
+    }
+
+    public void SetModifier(PongModifier pongModifier)
+    {
+        Debug.Log($"Set Modifier Deadly: {pongModifier.deadly}");
+        _pongModifier = pongModifier;
     }
 
     private void UpdatePosition()
@@ -174,28 +196,23 @@ public class Pong : MonoBehaviour
         //If bounced on none, award points accordingly
         if(bounceInfo.teamSide == TeamSide.None)
         {
-            Score();
+            //Give the  point to the team who is unable to hit the ball
+            Score(ChaosPongHelper.GetOppositeSide(_possession));
         }
         onBounce?.Invoke(bounceInfo);
     }
 
-    private void Score()
+    private void Score(TeamSide teamSide)
     {
         if (_pongState != PongState.Scored)
         {
-            if (_possession == TeamSide.Blue)
-            {
-                PublishScore(TeamSide.Red);
-            }
-            else if (_possession == TeamSide.Red)
-            {
-                PublishScore(TeamSide.Blue);
-            }
+            PublishScore(teamSide);
         }
     }
 
     private void PublishScore(TeamSide teamSide)
     {
+        Debug.Log($"Publish Score {teamSide}");
         ScorePayload payload = new ScorePayload
         {
             TeamSide = teamSide

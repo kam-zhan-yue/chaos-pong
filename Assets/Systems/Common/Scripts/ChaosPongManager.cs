@@ -30,6 +30,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
             StartGame();
         }
         Messenger.Default.Subscribe<EventPayload>(OnEvent);
+        Messenger.Default.Subscribe<ScorePayload>(OnScore);
     }
 
     public void SetupGame()
@@ -124,6 +125,16 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         {
             SetServe();
         }
+    }
+    
+    private void OnScore(ScorePayload payload)
+    {
+        // Debug.Log($"Point for: {payload.TeamSide}");
+        if (payload.TeamSide == TeamSide.Blue)
+            _gameState.BluePoint();
+        else if (payload.TeamSide == TeamSide.Red)
+            _gameState.RedPoint();
+        Messenger.Default.Publish(new EventPayload(GameEvent.StartRound));
     }
 
     [Button]
