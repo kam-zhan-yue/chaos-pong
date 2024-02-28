@@ -12,7 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 674f92074361043e4aae69e55e1aff9b, type: 3}
   m_Name: Game Settings
   m_EditorClassIdentifier: 
-  startGameImmediately: 1
+  setupGameImmediately: 0
+  startGameImmediately: 0
   redTeamInfo:
     players:
     - identifier: 0
@@ -24,7 +25,7 @@ MonoBehaviour:
     players:
     - identifier: 1
       id: Trainer
-      type: 2
+      type: 0
       controlScheme: 3
       teamSide: 2
   robotPrefab: {fileID: 0}

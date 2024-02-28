@@ -11,7 +11,7 @@ public class TeamPopup : Popup
 
     protected override void InitPopup()
     {
-        abilityPopup.gameObject.SetActiveFast(false);
+        abilityPopup.HidePopup();
     }
 
     public void StartGame(GameState gameState, TeamSide teamSide)
@@ -20,7 +20,7 @@ public class TeamPopup : Popup
         List<Player> players = team.Players;
         if (players.Count > 0)
         {
-            abilityPopup.gameObject.SetActiveFast(true);
+            abilityPopup.ShowPopup();
             abilityPopup.Init(players[0]);
         }
     }

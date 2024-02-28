@@ -7,7 +7,14 @@ using UnityEngine;
 public class TeamCamera : MonoBehaviour
 {
     public Camera teamCamera;
-    public CinemachineTargetGroup targetGroup;
+    private CinemachineVirtualCamera _virtualCamera;
+    private CinemachineTargetGroup _targetGroup;
+
+    private void Awake()
+    {
+        _virtualCamera = GetComponentInChildren<CinemachineVirtualCamera>();
+        _targetGroup = GetComponentInChildren<CinemachineTargetGroup>();
+    }
 
     public void Init(Team team, Rect cameraRect)
     {
@@ -23,7 +30,7 @@ public class TeamCamera : MonoBehaviour
             Type type = team.Characters[i].GetType();
             if (type == typeof(Player))
             {
-                targetGroup.AddMember(team.Characters[i].transform, 1, 2);
+                _targetGroup.AddMember(team.Characters[i].transform, 1, 2);
             }
         }
     }
@@ -31,5 +38,7 @@ public class TeamCamera : MonoBehaviour
     public void SetActive(bool active)
     {
         teamCamera.enabled = active;
+        _virtualCamera.enabled = active;
+        _targetGroup.enabled = active;
     }
 }

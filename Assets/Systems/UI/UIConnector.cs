@@ -13,6 +13,13 @@ public class UIConnector : MonoBehaviour, IConnectorService
     private void Awake()
     {
         ServiceLocator.Instance.Register<IConnectorService>(this);
+        scorePopup.HidePopup();
+        redTeamPopup.HidePopup();
+        blueTeamPopup.HidePopup();
+    }
+
+    public void ShowSetup()
+    {
     }
 
     public void StartGame(GameState gameState)

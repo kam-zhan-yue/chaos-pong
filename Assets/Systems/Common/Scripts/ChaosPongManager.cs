@@ -24,19 +24,36 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     private void Start()
     {
-        SetupGame();
-        if (gameSettings.startGameImmediately)
+        if (gameSettings.setupGameImmediately)
         {
-            StartGame();
+            SetupGame();
+            if (gameSettings.startGameImmediately)
+            {
+                StartGame();
+            }
+        }
+        else
+        {
+            ShowSetup();
         }
         Messenger.Default.Subscribe<EventPayload>(OnEvent);
         Messenger.Default.Subscribe<ScorePayload>(OnScore);
+    }
+
+    private void ShowSetup()
+    {
+        IConnectorService connectorService = ServiceLocator.Instance.Get<IConnectorService>();
+        connectorService?.ShowSetup();
+        ICameraService cameraService = ServiceLocator.Instance.Get<ICameraService>();
+        cameraService?.ShowSetup();
     }
 
     public void SetupGame()
     {
         SpawnTeam(true);
         SpawnTeam(false);
+        ICameraService cameraService = ServiceLocator.Instance.Get<ICameraService>();
+        cameraService?.SetupGame();
     }
     
     [Button]
