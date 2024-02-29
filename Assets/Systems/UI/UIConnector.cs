@@ -6,10 +6,12 @@ using UnityEngine;
 
 public class UIConnector : MonoBehaviour, IConnectorService
 {
+    [Header("Popups")]
     [SerializeField] private ScorePopup scorePopup;
     [SerializeField] private TeamPopup redTeamPopup;
     [SerializeField] private TeamPopup blueTeamPopup;
-
+    [SerializeField] private SetupPopup setupPopup;
+    
     private void Awake()
     {
         ServiceLocator.Instance.Register<IConnectorService>(this);
@@ -20,6 +22,7 @@ public class UIConnector : MonoBehaviour, IConnectorService
 
     public void ShowSetup()
     {
+        setupPopup.ShowPopup();
     }
 
     public void StartGame(GameState gameState)

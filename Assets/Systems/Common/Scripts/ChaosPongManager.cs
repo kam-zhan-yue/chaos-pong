@@ -40,6 +40,8 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         Messenger.Default.Subscribe<ScorePayload>(OnScore);
     }
 
+    public GameSettings GameSettings() => gameSettings;
+
     private void ShowSetup()
     {
         IConnectorService connectorService = ServiceLocator.Instance.Get<IConnectorService>();
