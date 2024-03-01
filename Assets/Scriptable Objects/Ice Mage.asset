@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -228747253, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
-  m_Name: OdinModuleConfig
+  m_Script: {fileID: 11500000, guid: fe60ab110e2d949e09c8d7b869de22f7, type: 3}
+  m_Name: Ice Mage
   m_EditorClassIdentifier: 
-  configurations:
-  - ID: Unity.Mathematics
-    ActivationSettings: 0
-  ModuleTogglingSettings: 1
-  ModuleUpdateSettings: 1
+  thumbnail: {fileID: -523986309386003332, guid: e07a2c4034681455f9de9a1b747e8991, type: 3}
+  outline: {r: 0.56078434, g: 0.6901961, b: 0.99215686, a: 1}

@@ -84,13 +84,13 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
             Character character;
             switch (teamInfo.players[i].type)
             {
-                case PlayerType.Player:
+                case CharacterType.Player:
                     character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
                     break;
-                case PlayerType.Robot:
+                case CharacterType.Robot:
                     character = Instantiate(gameSettings.robotPrefab, spawn);
                     break;
-                case PlayerType.Trainer:
+                case CharacterType.Trainer:
                     character = Instantiate(gameSettings.trainerPrefab, spawn);
                     break;
                 default:

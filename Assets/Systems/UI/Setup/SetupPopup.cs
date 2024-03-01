@@ -26,5 +26,7 @@ public class SetupPopup : Popup
         Debug.Log($"Single Player is {singlePlayer}");
         modeSelectPopup.HidePopup();
         playerSelectPopup.ShowPopup();
+        playerSelectPopup.Init(singlePlayer);
+        
     }
 }

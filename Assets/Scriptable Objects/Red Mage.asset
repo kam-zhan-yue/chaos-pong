@@ -9,11 +9,8 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: -228747253, guid: a4865f1ab4504ed8a368670db22f409c, type: 3}
-  m_Name: OdinModuleConfig
+  m_Script: {fileID: 11500000, guid: fe60ab110e2d949e09c8d7b869de22f7, type: 3}
+  m_Name: Red Mage
   m_EditorClassIdentifier: 
-  configurations:
-  - ID: Unity.Mathematics
-    ActivationSettings: 0
-  ModuleTogglingSettings: 1
-  ModuleUpdateSettings: 1
+  thumbnail: {fileID: 2076909086412868055, guid: 41e2706e0cfe54a6c904263397c13598, type: 3}
+  outline: {r: 0.9490196, g: 0.31764707, b: 0.2784314, a: 1}
