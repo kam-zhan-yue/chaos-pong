@@ -13,6 +13,7 @@ public static class ChaosPongHelper
     public const float SERVE_BOUNCE_HEIGHT = 2.5f;
     public const float RETURN_HEIGHT = 2f;
     public const float SMASH_HEIGHT = 2f;
+    public const float CONTROLLER_NAVIGATE_THRESHOLD = 0.5f;
 
     public static TeamSide GetServer(int points, TeamSide starting)
     {

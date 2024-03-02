@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UIDelivery;
 using UnityEngine;
@@ -27,6 +28,7 @@ public class SetupPopup : Popup
         modeSelectPopup.HidePopup();
         playerSelectPopup.ShowPopup();
         playerSelectPopup.Init(singlePlayer);
-        
+        SetupUI setup = await playerSelectPopup.GetFlow();
+        Debug.Log($"Setup is: {setup}");
     }
 }

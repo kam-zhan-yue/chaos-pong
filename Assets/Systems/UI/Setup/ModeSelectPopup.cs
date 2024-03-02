@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
@@ -43,11 +44,11 @@ public class ModeSelectPopup : Popup
     {
         Vector2 movementInput = callbackContext.ReadValue<Vector2>();
         float horizontal = movementInput.x;
-        if (horizontal > 0)
+        if (horizontal > ChaosPongHelper.CONTROLLER_NAVIGATE_THRESHOLD)
         {
             SelectTwoPlayer();
         }
-        else if (horizontal < 0)
+        else if (horizontal < -ChaosPongHelper.CONTROLLER_NAVIGATE_THRESHOLD)
         {
             SelectSinglePlayer();
         }
@@ -55,12 +56,16 @@ public class ModeSelectPopup : Popup
 
     private void SelectSinglePlayer()
     {
+        if (_singlePlayer)
+            return;
         _singlePlayer = true;
         selectHolder.DOMove(singlePlayerSelection.transform.position, 0.15f).SetEase(Ease.InOutExpo);
     }
 
     private void SelectTwoPlayer()
     {
+        if (!_singlePlayer)
+            return;
         _singlePlayer = false;
         selectHolder.DOMove(twoPlayerSelection.transform.position, 0.15f).SetEase(Ease.InOutExpo);
     }
@@ -74,6 +79,11 @@ public class ModeSelectPopup : Popup
     public override void HidePopup()
     {
         base.HidePopup();
+        _playerControls.Dispose();
+    }
+
+    private void OnDestroy()
+    {
         _playerControls.Dispose();
     }
 }

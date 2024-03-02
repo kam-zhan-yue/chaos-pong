@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Kuroneko.UtilityDelivery;
@@ -14,14 +15,17 @@ public class PlayerSelectPopupItem : MonoBehaviour
     [SerializeField] private RectTransform joinHolder;
     [SerializeField] private RectTransform playerHolder;
     [SerializeField] private Image playerImage;
+    [SerializeField] private Image outline;
     [SerializeField] private TMP_Text joinButtonText;
 
     private PlayerSelectPopup _playerSelectPopup;
-    private PlayerUI _playerUI;
     private PlayerControls _playerControls;
-    private PlayerSelectState _state = PlayerSelectState.Idle;
+    private CharacterConfig _config;
+    public PlayerUI PlayerUI { get; private set; }
+    public PlayerSelectState State { get; private set; }= PlayerSelectState.Idle;
 
-    private enum PlayerSelectState
+    [Serializable]
+    public enum PlayerSelectState
     {
         Idle = 0,
         Selecting = 1,
@@ -30,8 +34,9 @@ public class PlayerSelectPopupItem : MonoBehaviour
 
     public void Init(PlayerSelectPopup playerSelectPopup, PlayerUI playerUI)
     {
+        outline.color = Color.white;
         _playerSelectPopup = playerSelectPopup;
-        _playerUI = playerUI;
+        PlayerUI = playerUI;
         SetupListeners();
         ShowJoin();
     }
@@ -39,7 +44,7 @@ public class PlayerSelectPopupItem : MonoBehaviour
     private void SetupListeners()
     {
         _playerControls = new PlayerControls();
-        _playerControls.bindingMask = ChaosPongHelper.GetBindingMask(_playerUI.controlScheme);
+        _playerControls.bindingMask = ChaosPongHelper.GetBindingMask(PlayerUI.controlScheme);
         _playerControls.UI.Select.performed += Select;
         _playerControls.UI.Deselect.performed += Deselect;
         _playerControls.UI.Navigate.performed += Navigate;
@@ -48,7 +53,7 @@ public class PlayerSelectPopupItem : MonoBehaviour
 
     private void Select(InputAction.CallbackContext callbackContext)
     {
-        switch (_state)
+        switch (State)
         {
             case PlayerSelectState.Idle:
                 ShowPlayer();
@@ -62,40 +67,45 @@ public class PlayerSelectPopupItem : MonoBehaviour
 
     private void Deselect(InputAction.CallbackContext callbackContext)
     {
-        switch (_state)
+        switch (State)
         {
             case PlayerSelectState.Selecting:
-                Deselect();
                 ShowJoin();
+                Deselect();
                 break;
             case PlayerSelectState.Ready:
                 ShowPlayer();
+                SelectExisting();
                 break;
         }
     }
 
     private void Deselect()
     {
-        _playerSelectPopup.Deselect(_playerUI);
+        _playerSelectPopup.Deselect(PlayerUI);
     }
     
     private void Navigate(InputAction.CallbackContext callbackContext)
     {
-        Vector2 movementInput = callbackContext.ReadValue<Vector2>();
-        float horizontal = movementInput.x;
-        if (horizontal > 0)
+        if (State == PlayerSelectState.Selecting)
         {
-            Select(true);
-        }
-        else if (horizontal < 0)
-        {
-            Select(false);
+            Vector2 movementInput = callbackContext.ReadValue<Vector2>();
+            float horizontal = movementInput.x;
+            Debug.Log(horizontal);
+            if (horizontal > ChaosPongHelper.CONTROLLER_NAVIGATE_THRESHOLD)
+            {
+                Select(true);
+            }
+            else if (horizontal < -ChaosPongHelper.CONTROLLER_NAVIGATE_THRESHOLD)
+            {
+                Select(false);
+            }
         }
     }
 
     private void Select(bool right)
     {
-        if (_playerSelectPopup.TrySelect(_playerUI, right, out CharacterConfig config))
+        if (_playerSelectPopup.TrySelect(PlayerUI, right, out CharacterConfig config))
         {
             UpdateConfig(config);
         }
@@ -103,15 +113,16 @@ public class PlayerSelectPopupItem : MonoBehaviour
 
     private void UpdateConfig(CharacterConfig config)
     {
-        playerImage.sprite = config.thumbnail;
+        _config = config;
+        playerImage.sprite = _config.thumbnail;
     }
     
     private void ShowJoin()
     {
-        _state = PlayerSelectState.Idle;
+        State = PlayerSelectState.Idle;
         joinHolder.gameObject.SetActiveFast(true);
         playerHolder.gameObject.SetActiveFast(false);
-        switch (_playerUI.controlScheme)
+        switch (PlayerUI.controlScheme)
         {
             case ControlScheme.Keyboard:
             case ControlScheme.KeyboardSpecial:
@@ -128,21 +139,37 @@ public class PlayerSelectPopupItem : MonoBehaviour
 
     private void ShowPlayer()
     {
-        _state = PlayerSelectState.Selecting;
+        State = PlayerSelectState.Selecting;
         joinHolder.gameObject.SetActiveFast(false);
         playerHolder.gameObject.SetActiveFast(true);
     }
     
     private void ChooseRandom()
     {
-        if (_playerSelectPopup.TrySelectRandom(_playerUI, out CharacterConfig config))
+        if (_playerSelectPopup.TrySelectRandom(PlayerUI, out CharacterConfig config))
         {
             UpdateConfig(config);
         }
     }
 
+    private void SelectExisting()
+    {
+        outline.color = Color.white;
+        _playerSelectPopup.Select(PlayerUI);
+    }
+
     private void ReadyUp()
     {
-        _state = PlayerSelectState.Ready;
+        State = PlayerSelectState.Ready;
+        _playerSelectPopup.ReadyUp(PlayerUI);
+        if (_config)
+        {
+            outline.color = _config.outline;
+        }
+    }
+
+    private void OnDestroy()
+    {
+        _playerControls?.Dispose();
     }
 }

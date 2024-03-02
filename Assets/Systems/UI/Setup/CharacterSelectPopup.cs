@@ -116,4 +116,22 @@ public class CharacterSelectPopup : Popup
             _popupItemList[index].Deselect();
         }
     }
+
+    public void Select(PlayerUI playerUI)
+    {
+        int index = GetIndex(playerUI);
+        if (index >= 0)
+        {
+            _popupItemList[index].Select(playerUI);
+        }
+    }
+
+    public void ReadyUp(PlayerUI playerUI)
+    {
+        int index = GetIndex(playerUI);
+        if (index >= 0)
+        {
+            _popupItemList[index].ReadyUp();
+        }
+    }
 }

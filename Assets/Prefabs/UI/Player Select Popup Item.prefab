@@ -93,6 +93,7 @@ MonoBehaviour:
   joinHolder: {fileID: 8602895004108369319}
   playerHolder: {fileID: 7460856606323870183}
   playerImage: {fileID: 2279684516344970089}
+  outline: {fileID: 461800777506246961}
   joinButtonText: {fileID: 4474043769927527236}
 --- !u!1 &887887095536267885
 GameObject:
