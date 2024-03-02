@@ -79,23 +79,30 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         Transform spawn = red ? redTeamSpawn : blueTeamSpawn;
         Team team = red ? _redTeam : _blueTeam;
         
-        for (int i = 0; i < teamInfo.players.Count; ++i)
+        for (int i = 0; i < teamInfo.players.Length; ++i)
         {
             Character character;
-            switch (teamInfo.players[i].type)
+            if (teamInfo.players[i].config != null && teamInfo.players[i].config.player != null)
             {
-                case CharacterType.Player:
-                    character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
-                    break;
-                case CharacterType.Robot:
-                    character = Instantiate(gameSettings.robotPrefab, spawn);
-                    break;
-                case CharacterType.Trainer:
-                    character = Instantiate(gameSettings.trainerPrefab, spawn);
-                    break;
-                default:
-                    character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
-                    break;
+                character = Instantiate(teamInfo.players[i].config.player, spawn);
+            }
+            else
+            {
+                switch (teamInfo.players[i].type)
+                {
+                    case CharacterType.Player:
+                        character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
+                        break;
+                    case CharacterType.Robot:
+                        character = Instantiate(gameSettings.robotPrefab, spawn);
+                        break;
+                    case CharacterType.Trainer:
+                        character = Instantiate(gameSettings.trainerPrefab, spawn);
+                        break;
+                    default:
+                        character = Instantiate(red ? gameSettings.redPlayerPrefab : gameSettings.bluePlayerPrefab, spawn);
+                        break;
+                }
             }
 
             teamInfo.players[i].teamSide = teamSide;

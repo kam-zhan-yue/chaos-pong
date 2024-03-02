@@ -51,12 +51,12 @@ public class CharacterSelectPopup : Popup
         }
     }
     
-    public bool TrySelect(PlayerUI playerUI, bool right, out CharacterConfig config)
+    public bool TrySelect(PlayerInfo playerInfo, bool right, out CharacterConfig config)
     {
-        int index = GetIndex(playerUI);
+        int index = GetIndex(playerInfo);
         if (index < 0)
         {
-            return TrySelectRandom(playerUI, out config);
+            return TrySelectRandom(playerInfo, out config);
         }
 
         for (int i = 0; i < _popupItemList.Count; ++i)
@@ -65,7 +65,7 @@ public class CharacterSelectPopup : Popup
             if (!_popupItemList[next].Selected)
             {
                 _popupItemList[index].Deselect();
-                _popupItemList[next].Select(playerUI);
+                _popupItemList[next].Select(playerInfo);
                 config = _popupItemList[next].Config;
                 return true;
             }
@@ -75,7 +75,7 @@ public class CharacterSelectPopup : Popup
         return false;
     }
 
-    public bool TrySelectRandom(PlayerUI playerUI, out CharacterConfig config)
+    public bool TrySelectRandom(PlayerInfo playerInfo, out CharacterConfig config)
     {
         List<CharacterSelectPopupItem> unselectedCharacters = new();
         for (int i = 0; i < _popupItemList.Count; ++i)
@@ -90,16 +90,16 @@ public class CharacterSelectPopup : Popup
             return false;
         }
         CharacterSelectPopupItem randomItem = unselectedCharacters.GetRandomElement();
-        randomItem.Select(playerUI);
+        randomItem.Select(playerInfo);
         config = randomItem.Config;
         return true;
     }
 
-    private int GetIndex(PlayerUI playerUI)
+    private int GetIndex(PlayerInfo playerInfo)
     {
         for (int i = 0; i < _popupItemList.Count; ++i)
         {
-            if (_popupItemList[i].PlayerUI.id == playerUI.id)
+            if (_popupItemList[i].PlayerInfo.identifier == playerInfo.identifier)
             {
                 return i;
             }
@@ -108,27 +108,27 @@ public class CharacterSelectPopup : Popup
         return -1;
     }
 
-    public void Deselect(PlayerUI playerUI)
+    public void Deselect(PlayerInfo playerInfo)
     {
-        int index = GetIndex(playerUI);
+        int index = GetIndex(playerInfo);
         if (index >= 0)
         {
             _popupItemList[index].Deselect();
         }
     }
 
-    public void Select(PlayerUI playerUI)
+    public void Select(PlayerInfo playerInfo)
     {
-        int index = GetIndex(playerUI);
+        int index = GetIndex(playerInfo);
         if (index >= 0)
         {
-            _popupItemList[index].Select(playerUI);
+            _popupItemList[index].Select(playerInfo);
         }
     }
 
-    public void ReadyUp(PlayerUI playerUI)
+    public void ReadyUp(PlayerInfo playerInfo)
     {
-        int index = GetIndex(playerUI);
+        int index = GetIndex(playerInfo);
         if (index >= 0)
         {
             _popupItemList[index].ReadyUp();

@@ -16,7 +16,7 @@ public class CharacterSelectPopupItem : MonoBehaviour
     public bool Selected { get; private set; } = false;
     public bool Ready { get; private set; } = false;
     public CharacterConfig Config { get; private set; }
-    public PlayerUI PlayerUI { get; private set; } = new PlayerUI(0, ControlScheme.Keyboard, CharacterType.Player);
+    public PlayerInfo PlayerInfo { get; private set; } = new();
 
     public void Init(CharacterConfig config)
     {
@@ -30,19 +30,19 @@ public class CharacterSelectPopupItem : MonoBehaviour
         Ready = false;
     }
 
-    public void Select(PlayerUI playerUI)
+    public void Select(PlayerInfo playerInfo)
     {
-        PlayerUI = playerUI;
+        PlayerInfo = playerInfo;
         Selected = true;
         Ready = false;
         presetController.SetPresetById("select");
-        playerText.SetText($"P{playerUI.id}");
+        playerText.SetText($"P{playerInfo.id}");
         thumbnail.color = Color.white;
     }
 
     public void Deselect()
     {
-        PlayerUI = new PlayerUI(0, ControlScheme.Keyboard, CharacterType.Player);
+        PlayerInfo = new();
         Selected = false;
         Ready = false;
         presetController.SetPresetById("deselect");

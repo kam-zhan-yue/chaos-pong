@@ -1,9 +1,9 @@
 public struct SetupUI
 {
-    public TeamUI redTeam;
-    public TeamUI blueTeam;
+    public readonly TeamInfo redTeam;
+    public readonly TeamInfo blueTeam;
 
-    public SetupUI(TeamUI redTeam, TeamUI blueTeam)
+    public SetupUI(TeamInfo redTeam, TeamInfo blueTeam)
     {
         this.redTeam = redTeam;
         this.blueTeam = blueTeam;

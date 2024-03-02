@@ -37,8 +37,8 @@ public class SetupPopup : Popup
 
     private void StartGame(SetupUI setupUI)
     {
-        gameSettings.redTeamInfo = setupUI.redTeam.GetTeamInfo(TeamSide.Red);
-        gameSettings.blueTeamInfo = setupUI.blueTeam.GetTeamInfo(TeamSide.Blue);
+        gameSettings.redTeamInfo = setupUI.redTeam;
+        gameSettings.blueTeamInfo = setupUI.blueTeam;
         IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
         gameManager?.SetupGame();
         gameManager?.StartGame();

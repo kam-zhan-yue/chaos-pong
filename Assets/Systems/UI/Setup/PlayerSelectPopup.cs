@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
@@ -30,14 +31,14 @@ public class PlayerSelectPopup : Popup
         {
             keyboardSelectPopup.gameObject.SetActiveFast(true);
             controllerSelectPopup.gameObject.SetActiveFast(false);
-            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Player));
+            keyboardSelectPopup.Init(this, new PlayerInfo(1, ControlScheme.Keyboard, CharacterType.Player));
         }
         else
         {
             keyboardSelectPopup.gameObject.SetActiveFast(true);
             controllerSelectPopup.gameObject.SetActiveFast(true);
-            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Player));
-            controllerSelectPopup.Init(this, new PlayerUI(2, ControlScheme.Switch, CharacterType.Player));
+            keyboardSelectPopup.Init(this, new PlayerInfo(1, ControlScheme.Keyboard, CharacterType.Player));
+            controllerSelectPopup.Init(this, new PlayerInfo(2, ControlScheme.Switch, CharacterType.Player));
         }
 
         CheckPreset();
@@ -50,31 +51,31 @@ public class PlayerSelectPopup : Popup
         return await _flow.Task;
     }
 
-    public bool TrySelect(PlayerUI playerUI, bool right, out CharacterConfig config)
+    public bool TrySelect(PlayerInfo playerInfo, bool right, out CharacterConfig config)
     {
-        return characterSelectPopup.TrySelect(playerUI, right, out config);
+        return characterSelectPopup.TrySelect(playerInfo, right, out config);
     }
 
-    public bool TrySelectRandom(PlayerUI playerUI, out CharacterConfig config)
+    public bool TrySelectRandom(PlayerInfo playerInfo, out CharacterConfig config)
     {
-        return characterSelectPopup.TrySelectRandom(playerUI, out config);
+        return characterSelectPopup.TrySelectRandom(playerInfo, out config);
     }
 
-    public void Deselect(PlayerUI playerUI)
+    public void Deselect(PlayerInfo playerInfo)
     {
-        characterSelectPopup.Deselect(playerUI);
+        characterSelectPopup.Deselect(playerInfo);
         CheckPreset();
     }
 
-    public void Select(PlayerUI playerUI)
+    public void Select(PlayerInfo playerInfo)
     {
-        characterSelectPopup.Select(playerUI);
+        characterSelectPopup.Select(playerInfo);
         CheckPreset();
     }
 
-    public void ReadyUp(PlayerUI playerUI)
+    public void ReadyUp(PlayerInfo playerInfo)
     {
-        characterSelectPopup.ReadyUp(playerUI);
+        characterSelectPopup.ReadyUp(playerInfo);
         CheckPreset();
     }
 
@@ -126,15 +127,15 @@ public class PlayerSelectPopup : Popup
     {
         if (_singlePlayer)
         {
-            TeamUI redTeam = new TeamUI(keyboardSelectPopup.PlayerUI);
-            TeamUI blueTeam = new TeamUI(new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Trainer));
+            TeamInfo redTeam = new TeamInfo(keyboardSelectPopup.PlayerInfo);
+            TeamInfo blueTeam = new TeamInfo(new PlayerInfo(1, ControlScheme.Keyboard, CharacterType.Trainer));
 
             return new SetupUI(redTeam, blueTeam);
         }
         else
         {
-            TeamUI redTeam = new TeamUI(keyboardSelectPopup.PlayerUI);
-            TeamUI blueTeam = new TeamUI(controllerSelectPopup.PlayerUI);
+            TeamInfo redTeam = new TeamInfo(keyboardSelectPopup.PlayerInfo);
+            TeamInfo blueTeam = new TeamInfo(controllerSelectPopup.PlayerInfo);
             return new SetupUI(redTeam, blueTeam);
         }
     }
@@ -147,5 +148,11 @@ public class PlayerSelectPopup : Popup
     private void DisableControls()
     {
         _playerControls.Disable();
+    }
+
+    private void OnDestroy()
+    {
+        if(_playerControls != null)
+            _playerControls.Dispose();
     }
 }
