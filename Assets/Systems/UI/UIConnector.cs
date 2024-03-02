@@ -27,6 +27,9 @@ public class UIConnector : MonoBehaviour, IConnectorService
 
     public void StartGame(GameState gameState)
     {
+        scorePopup.ShowPopup();
+        redTeamPopup.ShowPopup();
+        blueTeamPopup.ShowPopup();
         scorePopup.StartGame(gameState);
         redTeamPopup.StartGame(gameState, TeamSide.Red);
         blueTeamPopup.StartGame(gameState, TeamSide.Blue);

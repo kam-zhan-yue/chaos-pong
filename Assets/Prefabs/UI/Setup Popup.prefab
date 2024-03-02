@@ -54,6 +54,7 @@ MonoBehaviour:
   showSequence: {fileID: 0}
   hideSequence: {fileID: 0}
   resetSequence: {fileID: 0}
+  gameSettings: {fileID: 11400000, guid: 374b351ac9695440b9a6e3651aa7437d, type: 2}
   modeSelectPopup: {fileID: 3990327537935332278}
   playerSelectPopup: {fileID: 1893637377779206709}
 --- !u!1 &7919745463184900436

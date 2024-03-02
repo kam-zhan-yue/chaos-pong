@@ -30,14 +30,14 @@ public class PlayerSelectPopup : Popup
         {
             keyboardSelectPopup.gameObject.SetActiveFast(true);
             controllerSelectPopup.gameObject.SetActiveFast(false);
-            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard));
+            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Player));
         }
         else
         {
             keyboardSelectPopup.gameObject.SetActiveFast(true);
             controllerSelectPopup.gameObject.SetActiveFast(true);
-            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard));
-            controllerSelectPopup.Init(this, new PlayerUI(2, ControlScheme.Switch));
+            keyboardSelectPopup.Init(this, new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Player));
+            controllerSelectPopup.Init(this, new PlayerUI(2, ControlScheme.Switch, CharacterType.Player));
         }
 
         CheckPreset();
@@ -127,8 +127,9 @@ public class PlayerSelectPopup : Popup
         if (_singlePlayer)
         {
             TeamUI redTeam = new TeamUI(keyboardSelectPopup.PlayerUI);
+            TeamUI blueTeam = new TeamUI(new PlayerUI(1, ControlScheme.Keyboard, CharacterType.Trainer));
 
-            return new SetupUI(redTeam, new TeamUI());
+            return new SetupUI(redTeam, blueTeam);
         }
         else
         {

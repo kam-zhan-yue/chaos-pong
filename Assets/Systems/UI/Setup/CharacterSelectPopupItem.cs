@@ -16,7 +16,7 @@ public class CharacterSelectPopupItem : MonoBehaviour
     public bool Selected { get; private set; } = false;
     public bool Ready { get; private set; } = false;
     public CharacterConfig Config { get; private set; }
-    public PlayerUI PlayerUI { get; private set; } = new PlayerUI(0, ControlScheme.Keyboard);
+    public PlayerUI PlayerUI { get; private set; } = new PlayerUI(0, ControlScheme.Keyboard, CharacterType.Player);
 
     public void Init(CharacterConfig config)
     {
@@ -42,7 +42,7 @@ public class CharacterSelectPopupItem : MonoBehaviour
 
     public void Deselect()
     {
-        PlayerUI = new PlayerUI(0, ControlScheme.Keyboard);
+        PlayerUI = new PlayerUI(0, ControlScheme.Keyboard, CharacterType.Player);
         Selected = false;
         Ready = false;
         presetController.SetPresetById("deselect");

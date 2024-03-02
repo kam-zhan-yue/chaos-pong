@@ -3,10 +3,12 @@ using System.Collections.Generic;
 using System.Threading;
 using Cysharp.Threading.Tasks;
 using Kuroneko.UIDelivery;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class SetupPopup : Popup
 {
+    [SerializeField] private GameSettings gameSettings;
     [SerializeField] private ModeSelectPopup modeSelectPopup;
     [SerializeField] private PlayerSelectPopup playerSelectPopup;
     
@@ -30,5 +32,16 @@ public class SetupPopup : Popup
         playerSelectPopup.Init(singlePlayer);
         SetupUI setup = await playerSelectPopup.GetFlow();
         Debug.Log($"Setup is: {setup}");
+        StartGame(setup);
+    }
+
+    private void StartGame(SetupUI setupUI)
+    {
+        gameSettings.redTeamInfo = setupUI.redTeam.GetTeamInfo(TeamSide.Red);
+        gameSettings.blueTeamInfo = setupUI.blueTeam.GetTeamInfo(TeamSide.Blue);
+        IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
+        gameManager?.SetupGame();
+        gameManager?.StartGame();
+        HidePopup();
     }
 }

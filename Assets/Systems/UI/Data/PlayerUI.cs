@@ -2,17 +2,31 @@ public struct PlayerUI
 {
     public readonly int id;
     public readonly ControlScheme controlScheme;
-    public CharacterConfig config;
+    private readonly CharacterType _type;
+    private Wizard _wizard;
 
-    public PlayerUI(int id, ControlScheme controlScheme)
+    public PlayerUI(int id, ControlScheme controlScheme, CharacterType type)
     {
         this.id = id;
         this.controlScheme = controlScheme;
-        config = null;
+        this._type = type;
+        _wizard = Wizard.None;
     }
 
-    public void SetConfig(CharacterConfig config)
+    public void SetWizard(Wizard wizardType)
     {
-        this.config = config;
+        this._wizard = wizardType;
+    }
+
+    public PlayerInfo GetPlayerInfo(TeamSide teamSide)
+    {
+        PlayerInfo playerInfo = new();
+        playerInfo.identifier = id;
+        playerInfo.id = $"{_type} {id}";
+        playerInfo.type = _type;
+        playerInfo.wizard = _wizard;
+        playerInfo.controlScheme = controlScheme;
+        playerInfo.teamSide = teamSide;
+        return playerInfo;
     }
 }

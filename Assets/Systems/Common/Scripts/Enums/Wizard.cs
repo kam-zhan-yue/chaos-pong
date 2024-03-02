@@ -1,5 +1,6 @@
 public enum Wizard
 {
-    Fire = 0,
-    Ice = 1
+    None = 0,
+    Fire = 1,
+    Ice = 2
 }

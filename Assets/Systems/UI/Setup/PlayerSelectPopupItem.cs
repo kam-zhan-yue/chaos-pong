@@ -91,7 +91,6 @@ public class PlayerSelectPopupItem : MonoBehaviour
         {
             Vector2 movementInput = callbackContext.ReadValue<Vector2>();
             float horizontal = movementInput.x;
-            Debug.Log(horizontal);
             if (horizontal > ChaosPongHelper.CONTROLLER_NAVIGATE_THRESHOLD)
             {
                 Select(true);
@@ -115,6 +114,7 @@ public class PlayerSelectPopupItem : MonoBehaviour
     {
         _config = config;
         playerImage.sprite = _config.thumbnail;
+        PlayerUI.SetWizard(config.wizard);
     }
     
     private void ShowJoin()

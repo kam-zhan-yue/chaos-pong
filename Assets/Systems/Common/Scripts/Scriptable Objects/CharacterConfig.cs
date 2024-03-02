@@ -4,6 +4,7 @@ using UnityEngine;
 public class CharacterConfig : ScriptableObject
 {
     public Player player;
+    public Wizard wizard;
     public Sprite thumbnail;
     public Color outline;
 }
