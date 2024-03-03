@@ -24,7 +24,9 @@ public abstract class Projectile : MonoBehaviour
     {
         get { return _tableService ??= ServiceLocator.Instance.Get<ITableService>(); }
     }
-
+    
+    //Protected Variables
+    protected float timeScale = 0.5f;
     protected float Radius { get; private set; }
     protected Vector3 velocity;
     protected Vector3 acceleration;
@@ -58,16 +60,28 @@ public abstract class Projectile : MonoBehaviour
             UpdatePosition();
         }
     }
+
+    public void SetTimeScale(float scale)
+    {
+        timeScale = scale;
+        Recalculate();
+    }
     
     private void UpdatePosition()
     {
-        Rigidbody.velocity = velocity;
-        velocity += GetAcceleration() * Time.deltaTime;
+        Vector3 adjustedVelocity = velocity * timeScale;
+        Rigidbody.velocity = adjustedVelocity;
+        velocity += GetAcceleration() * (Time.deltaTime * timeScale);
     }
     
     protected Vector3 GetAcceleration()
     {
         return acceleration + Physics.gravity;
+    }
+
+    private void Recalculate()
+    {
+        ApplyVelocity(velocity);
     }
     
     [Button]
@@ -90,7 +104,7 @@ public abstract class Projectile : MonoBehaviour
         if (time > 0f)
         {
             DrawLineRenderer(initial, position, 10);
-            yield return Timing.WaitForSeconds(time);
+            yield return Timing.WaitForSeconds(time / timeScale);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             transform.position = finalPosition; 
 

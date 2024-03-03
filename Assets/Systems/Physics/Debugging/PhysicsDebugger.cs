@@ -27,4 +27,15 @@ public class PhysicsDebugger : ScriptableObject
         pong.DebugHitInfo(hitInfo);
     }
 
+    [Button]
+    private void ChangeTimeScale(float timeScale)
+    {
+        Pong[] pongs = FindObjectsOfType<Pong>();
+        for (int i = 0; i < pongs.Length; ++i)
+        {
+            pongs[i].SetTimeScale(timeScale);
+        }
+        ChaosPongPhysics.timeScale = timeScale;
+    }
+
 }
