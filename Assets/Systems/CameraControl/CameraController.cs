@@ -1,9 +1,11 @@
+using Cinemachine;
 using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class CameraController : MonoBehaviour, ICameraService
 {
     public Camera genericCamera;
+    public CinemachineVirtualCamera genericVirtualCamera;
     public TeamCamera redTeam;
     public TeamCamera blueTeam;
     private readonly Rect _leftHalf = new (new Vector2(0f, 0f), new Vector2(0.5f, 1f));
@@ -18,6 +20,7 @@ public class CameraController : MonoBehaviour, ICameraService
     public void ShowSetup()
     {
         genericCamera.enabled = true;
+        genericVirtualCamera.enabled = true;
         redTeam.SetActive(false);
         blueTeam.SetActive(false);
     }
@@ -25,6 +28,7 @@ public class CameraController : MonoBehaviour, ICameraService
     public void SetupGame()
     {
         genericCamera.enabled = false;
+        genericVirtualCamera.enabled = false;
         redTeam.SetActive(true);
         blueTeam.SetActive(true);
         Setup();

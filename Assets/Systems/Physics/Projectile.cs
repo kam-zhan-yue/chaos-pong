@@ -13,10 +13,18 @@ public abstract class Projectile : MonoBehaviour
     //Constants
     private const float LINE_TIME_STEP = 0.01f;
     private const float BOUNCE_DECAY = 0.95f;
+ 
+    //Exposed Variables
+    [SerializeField] public bool bounceable = true;
     
     //Protected Variables
     protected Rigidbody Rigidbody { get; private set; }
-    protected ITableService TableService { get; private set; }
+
+    protected ITableService TableService
+    {
+        get { return _tableService ??= ServiceLocator.Instance.Get<ITableService>(); }
+    }
+
     protected float Radius { get; private set; }
     protected Vector3 velocity;
     protected Vector3 acceleration;
@@ -29,11 +37,11 @@ public abstract class Projectile : MonoBehaviour
     //Private Variables
     private SphereCollider _sphereCollider;
     private LineRenderer _lineRenderer;
+    private ITableService _tableService;
 
-    
     public static Action<BounceInfo> onBounce;
     public static Action<HitInfo> onHit;
-    
+
     private void Awake()
     {
         _sphereCollider = GetComponent<SphereCollider>();
@@ -41,11 +49,6 @@ public abstract class Projectile : MonoBehaviour
         Rigidbody = GetComponent<Rigidbody>();
         Radius = _sphereCollider.radius * transform.localScale.x;
         Rigidbody.isKinematic = true;
-    }
-
-    private void Start()
-    {
-        TableService = ServiceLocator.Instance.Get<ITableService>();
     }
 
     private void Update()
@@ -74,7 +77,8 @@ public abstract class Projectile : MonoBehaviour
         simulated = true;
         velocity = otherVelocity;
         Timing.KillCoroutines(bounceRoutine);
-        bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
+        if(bounceable)
+            bounceRoutine = Timing.RunCoroutine(Bounce().CancelWith(gameObject));
     }
 
     private IEnumerator<float> Bounce()
@@ -88,7 +92,7 @@ public abstract class Projectile : MonoBehaviour
             DrawLineRenderer(initial, position, 10);
             yield return Timing.WaitForSeconds(time);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
-            transform.position = finalPosition;
+            transform.position = finalPosition; 
 
             Vector3 finalVelocity = initial + GetAcceleration() * time;
             velocity = GetBounceVelocity(finalVelocity);
