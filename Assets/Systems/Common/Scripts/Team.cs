@@ -55,4 +55,12 @@ public class Team
             _characters[0].SetStart();
         }
     }
+
+    public void SetReturning()
+    {
+        for (int i = 0; i < _characters.Count; ++i)
+        {
+            _characters[i].SetState(CharacterState.Returning);
+        }
+    }
 }

@@ -22,7 +22,7 @@ public class FireFeet : Ability, IAbilityPrimary
 
     protected override bool Interactive()
     {
-        return base.CanActivate() && _player.State == PlayerState.Returning;
+        return base.CanActivate() && _player.State == CharacterState.Returning;
     }
 
     protected override void Activate()

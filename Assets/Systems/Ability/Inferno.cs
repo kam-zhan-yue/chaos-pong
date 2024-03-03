@@ -30,7 +30,7 @@ public class Inferno : Ability, IAbilitySpecial
     
     protected override bool Interactive()
     {
-        return base.CanActivate() && _paddle.CanHit() && _player.State == PlayerState.Returning;
+        return base.CanActivate() && _paddle.CanHit() && _player.State == CharacterState.Returning;
     }
 
     protected override void Activate()

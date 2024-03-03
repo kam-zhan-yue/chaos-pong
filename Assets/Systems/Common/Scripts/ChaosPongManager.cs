@@ -118,9 +118,11 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         {
             case TeamSide.Red:
                 _redTeam.SetServe();
+                _blueTeam.SetReturning();
                 break;
             case TeamSide.Blue:
                 _blueTeam.SetServe();
+                _redTeam.SetReturning();
                 break;
         }
     }

@@ -17,13 +17,15 @@ public class Snowball : Ability, IAbilityPrimary
     {
         _player = GetComponentInParent<Player>();
     }
+    
     public void Activate(InputAction.CallbackContext callbackContext)
     {
         ProcessInput();
     }
+    
     protected override bool Interactive()
     {
-        return base.CanActivate();
+        return base.CanActivate() && _player.State == CharacterState.Returning;
     }
 
     protected override void Activate()

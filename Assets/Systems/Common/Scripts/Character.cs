@@ -8,6 +8,7 @@ public abstract class Character : MonoBehaviour
     private IPlayer[] _playerComponents = Array.Empty<IPlayer>();
     protected PlayerInfo playerInfo = new();
     public TeamSide TeamSide => playerInfo.teamSide;
+    public CharacterState State { get; private set; } = CharacterState.Idle;
 
     protected virtual void Awake()
     {
@@ -28,6 +29,11 @@ public abstract class Character : MonoBehaviour
                 _playerComponents[i].InitPlayer(info);
             }
         }
+    }
+
+    public void SetState(CharacterState state)
+    {
+        State = state;
     }
     
     public abstract void SetStart();

@@ -1,4 +1,4 @@
-public enum PlayerState
+public enum CharacterState
 {
     Idle = 0,
     Starting = 1,

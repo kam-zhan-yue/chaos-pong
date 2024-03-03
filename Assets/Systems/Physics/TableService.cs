@@ -48,6 +48,24 @@ public class TableService : MonoBehaviour, ITableService
         return TeamSide.None;
     }
 
+    public Vector3 Center()
+    {
+        return transform.position;
+    }
+
+    public Vector3 TeamDirection(TeamSide teamSide)
+    {
+        switch (teamSide)
+        {
+            case TeamSide.Red:
+                return (GetRedCenter(GetBounds()) - Center()).normalized;
+            case TeamSide.Blue:
+                return (GetBlueCenter(GetBounds()) - Center()).normalized;
+            default:
+                return Center().normalized;
+        }
+    }
+
     public Vector3 GetRandomPoint(TeamSide teamSide)
     {
         Vector3 center = Vector3.zero;

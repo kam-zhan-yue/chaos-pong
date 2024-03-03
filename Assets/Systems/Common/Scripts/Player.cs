@@ -12,7 +12,6 @@ public class Player : Character
     private IAbilitySpecial _abilitySpecial;
 
     private PlayerControls _playerControls;
-    public PlayerState State { get; private set; } = PlayerState.Idle;
     public PlayerSignal PlayerSignal { get; } = new();
 
     protected override void Awake()
@@ -84,21 +83,21 @@ public class Player : Character
         switch (State)
         {
             //Do nothing
-            case PlayerState.Idle:
+            case CharacterState.Idle:
                 break;
             //Throw the pong into the air and wait for next input
-            case PlayerState.Starting:
+            case CharacterState.Starting:
                 _paddle.Toss();
-                State = PlayerState.Serving;
+                SetState(CharacterState.Serving);
                 break;
             //Serve the pong
-            case PlayerState.Serving:
+            case CharacterState.Serving:
                 _movement.SetActive(true);
                 _paddle.Serve();
-                State = PlayerState.Returning;
+                SetState(CharacterState.Returning);
                 break;
             //Return the pong
-            case PlayerState.Returning:
+            case CharacterState.Returning:
                 _paddle.Return();
                 break;
         }
@@ -107,7 +106,7 @@ public class Player : Character
     public override void SetStart()
     {
         _paddle.SetStart();
-        State = PlayerState.Starting;
+        SetState(CharacterState.Starting);
         _movement.SetActive(false);
     }
     
