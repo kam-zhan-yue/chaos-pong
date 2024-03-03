@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 3431645331881303303}
   - component: {fileID: 5268079616146256436}
   - component: {fileID: 768796462427403704}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: Pong
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 078aa98f6d1614ba6b51e664f4a92a05, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  initialVelocity: {x: 10, y: 0, z: 0.5}
+  bounceable: 1
 --- !u!120 &768796462427403704
 LineRenderer:
   serializedVersion: 2

@@ -17,7 +17,7 @@ public class SnowballProjectile : Projectile
         }
 
         //Destroy if not pong
-        if (!other.gameObject.TryGetComponent(out Pong pong))
+        if (!other.gameObject.TryGetComponent(out Pong _))
         {
             Destroy(gameObject);
         }
