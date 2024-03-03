@@ -72,7 +72,6 @@ public class ModeSelectPopup : Popup
 
     private void Select(InputAction.CallbackContext callbackContext)
     {
-        Debug.Log("Select");
         _flow.TrySetResult(_singlePlayer);
     }
 
