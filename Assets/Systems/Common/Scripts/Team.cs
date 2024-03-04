@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
+using UnityEngine;
 
 [Serializable]
 public class Team
@@ -54,6 +56,17 @@ public class Team
         {
             _characters[0].SetStart();
         }
+    }
+
+    public Sequence ReturnToOriginalPosition(Vector3 position)
+    {
+        Sequence sequence = DOTween.Sequence();
+        for (int i = 0; i < _characters.Count; ++i)
+        {
+            sequence.Append(_characters[i].transform.DOMove(position, 1f).SetEase(Ease.OutCubic));
+        }
+
+        return sequence;
     }
 
     public void SetIdle()

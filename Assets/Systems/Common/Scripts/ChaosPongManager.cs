@@ -1,3 +1,4 @@
+using DG.Tweening;
 using Kuroneko.UtilityDelivery;
 using Sirenix.OdinInspector;
 using SuperMaxim.Messaging;
@@ -64,7 +65,15 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         _gameState = new GameState(gameSettings.servingSide, _redTeam, _blueTeam);
         IConnectorService connectorService = ServiceLocator.Instance.Get<IConnectorService>();
         connectorService?.StartGame(_gameState);
-        SetServe();
+        StartRound();
+    }
+
+    private void StartRound()
+    {
+        Sequence sequence = DOTween.Sequence();
+        sequence.Append(_redTeam.ReturnToOriginalPosition(redTeamSpawn.position));
+        sequence.Join(_blueTeam.ReturnToOriginalPosition(blueTeamSpawn.position));
+        sequence.AppendCallback(SetServe);
     }
 
     public GameState GetGameState()
@@ -166,7 +175,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
     {
         if (payload.gameEvent == GameEvent.StartRound)
         {
-            SetServe();
+            StartRound();
         }
     }
     
