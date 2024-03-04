@@ -4,11 +4,11 @@ using System;
 public class PongModifier
 {
     public bool deadly;
-    public float timeScale = 1f;
+    public float timeScale = ChaosPongPhysics.DEFAULT_TIME_SCALE;
 
     public void Reset()
     {
         deadly = false;
-        timeScale = 1f;
+        timeScale = ChaosPongPhysics.DEFAULT_TIME_SCALE;
     }
 }

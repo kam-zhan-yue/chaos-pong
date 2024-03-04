@@ -47,11 +47,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castTime: 1
-  cooldownTime: 0
+  cooldownTime: 30
   durationTime: 0
   hitModifier:
     deadly: 0
-    strength: 5
+    strength: 2
   pongModifier:
     deadly: 1
     timeScale: 1
@@ -123,7 +123,7 @@ MonoBehaviour:
   castTime: 0
   cooldownTime: 5
   durationTime: 3
-  speedModifier: 2
+  speedModifier: 1.5
 --- !u!1 &5747782822569422467
 GameObject:
   m_ObjectHideFlags: 0
@@ -345,7 +345,7 @@ MonoBehaviour:
   durationTime: 0
   hitModifier:
     deadly: 0
-    strength: 3
+    strength: 1.5
 --- !u!1 &8445388445019256751
 GameObject:
   m_ObjectHideFlags: 0

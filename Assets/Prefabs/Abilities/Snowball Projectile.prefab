@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bounceable: 0
-  speedModifier: 0.5
+  speedModifier: 1
   duration: 3
 --- !u!54 &3754018336455108388
 Rigidbody:

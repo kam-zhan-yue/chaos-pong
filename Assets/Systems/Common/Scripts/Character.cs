@@ -6,8 +6,8 @@ using UnityEngine;
 public abstract class Character : MonoBehaviour
 {
     private IPlayer[] _playerComponents = Array.Empty<IPlayer>();
-    protected PlayerInfo playerInfo = new();
-    public TeamSide TeamSide => playerInfo.teamSide;
+    public PlayerInfo PlayerInfo { get; private set; }
+    public TeamSide TeamSide => PlayerInfo.teamSide;
     public CharacterState State { get; private set; } = CharacterState.Idle;
 
     protected virtual void Awake()
@@ -17,7 +17,7 @@ public abstract class Character : MonoBehaviour
     
     public virtual void Init(PlayerInfo info)
     {
-        playerInfo = info;
+        PlayerInfo = info;
         
         if(!string.IsNullOrEmpty(info.id))
             gameObject.name = info.id;

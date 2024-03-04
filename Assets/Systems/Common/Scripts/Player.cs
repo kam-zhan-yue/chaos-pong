@@ -28,10 +28,10 @@ public class Player : Character
     {
         base.Init(info);
         InitControls();
-        _paddle.Init(playerInfo.teamSide);
-        _abilityPrimary?.Init(playerInfo);
-        _abilitySecondary?.Init(playerInfo);
-        _abilitySpecial?.Init(playerInfo);
+        _paddle.Init(PlayerInfo.teamSide);
+        _abilityPrimary?.Init(PlayerInfo);
+        _abilitySecondary?.Init(PlayerInfo);
+        _abilitySpecial?.Init(PlayerInfo);
         Payload();
     }
 
@@ -46,7 +46,7 @@ public class Player : Character
     {
         PlayerPayload payload = new PlayerPayload
         {
-            PlayerInfo = playerInfo
+            PlayerInfo = PlayerInfo
         };
         Messenger.Default.Publish(payload);
     }
@@ -54,8 +54,8 @@ public class Player : Character
     private void InitControls()
     {
         _playerControls = new PlayerControls();
-        _playerControls.bindingMask = ChaosPongHelper.GetBindingMask(playerInfo.controlScheme);
-        if (playerInfo.controlScheme == ControlScheme.KeyboardSpecial)
+        _playerControls.bindingMask = ChaosPongHelper.GetBindingMask(PlayerInfo.controlScheme);
+        if (PlayerInfo.controlScheme == ControlScheme.KeyboardSpecial)
         {
             if(_movement != null)
                 _playerControls.Player.MoveSpecial.performed += _movement.Move;
@@ -87,8 +87,13 @@ public class Player : Character
                 break;
             //Throw the pong into the air and wait for next input
             case CharacterState.Starting:
-                _paddle.Toss();
-                SetState(CharacterState.Serving);
+                //5th March - Put Serving Logic here until toss -> serve logic is finalised
+                _movement.SetActive(true);
+                _paddle.Serve();
+                SetState(CharacterState.Returning);
+                
+                // _paddle.Toss();
+                // SetState(CharacterState.Serving);
                 break;
             //Serve the pong
             case CharacterState.Serving:

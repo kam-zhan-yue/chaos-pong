@@ -95,9 +95,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   castTime: 1
-  cooldownTime: 0
+  cooldownTime: 30
   durationTime: 5
-  speedModifier: 0.5
+  speedModifier: 0.2
   pongTimeScale: 0.5
 --- !u!95 &6933460498214773768
 Animator:

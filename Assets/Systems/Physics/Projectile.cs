@@ -26,7 +26,7 @@ public abstract class Projectile : MonoBehaviour
     }
     
     //Protected Variables
-    protected float timeScale = 1f;
+    protected float timeScale = ChaosPongPhysics.DEFAULT_TIME_SCALE;
     protected float Radius { get; private set; }
     protected Vector3 velocity;
     protected Vector3 acceleration;
@@ -206,6 +206,11 @@ public abstract class Projectile : MonoBehaviour
         {
             ApplyVelocity(vel);
         }
+    }
+
+    public void ForceSetPossession(TeamSide teamSide)
+    {
+        possession = teamSide;
     }
     
     protected bool Launch(Vector3 target, float height, TeamSide teamSide, HitModifier hitModifier, bool serve, out Vector3 vel)

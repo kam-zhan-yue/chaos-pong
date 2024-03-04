@@ -10,6 +10,7 @@ using UnityEngine.UI;
 public class AbilityPopupItem : MonoBehaviour
 {
     [SerializeField] private TMP_Text cooldownText;
+    [SerializeField] private TMP_Text activationText;
     [SerializeField] private Image fillImage;
 
     private AbilitySignal _signal = new();
@@ -19,12 +20,21 @@ public class AbilityPopupItem : MonoBehaviour
         cooldownText.gameObject.SetActiveFast(false);
     }
 
-    public void Init(AbilitySignal abilitySignal)
+    public void Init(AbilitySignal abilitySignal, CharacterConfig config)
     {
+        if (config != null)
+        {
+            fillImage.color = config.outline;
+        }
         _signal = abilitySignal;
         _signal.interactive.Subscribe(OnInteractiveChanged);
         _signal.duration.Subscribe(OnDurationChanged);
         _signal.cooldown.Subscribe(OnCooldownChanged);
+    }
+
+    public void SetButton(string button)
+    {
+        activationText.SetText(button);
     }
 
     private void OnDurationChanged(float prev, float curr)
@@ -40,6 +50,7 @@ public class AbilityPopupItem : MonoBehaviour
     {
         bool hasCooldown = curr > 0f;
         cooldownText.gameObject.SetActiveFast(hasCooldown);
+        activationText.gameObject.SetActiveFast(!hasCooldown);
         cooldownText.SetText(curr.ToString("F2"));
         if(hasCooldown)
             SetFill(0f);
@@ -52,6 +63,7 @@ public class AbilityPopupItem : MonoBehaviour
         {
             SetFill(1f);
             cooldownText.gameObject.SetActiveFast(false);
+            activationText.gameObject.SetActiveFast(true);
         }
         else if(_signal.duration.Value <= 0f)
         {

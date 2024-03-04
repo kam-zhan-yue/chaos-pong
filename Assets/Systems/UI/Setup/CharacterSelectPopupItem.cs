@@ -36,7 +36,7 @@ public class CharacterSelectPopupItem : MonoBehaviour
         Selected = true;
         Ready = false;
         presetController.SetPresetById("select");
-        playerText.SetText($"P{playerInfo.id}");
+        playerText.SetText($"P{playerInfo.identifier}");
         thumbnail.color = Color.white;
     }
 

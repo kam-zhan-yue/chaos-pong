@@ -9,12 +9,42 @@ public static class ChaosPongHelper
     public static readonly Color Blue = Color.blue;
     public static readonly Color Red = Color.red;
     public const float TOSS_SPEED = 5f;
-    public const float SERVE_HEIGHT = 1.5f;
+    public const float SERVE_HEIGHT = 2f;
     public const float SERVE_BOUNCE_HEIGHT = 2.5f;
     public const float RETURN_HEIGHT = 2f;
     public const float SMASH_HEIGHT = 2f;
     public const float CONTROLLER_NAVIGATE_THRESHOLD = 0.5f;
 
+    public static string GetPrimaryButton(ControlScheme controlScheme)
+    {
+        return controlScheme switch
+        {
+            ControlScheme.Keyboard => "J",
+            ControlScheme.Switch => "B",
+            _ => "J"
+        };
+    }
+
+    public static string GetSecondaryButton(ControlScheme controlScheme)
+    {
+        return controlScheme switch
+        {
+            ControlScheme.Keyboard => "K",
+            ControlScheme.Switch => "Y",
+            _ => "K"
+        };
+    }
+
+    public static string GetSpecialButton(ControlScheme controlScheme)
+    {
+        return controlScheme switch
+        {
+            ControlScheme.Keyboard => "L",
+            ControlScheme.Switch => "X",
+            _ => "L"
+        };
+    }
+    
     public static TeamSide GetServer(int points, TeamSide starting)
     {
         bool swap = points % 4 >= 2;

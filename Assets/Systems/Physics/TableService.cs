@@ -6,6 +6,7 @@ using UnityEngine.Animations;
 
 public class TableService : MonoBehaviour, ITableService
 {
+    [SerializeField] private bool debug = false;
     [SerializeField] private float width = 2f;
     [SerializeField] private float length = 2f;
     
@@ -81,6 +82,9 @@ public class TableService : MonoBehaviour, ITableService
             default:
                 return center;
         }
+
+        if (debug)
+            return center;
 
         Vector3 size = localBounds.size;
         size.x = GetLength(localBounds) * 0.25f;

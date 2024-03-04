@@ -83,6 +83,8 @@ public class Inferno : Ability, IAbilitySpecial
         {
             pong.SetModifier(pongModifier);
             pong.Launch(random.transform.position, pong.transform.position.y + HEIGHT_OFFSET, teamSide:_player.TeamSide, hitModifier: hitModifier);
+            //Set possession to the other team so that they can return it
+            pong.ForceSetPossession(ChaosPongHelper.GetOppositeSide(_player.TeamSide));
         }
     }
 

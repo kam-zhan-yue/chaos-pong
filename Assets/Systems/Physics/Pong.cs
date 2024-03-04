@@ -65,7 +65,7 @@ public class Pong : Projectile
         Vector3 position = transform.position;
         //Calculate the time to bounce (returns time to table or ground)
         float time = TimeToBounce(initial, position);
-        DrawLineRenderer(initial, position, 10);
+        DrawLineRenderer(initial, position, 2);
         if (time > 0f)
         {
             yield return Timing.WaitForSeconds(time);
@@ -169,15 +169,18 @@ public class Pong : Projectile
 
     public void Serve(TeamSide teamSide, float height)
     {
+        //5th March 2024 - Use Return until serve logic is finalised
+        Return(teamSide, height);
+        
         //Find a point that can be served on
-        Vector3 point = ServiceLocator.Instance.Get<ITableService>().GetServePoint(teamSide, transform.position);
-        //Hit the ball to that point and pass in the next height
-        if (Launch(point, height, teamSide, null, true, out Vector3 vel))
-        {
-            ApplyServe(vel, ChaosPongHelper.SERVE_BOUNCE_HEIGHT, ChaosPongHelper.GetOppositeSide(teamSide));
-        }
+        // Vector3 point = ServiceLocator.Instance.Get<ITableService>().GetServePoint(teamSide, transform.position);
+        // //Hit the ball to that point and pass in the next height
+        // if (Launch(point, height, teamSide, null, true, out Vector3 vel))
+        // {
+        //     ApplyServe(vel, ChaosPongHelper.SERVE_BOUNCE_HEIGHT, ChaosPongHelper.GetOppositeSide(teamSide));
+        // }
         //Set state to serving
-        _pongState = PongState.Serving;
+        // _pongState = PongState.Serving;
     }
 
     public bool CanReturn(TeamSide teamSide)

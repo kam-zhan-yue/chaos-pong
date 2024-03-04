@@ -271,7 +271,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""5e52e077-10d1-4322-9033-ece34cd50bc8"",
-                    ""path"": ""<SwitchProControllerHID>/buttonNorth"",
+                    ""path"": ""<SwitchProControllerHID>/buttonWest"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Switch"",
@@ -293,7 +293,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""3d662e20-ccad-4e01-8b17-1f9866de2fb3"",
-                    ""path"": ""<SwitchProControllerHID>/buttonWest"",
+                    ""path"": ""<SwitchProControllerHID>/buttonNorth"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": ""Switch"",
