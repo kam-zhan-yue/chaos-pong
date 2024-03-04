@@ -30,11 +30,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1673366115470642154}
+  m_Father: {fileID: 7001564195729818812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0.5}
-  m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -75, y: -0.000030517578}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: -50, y: -40}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 1, y: 0.5}
 --- !u!222 &5135650636781018471
@@ -68,14 +68,14 @@ MonoBehaviour:
   m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -164,11 +164,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1673366115470642154}
+  m_Father: {fileID: 7001564195729818812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0.5}
-  m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 75, y: -0.000030517578}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 50, y: -40}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &3937362448655757640
@@ -202,14 +202,14 @@ MonoBehaviour:
   m_text: 0
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -296,15 +296,432 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 604898145593288305}
-  - {fileID: 2108933722064614009}
-  - {fileID: 6734237430270458604}
+  - {fileID: 7001564195729818812}
+  - {fileID: 246872514847479806}
   m_Father: {fileID: 5688134459976243526}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: -0.000030517578}
-  m_SizeDelta: {x: -1820, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2178576180027685030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 246872514847479806}
+  m_Layer: 5
+  m_Name: Animation
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &246872514847479806
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2178576180027685030}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4322136691764371576}
+  - {fileID: 5059007555492119832}
+  m_Father: {fileID: 1673366115470642154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &2374212275120243432
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4196398154148060963}
+  - component: {fileID: 201146470023324659}
+  m_Layer: 5
+  m_Name: Reset Sequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4196398154148060963
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374212275120243432}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5059007555492119832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &201146470023324659
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2374212275120243432}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38c0c3682e6c4ab8ae788501df0e3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenData:
+  - type: 0
+    sequenceData:
+      type: 0
+      sequencer: 1
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 2
+        sequencer: {fileID: 4954568394239876788}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: -1000, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 0
+    sequenceData:
+      type: 0
+      sequencer: 1
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 2
+        sequencer: {fileID: 8537613819149697735}
+        anchorMax: {x: 1000, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 1000, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 1
+    sequenceData:
+      type: 0
+      sequencer: 0
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 0, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7682784697445977052}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+        - m_Target: {fileID: 4145131631709634676}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 1
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+--- !u!1 &3558318574748395723
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4322136691764371576}
+  m_Layer: 5
+  m_Name: Red Team Large Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4322136691764371576
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3558318574748395723}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4954568394239876788}
+  - {fileID: 5487609660691702008}
+  - {fileID: 8537613819149697735}
+  m_Father: {fileID: 246872514847479806}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3926128055930767416
 GameObject:
@@ -360,8 +777,729 @@ MonoBehaviour:
   showSequence: {fileID: 0}
   hideSequence: {fileID: 0}
   resetSequence: {fileID: 0}
-  blueScore: {fileID: 3975702662233297654}
-  redScore: {fileID: 256776869668312122}
+  blueHeaderScore: {fileID: 3975702662233297654}
+  bluePopupScore: {fileID: 3920831667866443728}
+  redHeaderScore: {fileID: 256776869668312122}
+  redPopupScore: {fileID: 5057963457325938363}
+  presetController: {fileID: 5760894576018560027}
+--- !u!1 &4145131631709634676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7001564195729818812}
+  m_Layer: 5
+  m_Name: Score Header
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &7001564195729818812
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4145131631709634676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 604898145593288305}
+  - {fileID: 2108933722064614009}
+  - {fileID: 6734237430270458604}
+  m_Father: {fileID: 1673366115470642154}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: -50}
+  m_SizeDelta: {x: 0, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!1 &5184131591070054676
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8921622412264735870}
+  - component: {fileID: 7344814277044962523}
+  m_Layer: 5
+  m_Name: Score Sequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8921622412264735870
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184131591070054676}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5059007555492119832}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &7344814277044962523
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5184131591070054676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d38c0c3682e6c4ab8ae788501df0e3e3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tweenData:
+  - type: 1
+    sequenceData:
+      type: 0
+      sequencer: 0
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 0, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 7682784697445977052}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 1
+        - m_Target: {fileID: 4145131631709634676}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 1
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 0
+    sequenceData:
+      type: 0
+      sequencer: 1
+      gameObject:
+        easing: 18
+        duration: 0.15
+        type: 5
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: -200
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 18
+        duration: 0.15
+        type: 2
+        sequencer: {fileID: 4954568394239876788}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: -200, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 0
+    sequenceData:
+      type: 1
+      sequencer: 1
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 18
+        duration: 0.15
+        type: 2
+        sequencer: {fileID: 8537613819149697735}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 200, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 2
+    sequenceData:
+      type: 0
+      sequencer: 0
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 0, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 1
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 3
+    sequenceData:
+      type: 0
+      sequencer: 0
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 0, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls: []
+    interval: 0
+    sequencePlayer: {fileID: 201146470023324659}
+    presetController: {fileID: 0}
+    presetId: 
+  - type: 1
+    sequenceData:
+      type: 0
+      sequencer: 0
+      gameObject:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        scale: {x: 0, y: 0, z: 0}
+        scaleX: 0
+        scaleY: 0
+        scaleZ: 0
+        move: {x: 0, y: 0, z: 0}
+        moveX: 0
+        moveY: 0
+        moveZ: 0
+        localMove: {x: 0, y: 0, z: 0}
+        localMoveX: 0
+        localMoveY: 0
+        localMoveZ: 0
+        rotate: {x: 0, y: 0, z: 0}
+        localRotate: {x: 0, y: 0, z: 0}
+      rectTransform:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        anchorMax: {x: 0, y: 0}
+        anchorMin: {x: 0, y: 0}
+        anchorPos: {x: 0, y: 0}
+        anchorPos3D: {x: 0, y: 0, z: 0}
+        pivot: {x: 0, y: 0}
+        punch: {x: 0, y: 0}
+        shake: {x: 0, y: 0, z: 0}
+        size: {x: 0, y: 0}
+        center: {x: 0, y: 0, z: 0}
+        endValueDegrees: 0
+      image:
+        easing: 1
+        duration: 0
+        sequencer: {fileID: 0}
+        type: 0
+        color: {r: 0, g: 0, b: 0, a: 0}
+        fade: 0
+        fillAmount: 0
+        gradient:
+          serializedVersion: 2
+          key0: {r: 1, g: 1, b: 1, a: 1}
+          key1: {r: 1, g: 1, b: 1, a: 1}
+          key2: {r: 0, g: 0, b: 0, a: 0}
+          key3: {r: 0, g: 0, b: 0, a: 0}
+          key4: {r: 0, g: 0, b: 0, a: 0}
+          key5: {r: 0, g: 0, b: 0, a: 0}
+          key6: {r: 0, g: 0, b: 0, a: 0}
+          key7: {r: 0, g: 0, b: 0, a: 0}
+          ctime0: 0
+          ctime1: 65535
+          ctime2: 0
+          ctime3: 0
+          ctime4: 0
+          ctime5: 0
+          ctime6: 0
+          ctime7: 0
+          atime0: 0
+          atime1: 65535
+          atime2: 0
+          atime3: 0
+          atime4: 0
+          atime5: 0
+          atime6: 0
+          atime7: 0
+          m_Mode: 0
+          m_ColorSpace: -1
+          m_NumColorKeys: 2
+          m_NumAlphaKeys: 2
+        blendColor: {r: 0, g: 0, b: 0, a: 0}
+      canvasGroup:
+        easing: 1
+        duration: 0
+        type: 0
+        sequencer: {fileID: 0}
+        fade: 0
+    callback:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 4145131631709634676}
+          m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_MethodName: SetActive
+          m_Mode: 6
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 0
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 1
+          m_CallState: 1
+    interval: 0
+    sequencePlayer: {fileID: 0}
+    presetController: {fileID: 0}
+    presetId: 
+--- !u!1 &5588103586016616501
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5059007555492119832}
+  - component: {fileID: 5760894576018560027}
+  m_Layer: 5
+  m_Name: Preset Controller
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &5059007555492119832
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588103586016616501}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8921622412264735870}
+  - {fileID: 4196398154148060963}
+  m_Father: {fileID: 246872514847479806}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &5760894576018560027
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5588103586016616501}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39be432419baa4030820fc9e9d5c8d5d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  presetList:
+  - id: score
+    sequencePlayer: {fileID: 7344814277044962523}
+  - id: reset
+    sequencePlayer: {fileID: 201146470023324659}
 --- !u!1 &5761051377763824812
 GameObject:
   m_ObjectHideFlags: 0
@@ -392,11 +1530,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1673366115470642154}
+  m_Father: {fileID: 7001564195729818812}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.000118073054}
+  m_AnchorMin: {x: 0.5, y: 1}
+  m_AnchorMax: {x: 0.5, y: 1}
+  m_AnchoredPosition: {x: 0, y: -40}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5761236016455395139
@@ -430,7 +1568,7 @@ MonoBehaviour:
   m_text: '-'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -461,6 +1599,408 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6359509298165776505
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8537613819149697735}
+  - component: {fileID: 1393766935147944319}
+  - component: {fileID: 3920831667866443728}
+  m_Layer: 5
+  m_Name: Blue Popup Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8537613819149697735
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359509298165776505}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4322136691764371576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 1000, y: 0}
+  m_SizeDelta: {x: 400, y: 300}
+  m_Pivot: {x: 0, y: 0.5}
+--- !u!222 &1393766935147944319
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359509298165776505}
+  m_CullTransparentMesh: 1
+--- !u!114 &3920831667866443728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6359509298165776505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 0
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 268.5
+  m_fontSizeBase: 300
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 100
+  m_fontSizeMax: 300
+  m_fontStyle: 1
+  m_HorizontalAlignment: 1
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &6588394596925656428
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4954568394239876788}
+  - component: {fileID: 7828639830097226407}
+  - component: {fileID: 5057963457325938363}
+  m_Layer: 5
+  m_Name: Red Popup Score
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &4954568394239876788
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588394596925656428}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4322136691764371576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -1000, y: 0}
+  m_SizeDelta: {x: 400, y: 300}
+  m_Pivot: {x: 1, y: 0.5}
+--- !u!222 &7828639830097226407
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588394596925656428}
+  m_CullTransparentMesh: 1
+--- !u!114 &5057963457325938363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6588394596925656428}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: 0
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 268.5
+  m_fontSizeBase: 300
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 100
+  m_fontSizeMax: 300
+  m_fontStyle: 1
+  m_HorizontalAlignment: 4
+  m_VerticalAlignment: 512
+  m_textAlignment: 65535
+  m_characterSpacing: 0
+  m_wordSpacing: 0
+  m_lineSpacing: 0
+  m_lineSpacingMax: 0
+  m_paragraphSpacing: 0
+  m_charWidthMaxAdj: 0
+  m_enableWordWrapping: 1
+  m_wordWrappingRatios: 0.4
+  m_overflowMode: 0
+  m_linkedTextComponent: {fileID: 0}
+  parentLinkedComponent: {fileID: 0}
+  m_enableKerning: 1
+  m_enableExtraPadding: 0
+  checkPaddingRequired: 0
+  m_isRichText: 1
+  m_parseCtrlCharacters: 1
+  m_isOrthographic: 1
+  m_isCullingEnabled: 0
+  m_horizontalMapping: 0
+  m_verticalMapping: 0
+  m_uvLineOffset: 0
+  m_geometrySortingOrder: 0
+  m_IsTextObjectScaleStatic: 0
+  m_VertexBufferAutoSizeReduction: 0
+  m_useMaxVisibleDescender: 1
+  m_pageToDisplay: 1
+  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_isUsingLegacyAnimationComponent: 0
+  m_isVolumetricText: 0
+  m_hasFontAssetChanged: 0
+  m_baseMaterial: {fileID: 0}
+  m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &7682784697445977052
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5487609660691702008}
+  - component: {fileID: 8419979891841527733}
+  - component: {fileID: 3949305404791088726}
+  m_Layer: 5
+  m_Name: Dash
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!224 &5487609660691702008
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682784697445977052}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4322136691764371576}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 400, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!222 &8419979891841527733
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682784697445977052}
+  m_CullTransparentMesh: 1
+--- !u!114 &3949305404791088726
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7682784697445977052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_text: '-'
+  m_isRightToLeft: 0
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2100000, guid: e73a58f6e2794ae7b1b7e50b7fb811b0, type: 2}
+  m_fontSharedMaterials: []
+  m_fontMaterial: {fileID: 0}
+  m_fontMaterials: []
+  m_fontColor32:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
+  m_enableVertexGradient: 0
+  m_colorMode: 3
+  m_fontColorGradient:
+    topLeft: {r: 1, g: 1, b: 1, a: 1}
+    topRight: {r: 1, g: 1, b: 1, a: 1}
+    bottomLeft: {r: 1, g: 1, b: 1, a: 1}
+    bottomRight: {r: 1, g: 1, b: 1, a: 1}
+  m_fontColorGradientPreset: {fileID: 0}
+  m_spriteAsset: {fileID: 0}
+  m_tintAllSprites: 0
+  m_StyleSheet: {fileID: 0}
+  m_TextStyleHashCode: -1183493901
+  m_overrideHtmlColors: 0
+  m_faceColor:
+    serializedVersion: 2
+    rgba: 4294967295
+  m_fontSize: 268.5
+  m_fontSizeBase: 300
+  m_fontWeight: 400
+  m_enableAutoSizing: 1
+  m_fontSizeMin: 100
+  m_fontSizeMax: 300
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535

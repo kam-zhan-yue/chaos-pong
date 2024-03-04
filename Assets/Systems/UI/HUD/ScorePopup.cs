@@ -1,11 +1,15 @@
 using Kuroneko.UIDelivery;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 public class ScorePopup : Popup
 {
-    [SerializeField] private TMP_Text blueScore;
-    [SerializeField] private TMP_Text redScore;
+    [SerializeField] private TMP_Text blueHeaderScore;
+    [SerializeField] private TMP_Text bluePopupScore;
+    [SerializeField] private TMP_Text redHeaderScore;
+    [SerializeField] private TMP_Text redPopupScore;
+    [SerializeField] private PresetController presetController;
     
     protected override void InitPopup()
     {
@@ -19,11 +23,17 @@ public class ScorePopup : Popup
     
     private void OnBluePointsChanged(int prev, int curr)
     {
-        blueScore.SetText(curr.ToString());
+        string score = curr.ToString();
+        blueHeaderScore.SetText(score);
+        bluePopupScore.SetText(score);
+        presetController.SetPresetById("score");
     }
 
     private void OnRedPointsChanged(int prev, int curr)
     {
-        redScore.SetText(curr.ToString());
+        string score = curr.ToString();
+        redHeaderScore.SetText(score);
+        redPopupScore.SetText(score);
+        presetController.SetPresetById("score");
     }
 }

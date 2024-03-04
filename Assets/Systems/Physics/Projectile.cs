@@ -100,7 +100,7 @@ public abstract class Projectile : MonoBehaviour
         float time = TimeToBounce(initial, position);
         if (time > 0f)
         {
-            DrawLineRenderer(initial, position, 10);
+            DrawLineRenderer(initial, position, 2);
             yield return Timing.WaitForSeconds(time / timeScale);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             transform.position = finalPosition; 
