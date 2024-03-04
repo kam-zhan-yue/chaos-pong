@@ -7,31 +7,23 @@ using UnityEngine;
 public class UIConnector : MonoBehaviour, IConnectorService
 {
     [Header("Popups")]
-    [SerializeField] private ScorePopup scorePopup;
-    [SerializeField] private TeamPopup redTeamPopup;
-    [SerializeField] private TeamPopup blueTeamPopup;
+    [SerializeField] private GamePopup gamePopup;
     [SerializeField] private SetupPopup setupPopup;
     
     private void Awake()
     {
         ServiceLocator.Instance.Register<IConnectorService>(this);
-        scorePopup.HidePopup();
-        redTeamPopup.HidePopup();
-        blueTeamPopup.HidePopup();
     }
 
     public void ShowSetup()
     {
+        gamePopup.HidePopup();
         setupPopup.ShowPopup();
     }
 
     public void StartGame(GameState gameState)
     {
-        scorePopup.ShowPopup();
-        redTeamPopup.ShowPopup();
-        blueTeamPopup.ShowPopup();
-        scorePopup.StartGame(gameState);
-        redTeamPopup.StartGame(gameState, TeamSide.Red);
-        blueTeamPopup.StartGame(gameState, TeamSide.Blue);
+        gamePopup.ShowPopup();
+        gamePopup.StartGame(gameState);
     }
 }

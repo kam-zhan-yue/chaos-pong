@@ -10,7 +10,7 @@ public abstract class Ability : MonoBehaviour
 {
     [SerializeField] private float castTime;
     [SerializeField] private float cooldownTime;
-    [SerializeField] private float durationTime;
+    [SerializeField] protected float durationTime;
 
     private float _cooldownTimer;
     private float _durationTimer;
@@ -22,7 +22,6 @@ public abstract class Ability : MonoBehaviour
     public void Init(PlayerInfo info)
     {
         gameObject.SetLayerRecursively(ChaosPongHelper.GetTeamLayer(info.teamSide));
-        Debug.Log($"Duration: {durationTime} Cooldown: {cooldownTime}");
     }
 
     protected void ProcessInput()
@@ -48,9 +47,9 @@ public abstract class Ability : MonoBehaviour
 
     private IEnumerator<float> CastRoutine()
     {
-        _casting = true;
+        StartCast();
         yield return Timing.WaitForSeconds(castTime);
-        _casting = false;
+        EndCast();
         Timing.RunCoroutine(ActivateRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
     }
 
@@ -87,6 +86,16 @@ public abstract class Ability : MonoBehaviour
         _durationTimer = durationTime;
         DOTween.To(() => _durationTimer, x => _durationTimer = x, 0f, durationTime)
             .SetUpdate(UpdateType.Normal, true);
+    }
+
+    protected virtual void StartCast()
+    {
+        _casting = true;
+    }
+
+    protected virtual void EndCast()
+    {
+        _casting = false;
     }
     
     protected abstract void Activate();

@@ -118,11 +118,26 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
         {
             case TeamSide.Red:
                 _redTeam.SetServe();
-                _blueTeam.SetReturning();
+                _blueTeam.SetIdle();
                 break;
             case TeamSide.Blue:
                 _blueTeam.SetServe();
+                _redTeam.SetIdle();
+                break;
+        }
+    }
+
+    public void Serve(TeamSide teamSide)
+    {
+        Debug.Log($"Serve from {teamSide}");
+        TeamSide oppositeSide = ChaosPongHelper.GetOppositeSide(teamSide);
+        switch (oppositeSide)
+        {
+            case TeamSide.Red:
                 _redTeam.SetReturning();
+                break;
+            case TeamSide.Blue:
+                _blueTeam.SetReturning();
                 break;
         }
     }

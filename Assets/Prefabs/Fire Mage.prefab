@@ -46,14 +46,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b5abd5c1370544310b565946f1f7de26, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  castTime: 0
+  castTime: 1
   cooldownTime: 0
-  durationTime: 1
+  durationTime: 0
   hitModifier:
     deadly: 0
     strength: 5
   pongModifier:
     deadly: 1
+    timeScale: 1
 --- !u!95 &453423117240874870
 Animator:
   serializedVersion: 5
@@ -528,7 +529,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2531022a65f9847fe99d24a51f8f702b, type: 2}
     - target: {fileID: 2139721064613209510, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_Name
-      value: Red Player
+      value: Fire Mage
       objectReference: {fileID: 0}
     - target: {fileID: 4112696783239125008, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_ChildCameras.Array.size

@@ -8,6 +8,7 @@ public interface IGameManager : IGameService
     public bool IsMultiCamera();
     public void SetupGame();
     public void StartGame();
+    public void Serve(TeamSide teamSide);
     public void RestartGame();
     public GameState GetGameState();
 }

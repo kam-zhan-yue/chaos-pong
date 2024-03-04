@@ -1,4 +1,5 @@
 using System;
+using Kuroneko.UtilityDelivery;
 using UnityEngine;
 
 public class Paddle : MonoBehaviour, IPaddle, IPongFinder
@@ -33,6 +34,8 @@ public class Paddle : MonoBehaviour, IPaddle, IPongFinder
 
     public void Serve()
     {
+        IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
+        gameManager?.Serve(_teamSide);
         _pong.Serve(_teamSide, ChaosPongHelper.SERVE_HEIGHT);
     }
 

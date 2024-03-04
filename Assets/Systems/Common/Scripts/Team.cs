@@ -56,6 +56,14 @@ public class Team
         }
     }
 
+    public void SetIdle()
+    {
+        for (int i = 0; i < _characters.Count; ++i)
+        {
+            _characters[i].SetState(CharacterState.Idle);
+        }
+    }
+
     public void SetReturning()
     {
         for (int i = 0; i < _characters.Count; ++i)

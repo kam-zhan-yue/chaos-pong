@@ -33,6 +33,7 @@ public abstract class Character : MonoBehaviour
 
     public void SetState(CharacterState state)
     {
+        Debug.Log($"Setting {name} to {state}");
         State = state;
     }
     

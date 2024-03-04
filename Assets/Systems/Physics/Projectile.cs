@@ -26,7 +26,7 @@ public abstract class Projectile : MonoBehaviour
     }
     
     //Protected Variables
-    protected float timeScale = 0.5f;
+    protected float timeScale = 1f;
     protected float Radius { get; private set; }
     protected Vector3 velocity;
     protected Vector3 acceleration;
@@ -40,9 +40,6 @@ public abstract class Projectile : MonoBehaviour
     private SphereCollider _sphereCollider;
     private LineRenderer _lineRenderer;
     private ITableService _tableService;
-
-    public static Action<BounceInfo> onBounce;
-    public static Action<HitInfo> onHit;
 
     private void Awake()
     {
@@ -201,7 +198,6 @@ public abstract class Projectile : MonoBehaviour
     
     protected virtual void OnBounce(BounceInfo bounceInfo)
     {
-        onBounce?.Invoke(bounceInfo);
     }
 
     public void Launch(Vector3 target, float height, TeamSide teamSide = TeamSide.None, HitModifier hitModifier = null, bool serve = false)
@@ -222,7 +218,6 @@ public abstract class Projectile : MonoBehaviour
         {
             HitInfo hitInfo = new(serve, transform.position, launchVelocity, teamSide);
             possession = teamSide;
-            onHit?.Invoke(hitInfo);
             hits.Add(hitInfo);
             vel = launchVelocity;
             return true;
