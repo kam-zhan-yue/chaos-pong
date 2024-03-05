@@ -19,8 +19,10 @@ public abstract class Character : MonoBehaviour
     {
         PlayerInfo = info;
         
-        if(!string.IsNullOrEmpty(info.id))
-            gameObject.name = info.id;
+        if(!string.IsNullOrEmpty(info.playerName))
+            gameObject.name = info.playerName;
+        else if (info.config != null)
+            gameObject.name = info.config.name;
         
         if (_playerComponents.Length > 0)
         {

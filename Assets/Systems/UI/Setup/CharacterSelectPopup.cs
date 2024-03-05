@@ -99,7 +99,7 @@ public class CharacterSelectPopup : Popup
     {
         for (int i = 0; i < _popupItemList.Count; ++i)
         {
-            if (_popupItemList[i].PlayerInfo.identifier == playerInfo.identifier)
+            if (_popupItemList[i].PlayerInfo.id == playerInfo.id)
             {
                 return i;
             }

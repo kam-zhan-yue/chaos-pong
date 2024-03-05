@@ -6,8 +6,8 @@ using UnityEngine.Serialization;
 [Serializable]
 public class PlayerInfo
 {
-    public int identifier = 0;
-    public string id = string.Empty;
+    public int id = 0;
+    public string playerName = string.Empty;
     public CharacterType type;
     public CharacterConfig config;
     [HideIf("type", CharacterType.Robot)]
@@ -21,7 +21,7 @@ public class PlayerInfo
 
     public PlayerInfo(int playerId, ControlScheme controlScheme, CharacterType characterType)
     {
-        this.identifier = playerId;
+        this.id = playerId;
         this.controlScheme = controlScheme;
         this.type = characterType;
     }

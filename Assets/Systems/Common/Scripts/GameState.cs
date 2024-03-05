@@ -31,6 +31,38 @@ public class GameState
         RedPoints.Value = 0;
     }
 
+    public bool GamePoint()
+    {
+        int gamePoint = ChaosPongHelper.GAME_POINT;
+        // Check if either team has 10 or more points
+        if (BluePoints.Value >= gamePoint-1 || RedPoints.Value >= gamePoint-1)
+        {
+            // Check if the difference between the points is 1
+            if (Mathf.Abs(BluePoints.Value - RedPoints.Value) == 1)
+            {
+                return true; // It's a game point or advantage
+            }
+        }
+        return false; // Not a game point or advantage
+    }
+
+    public TeamSide GetWinner()
+    {
+        int gamePoint = ChaosPongHelper.GAME_POINT;
+        // Check if either team has reached 11 points and has a lead of 2 or more
+        if ((BluePoints.Value >= gamePoint || RedPoints.Value >= gamePoint) && Mathf.Abs(BluePoints.Value - RedPoints.Value) >= 2)
+        {
+            return BluePoints.Value > RedPoints.Value ? TeamSide.Blue : TeamSide.Red;
+        }
+        // Check if both teams have reached 10 points and one team has a lead of 2 or more
+        if ((BluePoints.Value >= gamePoint-1 && RedPoints.Value >= gamePoint-1) && Mathf.Abs(BluePoints.Value - RedPoints.Value) >= 2)
+        {
+            return BluePoints.Value > RedPoints.Value ? TeamSide.Blue : TeamSide.Red;
+        }
+
+        return TeamSide.None;
+    }
+
     public void Hit(TeamSide teamSide)
     {
         Possession = teamSide;

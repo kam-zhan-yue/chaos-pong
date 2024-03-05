@@ -29,7 +29,6 @@ public class Pong : Projectile
     {
         if (other.gameObject.TryGetComponent(out Character character))
         {
-            Debug.Log($"Triggered with {character.gameObject.name}");
             if (_pongModifier.deadly)
             {
                 //Score for the player hitting
@@ -215,7 +214,7 @@ public class Pong : Projectile
 
     private IEnumerator<float> DestroyRoutine()
     {
-        yield return Timing.WaitForSeconds(5f);
+        yield return Timing.WaitForSeconds(1f);
         Destroy(gameObject);
     }
 }

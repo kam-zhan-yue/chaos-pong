@@ -186,7 +186,24 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
             _gameState.BluePoint();
         else if (payload.TeamSide == TeamSide.Red)
             _gameState.RedPoint();
-        Messenger.Default.Publish(new EventPayload(GameEvent.StartRound));
+        CheckEndGame();
+    }
+
+    private void CheckEndGame()
+    {
+        TeamSide winner = _gameState.GetWinner();
+        switch (winner)
+        {
+            case TeamSide.Blue:
+                Debug.Log("Blue Team Wins");
+                break;
+            case TeamSide.Red:
+                Debug.Log("Red Team Wins");
+                break;
+            default:
+                Messenger.Default.Publish(new EventPayload(GameEvent.StartRound));
+                break;
+        }
     }
 
     [Button]

@@ -14,6 +14,7 @@ public static class ChaosPongHelper
     public const float RETURN_HEIGHT = 2f;
     public const float SMASH_HEIGHT = 2f;
     public const float CONTROLLER_NAVIGATE_THRESHOLD = 0.5f;
+    public const int GAME_POINT = 2;
 
     public static string GetPrimaryButton(ControlScheme controlScheme)
     {
