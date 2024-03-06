@@ -1,3 +1,10 @@
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
+
 public class Trainer : Character
 {
     private IPaddle _paddle;
@@ -17,6 +24,12 @@ public class Trainer : Character
     public override void SetStart()
     {
         _paddle.SetStart();
+        ServeAsync(this.GetCancellationTokenOnDestroy()).Forget();
+    }
+
+    private async UniTask ServeAsync(CancellationToken token)
+    {
+        await UniTask.WaitForSeconds(1f, cancellationToken:token);
         _paddle.Serve();
     }
 }

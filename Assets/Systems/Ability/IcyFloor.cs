@@ -16,7 +16,6 @@ public class IcyFloor : MonoBehaviour
     {
         _teamSide = teamSide;
         transform.position = position;
-
     }
 
     private void OnCollisionEnter(Collision other)
@@ -24,7 +23,7 @@ public class IcyFloor : MonoBehaviour
         Debug.Log($"Triggered with {other.gameObject.name}");
         if (other.gameObject.TryGetComponent(out Pong pong))
         {
-            pong.Return(_teamSide, returnHeight);
+            pong.Return(_teamSide, returnHeight, HitType.Snake);
         }
     }
 }

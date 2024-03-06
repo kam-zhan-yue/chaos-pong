@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Kuroneko.UtilityDelivery;
 using MEC;
 using UnityEngine;
 
@@ -20,7 +21,7 @@ public class AutoBot : MonoBehaviour, IPaddle
             return;
         if (other.gameObject.TryGetComponent(out Pong pong))
         {
-            pong.Return(teamSide, height);
+            pong.Return(teamSide, height, HitType.Return);
             // Timing.RunCoroutine(StartCooldown().CancelWith(gameObject));
         }
     }
@@ -48,6 +49,8 @@ public class AutoBot : MonoBehaviour, IPaddle
 
     public void Serve()
     {
+        IGameManager gameManager = ServiceLocator.Instance.Get<IGameManager>();
+        gameManager?.Serve(teamSide);
         _pong.Serve(teamSide, height);
     }
 

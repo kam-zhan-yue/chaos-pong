@@ -138,7 +138,7 @@ public class ChaosPongManager : MonoBehaviour, IGameManager
 
     public void Serve(TeamSide teamSide)
     {
-        Debug.Log($"Serve from {teamSide}");
+        // Debug.Log($"Serve from {teamSide}");
         TeamSide oppositeSide = ChaosPongHelper.GetOppositeSide(teamSide);
         switch (oppositeSide)
         {

@@ -79,7 +79,7 @@ public class Player : Character
     }
 
     private void Hit(InputAction.CallbackContext callbackContext)
-    {
+     {
         switch (State)
         {
             //Do nothing

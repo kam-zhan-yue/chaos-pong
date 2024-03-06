@@ -39,13 +39,13 @@ public class Pong : Projectile
 
     public void ResetModifier()
     {
-        Debug.Log("Reset Modifier");
+        // Debug.Log("Reset Modifier");
         _pongModifier.Reset();
     }
 
     public void SetModifier(PongModifier pongModifier)
     {
-        Debug.Log($"Set Modifier Deadly: {pongModifier.deadly}");
+        // Debug.Log($"Set Modifier Deadly: {pongModifier.deadly}");
         _pongModifier = pongModifier;
     }
 
@@ -70,7 +70,7 @@ public class Pong : Projectile
             yield return Timing.WaitForSeconds(time);
             Vector3 finalPosition = SimulatePosition(initial, position, time, out _);
             transform.position = finalPosition;
-            LaunchAtSide(height, targetSide);
+            LaunchAtSide(height, targetSide, HitType.Return);
         }
         else
         {
@@ -169,7 +169,7 @@ public class Pong : Projectile
     public void Serve(TeamSide teamSide, float height)
     {
         //5th March 2024 - Use Return until serve logic is finalised
-        Return(teamSide, height);
+        Return(teamSide, height, HitType.Serve);
         
         //Find a point that can be served on
         // Vector3 point = ServiceLocator.Instance.Get<ITableService>().GetServePoint(teamSide, transform.position);
@@ -187,21 +187,21 @@ public class Pong : Projectile
         return possession == teamSide && _pongState == PongState.Returnable || _pongState == PongState.Idle;
     }
 
-    public void Return(TeamSide teamSide, float height, HitModifier hitModifier = null)
+    public void Return(TeamSide teamSide, float height, HitType hitType, HitModifier hitModifier = null)
     {
         //Only return if the team has possession of the ball
         if (CanReturn(teamSide))
         {
             TeamSide opposite = ChaosPongHelper.GetOppositeSide(teamSide);
-            LaunchAtSide(height, opposite, hitModifier);
+            LaunchAtSide(height, opposite, hitType, hitModifier);
             _pongState = PongState.Returning;
         }
     }
 
     [Button]
-    private void LaunchAtSide(float height, TeamSide teamSide, HitModifier hitModifier = null, bool serve = false)
+    private void LaunchAtSide(float height, TeamSide teamSide, HitType hitType, HitModifier hitModifier = null, bool serve = false)
     {
-        Vector3 point = TableService.GetRandomPoint(teamSide);
+        Vector3 point = TableService.GetRandomPoint(teamSide, hitType);
         Launch(point, height, teamSide, hitModifier, serve);
     }
 

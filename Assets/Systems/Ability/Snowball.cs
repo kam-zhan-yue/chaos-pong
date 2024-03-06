@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 public class Snowball : Ability, IAbilityPrimary
 {
     [SerializeField] private HitModifier hitModifier = new();
-    private const float HEIGHT_OFFSET = 0.5f;
+    private const float HEIGHT_OFFSET = 0.2f;
     [SerializeField] private SnowballProjectile projectilePrefab;
     [SerializeField] private Transform projectileSpawn;
 

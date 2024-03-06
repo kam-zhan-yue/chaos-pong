@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Threading;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Kuroneko.UtilityDelivery;
 using MEC;
@@ -17,7 +20,6 @@ public abstract class Ability : MonoBehaviour
     private bool _cooldown = false;
     private bool _active = false;
     private bool _casting = false;
-    private CoroutineHandle _castRoutine;
 
     public void Init(PlayerInfo info)
     {
@@ -28,10 +30,50 @@ public abstract class Ability : MonoBehaviour
     {
         if(Interactive())
         {
-            Timing.KillCoroutines(_castRoutine);
-            _castRoutine = Timing.RunCoroutine(CastRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
+            AbilityAsync(this.GetCancellationTokenOnDestroy()).Forget();
         }
     }
+
+    private async UniTask AbilityAsync(CancellationToken token)
+    {
+        await CastAsync(token);
+        await ActivateAsync(token);
+        await CooldownAsync(token);
+    }
+
+    private async UniTask CastAsync(CancellationToken token)
+    {
+        StartCast();
+        await UniTask.WaitForSeconds(castTime, true,  cancellationToken:token);
+        EndCast();
+    }
+
+    private async UniTask ActivateAsync(CancellationToken token)
+    {
+        _active = true;
+        Activate();
+        _durationTimer = durationTime;
+        while (_durationTimer > 0f)
+        {
+            _durationTimer -= Time.unscaledDeltaTime;
+            await UniTask.NextFrame(cancellationToken:token);
+        }
+        _active = false;
+        Deactivate();
+    }
+
+    private async UniTask CooldownAsync(CancellationToken token)
+    {
+        _cooldown = true;
+        _cooldownTimer = cooldownTime;
+        while (_cooldownTimer > 0f)
+        {
+            _cooldownTimer -= Time.unscaledDeltaTime;
+            await UniTask.NextFrame(cancellationToken:token);
+        }
+        _cooldown = false;
+    }
+    
 
     public AbilityInfo GetInfo()
     {
@@ -43,35 +85,6 @@ public abstract class Ability : MonoBehaviour
     protected virtual bool CanActivate()
     {
         return !_cooldown && !_active && !_casting;
-    }
-
-    private IEnumerator<float> CastRoutine()
-    {
-        StartCast();
-        yield return Timing.WaitForSeconds(castTime);
-        EndCast();
-        Timing.RunCoroutine(ActivateRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
-    }
-
-    private IEnumerator<float> ActivateRoutine()
-    {
-        _active = true;
-        Activate();
-        DurationTimer();
-        yield return Timing.WaitForSeconds(durationTime);
-        _active = false;
-        Deactivate();
-        Timing.RunCoroutine(CooldownRoutine().CancelWith(gameObject), Segment.RealtimeUpdate);
-    }
-
-    private IEnumerator<float> CooldownRoutine()
-    {
-        // Debug.Log($"Cooldown! {cooldownTime}");
-        _cooldown = true;
-        CountdownTimer();
-        yield return Timing.WaitForSeconds(cooldownTime);
-        _cooldown = false;
-        // Debug.Log("Cooldown Ended!");
     }
 
     private void CountdownTimer()

@@ -44,7 +44,23 @@ public class Paddle : MonoBehaviour, IPaddle, IPongFinder
         if (TryGetPong(out Pong pong))
         {
             pong.ResetModifier();
-            pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT, _hitModifier);
+            float height = pong.transform.position.y;
+            HitType hitType = ChaosPongHelper.GetHitType(height);
+            switch (hitType)
+            {
+                case HitType.Return:
+                    Debug.Log($"Return {height}");
+                    pong.Return(_teamSide, ChaosPongHelper.RETURN_HEIGHT, HitType.Return, _hitModifier);
+                    break;
+                case HitType.Smash:
+                    Debug.Log($"Smash {height}");
+                    pong.Return(_teamSide, ChaosPongHelper.SMASH_HEIGHT, HitType.Smash, _hitModifier);
+                    break;
+                case HitType.Snake:
+                    Debug.Log($"Snake {height}");
+                    pong.Return(_teamSide, ChaosPongHelper.SNAKE_HEIGHT, HitType.Snake, _hitModifier);
+                    break;
+            }
             _hitModifier = new HitModifier();
         }
     }

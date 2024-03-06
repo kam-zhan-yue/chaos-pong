@@ -212,8 +212,8 @@ public abstract class Projectile : MonoBehaviour
     {
         possession = teamSide;
     }
-    
-    protected bool Launch(Vector3 target, float height, TeamSide teamSide, HitModifier hitModifier, bool serve, out Vector3 vel)
+
+    private bool Launch(Vector3 target, float height, TeamSide teamSide, HitModifier hitModifier, bool serve, out Vector3 vel)
     {
         HitModifier modifier = hitModifier;
         if (hitModifier == null)

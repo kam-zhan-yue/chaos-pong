@@ -12,9 +12,23 @@ public static class ChaosPongHelper
     public const float SERVE_HEIGHT = 2f;
     public const float SERVE_BOUNCE_HEIGHT = 2.5f;
     public const float RETURN_HEIGHT = 2f;
-    public const float SMASH_HEIGHT = 2f;
+    public const float SMASH_HEIGHT = 1.5f;
+    public const float SNAKE_HEIGHT = 3f;
     public const float CONTROLLER_NAVIGATE_THRESHOLD = 0.5f;
-    public const int GAME_POINT = 2;
+    public const int GAME_POINT = 11;
+
+    private const float SNAKE_THRESHOLD = 0.8f;
+    private const float SMASH_THRESHOLD = 2.5f;
+
+    public static HitType GetHitType(float height)
+    {
+        return height switch
+        {
+            <= SNAKE_THRESHOLD => HitType.Snake,
+            >= SMASH_THRESHOLD => HitType.Smash,
+            _ => HitType.Return
+        };
+    }
 
     public static string GetPrimaryButton(ControlScheme controlScheme)
     {

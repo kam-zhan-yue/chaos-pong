@@ -7,7 +7,6 @@ public class SnowballProjectile : Projectile
     [SerializeField] private float speedModifier;
     [SerializeField] private float duration;
     
-    
     private void OnCollisionEnter(Collision other)
     {
         if (other.gameObject.TryGetComponent(out Character character))

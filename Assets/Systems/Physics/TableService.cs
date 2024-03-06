@@ -6,6 +6,8 @@ using UnityEngine.Animations;
 
 public class TableService : MonoBehaviour, ITableService
 {
+    private const float SNAKE_OFFSET = -0.2f;
+    private const float SNAKE_LENGTH = 0.2f;
     [SerializeField] private bool debug = false;
     [SerializeField] private float width = 2f;
     [SerializeField] private float length = 2f;
@@ -67,7 +69,43 @@ public class TableService : MonoBehaviour, ITableService
         }
     }
 
-    public Vector3 GetRandomPoint(TeamSide teamSide)
+    public Vector3 GetRandomPoint(TeamSide teamSide, HitType hitType)
+    {
+        if (hitType == HitType.Snake)
+        {
+            return GetRandomSnakePoint(teamSide);
+        }
+        return GetRandomReturnPoint(teamSide);
+    }
+
+    private Vector3 GetRandomSnakePoint(TeamSide teamSide)
+    {
+        Vector3 center = Vector3.zero;
+        Bounds localBounds = GetBounds();
+        switch (teamSide)
+        {
+            case TeamSide.Blue:
+                center = GetBlueSnakeCenter(localBounds);
+                break;
+            case TeamSide.Red:
+                center = GetRedSnakeCenter(localBounds);
+                break;
+            default:
+                return center;
+        }
+
+        if (debug)
+            return center;
+        
+        Vector3 size = localBounds.size;
+        size.x = GetLength(localBounds) * SNAKE_LENGTH;
+        Bounds bounds = new(center, size);
+        float randomX = Random.Range(bounds.min.x, bounds.max.x);
+        float randomZ = Random.Range(bounds.min.z, bounds.max.z);
+        return new Vector3(randomX, bounds.center.y, randomZ);
+    }
+
+    private Vector3 GetRandomReturnPoint(TeamSide teamSide)
     {
         Vector3 center = Vector3.zero;
         Bounds localBounds = GetBounds();
@@ -96,7 +134,7 @@ public class TableService : MonoBehaviour, ITableService
 
     public Vector3 GetServePoint(TeamSide servingSide, Vector3 ballPosition)
     {
-        return GetRandomPoint(servingSide);
+        return GetRandomPoint(servingSide, HitType.Serve);
     }
 
     private Vector3 GetBlueCenter(Bounds bounds)
@@ -128,6 +166,20 @@ public class TableService : MonoBehaviour, ITableService
     {
         Vector3 center = GetRedCenter(bounds);
         center.x -= GetLength(bounds) * 0.25f;
+        return center;
+    }
+
+    private Vector3 GetBlueSnakeCenter(Bounds bounds)
+    {
+        Vector3 center = GetBlueCenter(bounds);
+        center.x += GetLength(bounds) * SNAKE_OFFSET;
+        return center;
+    }
+
+    private Vector3 GetRedSnakeCenter(Bounds bounds)
+    {
+        Vector3 center = GetRedCenter(bounds);
+        center.x -= GetLength(bounds) * SNAKE_OFFSET;
         return center;
     }
 
