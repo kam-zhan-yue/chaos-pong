@@ -15,3 +15,6 @@ MonoBehaviour:
   player: {fileID: 6725763671549020263, guid: bfd99172b99694a95865676034dc99c9, type: 3}
   thumbnail: {fileID: 2076909086412868055, guid: 41e2706e0cfe54a6c904263397c13598, type: 3}
   outline: {r: 0.9490196, g: 0.31764707, b: 0.2784314, a: 1}
+  specialAbility: {fileID: 11400000, guid: d93c630857f31437b89cde67a4b9c11b, type: 2}
+  primaryAbility: {fileID: 11400000, guid: 56711896544194b089771733a34a1cfe, type: 2}
+  secondaryAbility: {fileID: 11400000, guid: 67223e3160d4d46af8494ba146b1004e, type: 2}

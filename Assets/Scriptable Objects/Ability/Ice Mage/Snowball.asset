@@ -10,8 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae1e966db357c4682b628b4fc70593d2, type: 3}
-  m_Name: Snowball 3
+  m_Name: Snowball
   m_EditorClassIdentifier: 
-  thumbnail: {fileID: -5649131338252747178, guid: b094143440b794503a75d020af5abba0, type: 3}
+  outline: {r: 0.56078434, g: 0.6901961, b: 0.99215686, a: 1}
+  thumbnail: {fileID: 21300000, guid: 104ea9b7ac40c47d289448755d057c1c, type: 3}
   description: Throw a snowball at a random enemy, reducing their movement speed
     if hit

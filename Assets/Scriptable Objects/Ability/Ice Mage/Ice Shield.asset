@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae1e966db357c4682b628b4fc70593d2, type: 3}
-  m_Name: Blizzard
+  m_Name: Ice Shield
   m_EditorClassIdentifier: 
   outline: {r: 0.56078434, g: 0.6901961, b: 0.99215686, a: 1}
-  thumbnail: {fileID: 8948282990785383979, guid: 76f2fe5efe81d44838a003a47559f875, type: 3}
-  description: Slow down the speed of the ball and the movement of the opposing team.
+  thumbnail: {fileID: 21300000, guid: 2fc895fd088ea4f72bca1b8c5971cb84, type: 3}
+  description: Summon a floor of ice to automatically return the ball

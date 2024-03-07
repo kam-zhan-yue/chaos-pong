@@ -53,7 +53,6 @@ public class AbilityPopupItem : MonoBehaviour
     {
         bool hasCooldown = curr > 0f;
         cooldownText.gameObject.SetActiveFast(hasCooldown);
-        activationText.gameObject.SetActiveFast(!hasCooldown);
         iconImage.color = hasCooldown ? ChaosPongHelper.Disabled : ChaosPongHelper.Enabled;
         cooldownText.SetText(curr.ToString("F2"));
         if(hasCooldown)
@@ -68,7 +67,6 @@ public class AbilityPopupItem : MonoBehaviour
             iconImage.color = ChaosPongHelper.Enabled;
             SetFill(1f);
             cooldownText.gameObject.SetActiveFast(false);
-            activationText.gameObject.SetActiveFast(true);
         }
         else if(_signal.duration.Value <= 0f)
         {

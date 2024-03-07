@@ -10,8 +10,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ae1e966db357c4682b628b4fc70593d2, type: 3}
-  m_Name: Ice Shield
+  m_Name: Flame Touch
   m_EditorClassIdentifier: 
-  outline: {r: 0.56078434, g: 0.6901961, b: 0.99215686, a: 1}
-  thumbnail: {fileID: 1780526058910481023, guid: 9a42248f4c1a94c0fa009231f5349ca9, type: 3}
-  description: Summon a floor of ice to automatically return the ball
+  outline: {r: 0.9811321, g: 0.61075824, b: 0.58775365, a: 1}
+  thumbnail: {fileID: 21300000, guid: 26cdeeca7abc6438ca28a18d2d0ad94e, type: 3}
+  description: Increases the power of your next return

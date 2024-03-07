@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 76f2fe5efe81d44838a003a47559f875
+guid: 8a646ec4582864f7e84edb4eb6671f72
 ScriptedImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -95,7 +95,7 @@ ScriptedImporter:
     addSortingGroup: 1
     addShadowCasters: 0
   importFileNodeState: 1
-  platformSettingsDirtyTick: 638454557601592490
+  platformSettingsDirtyTick: 638454557520737330
   textureAssetName: 
   singleSpriteImportData:
   - name: 
@@ -119,18 +119,18 @@ ScriptedImporter:
     tessellationDetail: 0
     uvTransform: {x: 0, y: 0}
   animatedSpriteImportData:
-  - name: Blizzard
+  - name: InfernalVolley
     originalName: 
-    pivot: {x: 0.4814815, y: -0.071428575}
+    pivot: {x: 0.5833334, y: -0.107142866}
     alignment: 9
     border: {x: 0, y: 0, z: 0, w: 0}
     rect:
       serializedVersion: 2
       x: 4
       y: 4
-      width: 27
+      width: 24
       height: 28
-    spriteID: 1f2c05283cb1b40d6bfbaa5075e69cbd
+    spriteID: 54abfbdf8693c457e9d4fa9b2b9aaa60
     spriteBone: []
     spriteOutline: []
     vertices: []
@@ -142,20 +142,20 @@ ScriptedImporter:
   spriteSheetImportData: []
   asepriteLayers:
   - layerIndex: 0
-    guid: -847102684
-    name: Blizzard
+    guid: 530538148
+    name: InfernalVolley
     layerFlags: 0
     layerType: 0
     blendMode: 0
     cells:
-    - name: Blizzard
+    - name: InfernalVolley
       frameIndex: 0
       cellRect:
-        x: 3
-        y: 2
-        width: 27
+        x: 2
+        y: 3
+        width: 24
         height: 28
-      spriteId: 1f2c05283cb1b40d6bfbaa5075e69cbd
+      spriteId: 54abfbdf8693c457e9d4fa9b2b9aaa60
     linkedCells: []
     parentIndex: -1
   platformSettings:
