@@ -89,6 +89,15 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Passive"",
+                    ""type"": ""Button"",
+                    ""id"": ""fdd11262-6179-4aeb-9920-5034f28816c8"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -333,6 +342,28 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
                     ""action"": ""HitSpecial"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4a23f916-4fb6-489f-813f-43109a3936f1"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Passive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a8f47aa2-d9e5-4ec2-a67a-6dc9472a7076"",
+                    ""path"": ""<SwitchProControllerHID>/rightTrigger"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Passive"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -527,6 +558,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         m_Player_AbilityPrimary = m_Player.FindAction("AbilityPrimary", throwIfNotFound: true);
         m_Player_AbilitySecondary = m_Player.FindAction("AbilitySecondary", throwIfNotFound: true);
         m_Player_AbilitySpecial = m_Player.FindAction("AbilitySpecial", throwIfNotFound: true);
+        m_Player_Passive = m_Player.FindAction("Passive", throwIfNotFound: true);
         // UI
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_Navigate = m_UI.FindAction("Navigate", throwIfNotFound: true);
@@ -600,6 +632,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
     private readonly InputAction m_Player_AbilityPrimary;
     private readonly InputAction m_Player_AbilitySecondary;
     private readonly InputAction m_Player_AbilitySpecial;
+    private readonly InputAction m_Player_Passive;
     public struct PlayerActions
     {
         private @PlayerControls m_Wrapper;
@@ -611,6 +644,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         public InputAction @AbilityPrimary => m_Wrapper.m_Player_AbilityPrimary;
         public InputAction @AbilitySecondary => m_Wrapper.m_Player_AbilitySecondary;
         public InputAction @AbilitySpecial => m_Wrapper.m_Player_AbilitySpecial;
+        public InputAction @Passive => m_Wrapper.m_Player_Passive;
         public InputActionMap Get() { return m_Wrapper.m_Player; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -641,6 +675,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @AbilitySpecial.started += instance.OnAbilitySpecial;
             @AbilitySpecial.performed += instance.OnAbilitySpecial;
             @AbilitySpecial.canceled += instance.OnAbilitySpecial;
+            @Passive.started += instance.OnPassive;
+            @Passive.performed += instance.OnPassive;
+            @Passive.canceled += instance.OnPassive;
         }
 
         private void UnregisterCallbacks(IPlayerActions instance)
@@ -666,6 +703,9 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
             @AbilitySpecial.started -= instance.OnAbilitySpecial;
             @AbilitySpecial.performed -= instance.OnAbilitySpecial;
             @AbilitySpecial.canceled -= instance.OnAbilitySpecial;
+            @Passive.started -= instance.OnPassive;
+            @Passive.performed -= instance.OnPassive;
+            @Passive.canceled -= instance.OnPassive;
         }
 
         public void RemoveCallbacks(IPlayerActions instance)
@@ -772,6 +812,7 @@ public partial class @PlayerControls: IInputActionCollection2, IDisposable
         void OnAbilityPrimary(InputAction.CallbackContext context);
         void OnAbilitySecondary(InputAction.CallbackContext context);
         void OnAbilitySpecial(InputAction.CallbackContext context);
+        void OnPassive(InputAction.CallbackContext context);
     }
     public interface IUIActions
     {

@@ -13,6 +13,7 @@ public class Player : Character
 
     private PlayerControls _playerControls;
     public PlayerSignal PlayerSignal { get; } = new();
+    private bool _passive = false;
 
     protected override void Awake()
     {
@@ -64,18 +65,45 @@ public class Player : Character
         }
         else
         {
+            _playerControls.Player.Passive.performed += PassivePerformed;
+            _playerControls.Player.Passive.canceled += PassiveCancelled;
             if(_movement != null)
                 _playerControls.Player.Move.performed += _movement.Move;
             if(_paddle != null)
                 _playerControls.Player.Hit.performed += Hit;
-            if (_abilityPrimary != null)
-                _playerControls.Player.AbilityPrimary.performed += _abilityPrimary.Activate;
-            if (_abilitySecondary != null)
-                _playerControls.Player.AbilitySecondary.performed += _abilitySecondary.Activate;
-            if (_abilitySpecial != null)
-                _playerControls.Player.AbilitySpecial.performed += _abilitySpecial.Activate;
+            _playerControls.Player.AbilityPrimary.performed += PrimaryAbility;
+            _playerControls.Player.AbilitySecondary.performed += SecondaryAbility;
+            _playerControls.Player.AbilitySpecial.performed += SpecialAbility;
         }
         _playerControls.Enable();
+    }
+
+    private void PassivePerformed(InputAction.CallbackContext callbackContext)
+    {
+        _passive = true;
+    }
+
+    private void PassiveCancelled(InputAction.CallbackContext callbackContext)
+    {
+        _passive = false;
+    }
+
+    private void PrimaryAbility(InputAction.CallbackContext callbackContext)
+    {
+        if(!_passive)
+            _abilityPrimary?.Activate(callbackContext);
+    }
+
+    private void SecondaryAbility(InputAction.CallbackContext callbackContext)
+    {
+        if(!_passive)
+            _abilitySecondary?.Activate(callbackContext);
+    }
+
+    private void SpecialAbility(InputAction.CallbackContext callbackContext)
+    {
+        if(!_passive)
+            _abilitySpecial?.Activate(callbackContext);
     }
 
     private void Hit(InputAction.CallbackContext callbackContext)
