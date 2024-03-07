@@ -8,4 +8,7 @@ public class CharacterConfig : ScriptableObject
     public Player player;
     public Sprite thumbnail;
     public Color outline;
+    public AbilityConfig specialAbility;
+    public AbilityConfig primaryAbility;
+    public AbilityConfig secondaryAbility;
 }

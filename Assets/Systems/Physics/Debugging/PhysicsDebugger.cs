@@ -3,7 +3,7 @@ using Sirenix.OdinInspector;
 using UnityEditor;
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Physics Debugger")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Physics Debugger")]
 public class PhysicsDebugger : ScriptableObject
 {
     public Pong pongPrefab;

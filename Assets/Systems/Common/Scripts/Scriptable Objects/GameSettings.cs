@@ -2,7 +2,7 @@ using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-[CreateAssetMenu(menuName = "ScriptableObject/Game Settings")]
+[CreateAssetMenu(menuName = "ScriptableObjects/Game Settings")]
 public class GameSettings : ScriptableObject
 {
     public bool setupGameImmediately = false;

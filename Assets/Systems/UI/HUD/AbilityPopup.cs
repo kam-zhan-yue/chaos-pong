@@ -17,9 +17,12 @@ public class AbilityPopup : Popup
 
     public void Init(Player player)
     {
-        primaryAbility.Init(player.PlayerSignal.primarySignal, player.PlayerInfo.config);
-        secondaryAbility.Init(player.PlayerSignal.secondarySignal, player.PlayerInfo.config);
-        specialAbility.Init(player.PlayerSignal.specialSignal, player.PlayerInfo.config);
+        if (player.PlayerInfo.config)
+        {
+            primaryAbility.Init(player.PlayerSignal.primarySignal, player.PlayerInfo.config.primaryAbility);
+            secondaryAbility.Init(player.PlayerSignal.secondarySignal, player.PlayerInfo.config.secondaryAbility);
+            specialAbility.Init(player.PlayerSignal.specialSignal, player.PlayerInfo.config.specialAbility);
+        }
         primaryAbility.SetButton(ChaosPongHelper.GetPrimaryButton(player.PlayerInfo.controlScheme));
         secondaryAbility.SetButton(ChaosPongHelper.GetSecondaryButton(player.PlayerInfo.controlScheme));
         specialAbility.SetButton(ChaosPongHelper.GetSpecialButton(player.PlayerInfo.controlScheme));
