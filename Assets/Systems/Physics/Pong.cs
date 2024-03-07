@@ -20,7 +20,7 @@ public class Pong : Projectile
             if (_pongModifier.deadly)
             {
                 //Score for the player hitting
-                Score(possession);
+                Score(ChaosPongHelper.GetOppositeSide(possession));
             }
         }
     }
@@ -32,7 +32,7 @@ public class Pong : Projectile
             if (_pongModifier.deadly)
             {
                 //Score for the player hitting
-                Score(possession);
+                Score(ChaosPongHelper.GetOppositeSide(possession));
             }
         }
     }

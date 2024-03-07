@@ -13,6 +13,7 @@ public class AbilityPopup : Popup
     [SerializeField] private AbilityPopupItem secondaryAbility;
     [SerializeField] private AbilityPopupItem specialAbility;
     [SerializeField] private PresetController presetController;
+    [SerializeField] private TMP_Text tooltipText;
     [SerializeField] private TMP_Text headerText;
     [SerializeField] private TMP_Text explanationText;
     [SerializeField] private Image explanationBackground;
@@ -37,7 +38,9 @@ public class AbilityPopup : Popup
         primaryAbility.SetButton(ChaosPongHelper.GetPrimaryButton(_playerInfo.controlScheme));
         secondaryAbility.SetButton(ChaosPongHelper.GetSecondaryButton(_playerInfo.controlScheme));
         specialAbility.SetButton(ChaosPongHelper.GetSpecialButton(_playerInfo.controlScheme));
-        
+
+        string passiveButton = ChaosPongHelper.GetPassiveButton(_playerInfo.controlScheme);
+        tooltipText.SetText($"Hold {passiveButton} to view details");
         InitControls();
     }
 

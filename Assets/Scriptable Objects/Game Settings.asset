@@ -19,7 +19,7 @@ MonoBehaviour:
     - id: 1
       playerName: 
       type: 0
-      config: {fileID: 11400000, guid: 791cd18bcd8984a098fa2125a88e4e5e, type: 2}
+      config: {fileID: 11400000, guid: 5a169ee2b11534638ba4d244133399b1, type: 2}
       controlScheme: 0
       teamSide: 1
   blueTeamInfo:

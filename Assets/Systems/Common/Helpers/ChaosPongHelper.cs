@@ -61,6 +61,16 @@ public static class ChaosPongHelper
             _ => "L"
         };
     }
+
+    public static string GetPassiveButton(ControlScheme controlScheme)
+    {
+        return controlScheme switch
+        {
+            ControlScheme.Keyboard => "Q",
+            ControlScheme.Switch => "RT",
+            _ => "L"
+        };
+    }
     
     public static TeamSide GetServer(int points, TeamSide starting)
     {
