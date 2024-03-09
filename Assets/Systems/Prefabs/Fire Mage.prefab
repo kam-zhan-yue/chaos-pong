@@ -526,7 +526,7 @@ PrefabInstance:
     - target: {fileID: 1595987765167764440, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 2531022a65f9847fe99d24a51f8f702b, type: 2}
+      objectReference: {fileID: 2100000, guid: 3fbd60d443fa34b5f9d67981721fe8d2, type: 2}
     - target: {fileID: 2139721064613209510, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_Name
       value: Fire Mage

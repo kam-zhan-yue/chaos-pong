@@ -51,10 +51,10 @@ PrefabInstance:
     - target: {fileID: 1595987765167764440, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: dc7a9707e143349d199bafa8e313bf9c, type: 2}
+      objectReference: {fileID: 2100000, guid: bfd08121f0d5e438bb436f674b467ace, type: 2}
     - target: {fileID: 2139721064613209510, guid: b9952fa553e934d63aec20fda1378f01, type: 3}
       propertyPath: m_Name
-      value: Player Variant
+      value: Blue Player
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
